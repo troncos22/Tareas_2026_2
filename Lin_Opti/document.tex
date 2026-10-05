@@ -4,10 +4,10 @@
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
 \usepackage[a4paper, margin=1in]{geometry}
-\usepackage[spanish, bidi=basic, provide=*]{babel}
-\babelprovide[import, onchar=ids fonts]{spanish}
-\babelprovide[import, onchar=ids fonts]{english}
+
 \usepackage{enumitem}
+\usepackage{ragged2e}
+\usepackage[spanish]{babel}
 \setlist[itemize]{label=-}
 \usepackage{booktabs}
 \usepackage{xcolor}
@@ -22,8 +22,6 @@
 	urlcolor=primary,
 	citecolor=primary
 }
-
-\usepackage{minted}
 \large
 \title{Tarea 1}
 \begin{document}
@@ -62,18 +60,18 @@
 	\section*{Referencias}
 	\section*{Código}
 	\href{https://github.com/troncos22/Tareas_2026_2}{github}
+	\section*{Uso de IA}
+	\subsection*{Promts}
+		\begin{itemize}
+			\item $"$ween día oye necesito ayuda
+			con mi compañero desarrollamos este código y quería saber que le pude faltar a partir de esta lista que hice anteriormente contigo
+			https://share.gemini.google/kKcNXgEE4FqM $"$
+			\item $"$esta es la tarea, a partir del código anterior qué le falta?$"$
+			\item $"$y a éste documento qué le falta?$"$
+			\item $"$ quiero que el texto aparezca justificado $"$
+		\end{itemize}
 	\subsection*{main.cpp}
-	\begin{minted}[frame=lines, linenos, fontsize=\large]
-		{c++}
-		#include "header.ih"
-		
-		int main() 
-		{
-			fn1();
-			fn2();
-		}
-	\end{minted}
-	
+
 	
 \end{document}
 

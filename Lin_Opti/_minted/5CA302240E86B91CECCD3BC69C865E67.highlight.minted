@@ -1,9 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\}]
-\PYG{+w}{		}\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{include}\PYG{+w}{ }\PYG{c+cpf}{\PYGZdq{}header.ih\PYGZdq{}}
-\PYG{+w}{		}
-\PYG{+w}{		}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n+nf}{main}\PYG{p}{(}\PYG{p}{)}
-\PYG{+w}{		}\PYG{p}{\PYGZob{}}
-\PYG{+w}{			}\PYG{n}{fn1}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
-\PYG{+w}{			}\PYG{n}{fn2}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
-\PYG{+w}{		}\PYG{p}{\PYGZcb{}}
-\end{MintedVerbatim}
