@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2026.5.13)  5 OCT 2026 01:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2026.5.13)  5 OCT 2026 08:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1051,11 +1051,11 @@ Package pdftex.def Info: graph1.png  used on input line 272.
 [6
 
  <./graph1.png>]
-<graph4.png, id=194, 549.0111pt x 394.5942pt>
+<graph4.png, id=194, 534.0753pt x 394.5942pt>
 File: graph4.png Graphic file (type png)
 <use graph4.png>
 Package pdftex.def Info: graph4.png  used on input line 315.
-(pdftex.def)             Requested size: 152.33475pt x 109.48613pt.
+(pdftex.def)             Requested size: 152.33475pt x 112.55081pt.
 
 
 [7
@@ -1110,7 +1110,7 @@ Package rerunfilecheck Info: File `presentacion.out' has not changed.
 Here is how much of TeX's memory you used:
  26652 strings out of 473197
  528254 string characters out of 5718605
- 899694 words of memory out of 5000000
+ 899695 words of memory out of 5000000
  49346 multiletter control sequences out of 15000+600000
  573908 words of font info for 90 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1132,7 +1132,7 @@ sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on presentacion.pdf (12 pages, 1763275 bytes).
+Output written on presentacion.pdf (12 pages, 1766732 bytes).
 PDF statistics:
  383 PDF objects out of 1000 (max. 8388607)
  221 compressed objects within 3 object streams
