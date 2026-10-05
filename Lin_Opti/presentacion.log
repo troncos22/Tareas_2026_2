@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2026.5.13)  5 OCT 2026 08:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2026.5.13)  5 OCT 2026 09:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1033,58 +1033,100 @@ Overfull \vbox (10.0845pt too high) detected at line 176
 [4
 
  <./graph2.png>]
-Overfull \vbox (11.36694pt too high) detected at line 227
+<graph_heatmap.png, id=131, 572.89032pt x 521.69907pt>
+File: graph_heatmap.png Graphic file (type png)
+<use graph_heatmap.png>
+Package pdftex.def Info: graph_heatmap.png  used on input line 187.
+(pdftex.def)             Requested size: 304.6695pt x 277.44647pt.
+
+Overfull \vbox (69.52167pt too high) detected at line 187
  []
 
 
 
 [5
 
-]
-<graph1.png, id=173, 489.9906pt x 341.1144pt>
-File: graph1.png Graphic file (type png)
-<use graph1.png>
-Package pdftex.def Info: graph1.png  used on input line 272.
-(pdftex.def)             Requested size: 152.33475pt x 106.04625pt.
+ <./graph_heatmap.png (PNG copy)>]
+Overfull \vbox (11.36694pt too high) detected at line 238
+ []
+
 
 
 [6
 
- <./graph1.png>]
-<graph4.png, id=194, 534.0753pt x 394.5942pt>
-File: graph4.png Graphic file (type png)
-<use graph4.png>
-Package pdftex.def Info: graph4.png  used on input line 315.
-(pdftex.def)             Requested size: 152.33475pt x 112.55081pt.
+]
+<graph1.png, id=180, 489.9906pt x 341.1144pt>
+File: graph1.png Graphic file (type png)
+<use graph1.png>
+Package pdftex.def Info: graph1.png  used on input line 283.
+(pdftex.def)             Requested size: 152.33475pt x 106.04625pt.
 
 
 [7
 
- <./graph4.png>]
-<graph3.png, id=203, 1149.093pt x 860.013pt>
-File: graph3.png Graphic file (type png)
-<use graph3.png>
-Package pdftex.def Info: graph3.png  used on input line 356.
-(pdftex.def)             Requested size: 152.33475pt x 114.01022pt.
+ <./graph1.png>]
+<graph4.png, id=202, 534.0753pt x 394.5942pt>
+File: graph4.png Graphic file (type png)
+<use graph4.png>
+Package pdftex.def Info: graph4.png  used on input line 326.
+(pdftex.def)             Requested size: 152.33475pt x 112.55081pt.
 
 
 [8
 
- <./graph3.png>]
+ <./graph4.png>]
+<graph_embedding_norm.png, id=211, 556.32843pt x 412.54124pt>
+File: graph_embedding_norm.png Graphic file (type png)
+<use graph_embedding_norm.png>
+Package pdftex.def Info: graph_embedding_norm.png  used on input line 339.
+(pdftex.def)             Requested size: 304.6695pt x 225.92897pt.
+
+Overfull \vbox (18.00417pt too high) detected at line 339
+ []
+
+
 
 [9
 
-]
+ <./graph_embedding_norm.png (PNG copy)>]
+<graph3.png, id=218, 1149.093pt x 860.013pt>
+File: graph3.png Graphic file (type png)
+<use graph3.png>
+Package pdftex.def Info: graph3.png  used on input line 380.
+(pdftex.def)             Requested size: 152.33475pt x 114.01022pt.
+
 
 [10
 
-]
+ <./graph3.png>]
 
 [11
 
 ]
 
 [12
+
+]
+
+[13
+
+]
+<graph_louvain.png, id=292, 1149.093pt x 859.7721pt>
+File: graph_louvain.png Graphic file (type png)
+<use graph_louvain.png>
+Package pdftex.def Info: graph_louvain.png  used on input line 521.
+(pdftex.def)             Requested size: 304.6695pt x 227.95659pt.
+
+Overfull \vbox (20.03178pt too high) detected at line 521
+ []
+
+
+
+[14
+
+ <./graph_louvain.png>]
+
+[15
 
 ]
 \tf@nav=\write6
@@ -1108,10 +1150,10 @@ Package rerunfilecheck Info: File `presentacion.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 26652 strings out of 473197
- 528254 string characters out of 5718605
- 899695 words of memory out of 5000000
- 49346 multiletter control sequences out of 15000+600000
+ 26703 strings out of 473197
+ 529303 string characters out of 5718605
+ 899793 words of memory out of 5000000
+ 49388 multiletter control sequences out of 15000+600000
  573908 words of font info for 90 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,16n,123p,387b,1042s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1132,10 +1174,10 @@ sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on presentacion.pdf (12 pages, 1766732 bytes).
+Output written on presentacion.pdf (15 pages, 2507480 bytes).
 PDF statistics:
- 383 PDF objects out of 1000 (max. 8388607)
- 221 compressed objects within 3 object streams
- 29 named destinations out of 1000 (max. 500000)
- 615 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 410 PDF objects out of 1000 (max. 8388607)
+ 241 compressed objects within 3 object streams
+ 38 named destinations out of 1000 (max. 500000)
+ 630 words of extra memory for PDF output out of 10000 (max. 10000000)
 

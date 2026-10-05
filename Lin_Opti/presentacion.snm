@@ -1,4 +1,7 @@
 \beamer@slide {fig:graph2}{4}
-\beamer@slide {fig:graph1}{6}
-\beamer@slide {fig:graph4}{7}
-\beamer@slide {fig:graph3}{8}
+\beamer@slide {fig:graphheatmap}{5}
+\beamer@slide {fig:graph1}{7}
+\beamer@slide {fig:graph4}{8}
+\beamer@slide {fig:graphembeddingnorm}{9}
+\beamer@slide {fig:graph3}{10}
+\beamer@slide {fig:graphlouvain}{14}
