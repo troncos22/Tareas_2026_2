@@ -1,0 +1,89 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage[spanish, bidi=basic, provide=*]{babel}
+\babelprovide[import, onchar=ids fonts]{spanish}
+\babelprovide[import, onchar=ids fonts]{english}
+\usepackage{enumitem}
+\setlist[itemize]{label=-}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\definecolor{primary}{RGB}{24, 43, 73}
+\definecolor{secondary}{RGB}{71, 85, 105}
+\definecolor{accentline}{RGB}{203, 213, 225}
+
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=primary,
+	urlcolor=primary,
+	citecolor=primary
+}
+
+\usepackage{minted}
+\large
+\title{Tarea 1}
+\begin{document}
+	\begin{titlepage}
+		\begin{center}
+			\line(1,0){300}\\
+			[0.65cm]
+			\huge{\bfseries Tarea aplicada 1}\\
+			\line(1,0){300}\\
+			\textsc{\Large Álgebra lineal y Optimización}\\
+			\today\\
+			[5.5cm]     
+		\end{center}
+    % Datos de los 2 Integrantes en columnas paralelas
+\begin{minipage}{0.95\textwidth}
+	\begin{tabular}{@{}p{0.47\linewidth}@{\hspace{0.06\linewidth}}p{0.47\linewidth}@{}}
+		\textbf{\color{primary}Integrante 1} & \textbf{\color{primary}Integrante 2} \\[0.3cm]
+		\textbf{Nombre:} Jorge Ignacio Moreno Farías & \textbf{Nombre:} Miguel Ignacio Arias Meriño \\[0.15cm]
+		\textbf{RUT:} 21.328.803-2 & \textbf{RUT:} [98.765.432-1] \\[0.15cm]
+		\textbf{Correo:} \href{mailto:jorgmoreno@alumnos.uai.cl}{jorgmoreno@alumnos.uai.cl} & \textbf{Correo:} \href{mailto:estudiante2@correo.cl}{estudiante2@correo.cl} \\
+		
+	\end{tabular}
+\end{minipage}
+
+\vspace{1.8cm}
+
+
+
+\end{titlepage}
+		
+	
+	\section*{Introducción}
+	\section*{Desarrollo}
+	\section*{Aplicación}
+	\section*{Conclusión}
+	\section*{Referencias}
+	\section*{Código}
+	\href{https://github.com/troncos22/Tareas_2026_2}{github}
+	\subsection*{main.cpp}
+	\begin{minted}[frame=lines, linenos, fontsize=\large]
+		{c++}
+		#include "header.ih"
+		
+		int main() 
+		{
+			fn1();
+			fn2();
+		}
+	\end{minted}
+	
+	
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
