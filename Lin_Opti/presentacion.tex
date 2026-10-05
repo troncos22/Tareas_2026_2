@@ -39,7 +39,7 @@
 % --- Metadatos de la Presentación ---
 \title[Clustering Espectral en el S\&P 500]{\textbf{¿Reflejan los Sectores de Wall Street el Riesgo Real?}}
 \subtitle{Clustering Espectral y Detección de Comunidades en Redes Complejas}
-\author[Arias \& Moreno]{\textbf{Miguel Ignacio Arias Meriño} \and \textbf{Jorge Moreno}}
+\author[Arias \& Moreno]{\textbf{Miguel Ignacio Arias Meriño} \and \textbf{Jorge Ignacio Moreno Farías}}
 \institute[UAI]{
 	Álgebra Lineal y Optimización para Data Science\\
 	\vspace{0.2cm}
@@ -54,14 +54,7 @@
 	% =============================================================================
 	\begin{frame}
 		\titlepage
-		\note{
-			[0:00 - 0:35] Miguel:
-			Buenos días profesores y compañeros. Junto a Jorge Moreno presentaremos
-			nuestro trabajo: Clustering espectral y detección de comunidades en redes complejas.
-			El riesgo financiero no viaja en línea recta: viaja a través de una red densa y ruidosa.
-			Les mostraremos cómo el álgebra lineal nos permite resolver un problema computacionalmente
-			intratable y cómo el espectro revela la verdadera estructura del mercado sin supervisión.
-		}
+
 	\end{frame}
 	
 	% =============================================================================
@@ -95,14 +88,7 @@
 				\end{itemize}
 			\end{column}
 		\end{columns}
-		\note{
-			[0:35 - 1:45] Miguel:
-			Todo portafolio tradicional se construye bajo la taxonomía GICS. A una empresa se le
-			asigna una etiqueta contable: Tecnología, Finanzas, Salud o Energía. Sin embargo, en una crisis,
-			los precios no respetan las etiquetas administrativas: responden a dinámicas de covarianza.
-			De aquí nace la pregunta: ¿logra el clustering espectral reconstruir estas comunidades a ciegas?
-			Es la herramienta idónea porque los autovalores y autovectores actúan como un filtro de ruido topológico.
-		}
+
 	\end{frame}
 	
 	% =============================================================================
@@ -139,14 +125,7 @@
 				\small\textit{Garantiza una matriz de adyacencia no negativa simétrica \(A = A^\top\) libre de componentes triviales.}
 			\end{column}
 		\end{columns}
-		\note{
-			[1:45 - 3:15] Miguel:
-			Descargamos una década de historia diaria desde Yahoo Finance (2014 a 2024, 2515 ruedas).
-			Partimos con 160 activos y descartamos 12 por datos incompletos, fijando 141 nodos limpios.
-			Calculamos la correlación de Pearson y tomamos tres decisiones: eliminamos auto-bucles poniendo
-			la diagonal a cero; filtramos ruido forzando a cero correlaciones menores a 0.40 y negativas;
-			y verificamos que el grafo resultante fuera conexo, con un promedio de 28 aristas por nodo.
-		}
+
 	\end{frame}
 	
 	% =============================================================================
@@ -157,7 +136,7 @@
 			\begin{column}{0.50\textwidth}
 				\textbf{El Operador Laplaciano Estándar:}
 				
-				```
+
 				
 				$$L = D - A, \quad D_{ii} = \sum_j A_{ij}$$
 				
@@ -165,7 +144,7 @@
 				
 				$$x^\top L x = \frac{1}{2} \sum_{i,j} A_{ij}(x_i - x_j)^2$$
 				
-				```
+
 				\vspace{-0.2cm}
 				\begin{alertblock}{El Fracaso del Corte Estándar}
 					\begin{itemize}
@@ -182,29 +161,17 @@
 					\textbf{\small Topología Resultante: Agrupamiento Trivial}\\
 					\vspace{0.2cm}
 					% Espacio para gráfico monocromático de fallo empírico
-					\begin{tikzpicture}
-						\draw[fill=SoftGray, draw=AlertRed, thick] (0,0) rectangle (5.5,3.6);
-						\node at (2.75,2.8) {\footnotesize \textbf{Super-Clúster Artificial ($\sim$98\%)}};
-						\draw[fill=SlateBlue!40] (2.75,1.5) circle (1.2cm);
-						\draw[fill=AlertRed] (0.6,0.6) circle (0.15cm);
-						\draw[fill=AlertRed] (4.9,0.8) circle (0.15cm);
-						\draw[dashed, red] (1.7,1.1) -- (0.6,0.6);
-						\node[below, text width=5cm, align=center] at (2.75,-0.2) {\scriptsize Cortar aristas débiles periféricas es ``barato'' para \(L\), arruinando la macro-partición.};
-					\end{tikzpicture}
+					\begin{figure}
+						\centering
+						\includegraphics[width=0.7\linewidth]{graph2}
+						\caption{}
+						\label{fig:graph2}
+					\end{figure}
+
 				\end{center}
 			\end{column}
 		\end{columns}
-		\note{
-			[3:15 - 4:55] Miguel:
-			Construimos el operador básico: el Laplaciano estándar L = D - A y su forma cuadrática.
-			Aquí llegó el gran tropiezo experimental: al ejecutar el algoritmo ingenuo, el modelo colapsó.
-			Agrupó al 98% de las acciones en un solo clúster y aisló un par de nodos periféricos.
-			¿Por qué? Porque minimizar el corte absoluto es miope: resulta más 'barato' cortar un nodo
-			casi aislado con grado bajo que atravesar un puente denso entre dos industrias.
-			El álgebra lineal funcionó, pero resolvió la pregunta equivocada.
-		}
-		
-		```
+
 		
 	\end{frame}
 	
@@ -235,7 +202,7 @@
 					\item Sus autovalores están acotados: \(0 = \lambda_1 \le \dots \le \lambda_n \le 2\).
 				\end{itemize}
 				
-				```
+
 				
 			\end{column}
 			
@@ -245,7 +212,7 @@
 					
 					$$T_{ij} = \frac{U_{ij}}{\left(\sum_{l=1}^k U_{il}^2\right)^{1/2}}$$
 					
-					```
+
 				\end{block}
 				\vspace{0.2cm}
 				\textbf{Propiedad Geométrica Fundamental:}
@@ -255,19 +222,7 @@
 				\end{itemize}
 			\end{column}
 		\end{columns}
-		\note{
-			[4:55 - 7:15] Miguel:
-			Para rescatar el agrupamiento recurrimos al Normalized Cut de Shi y Malik.
-			En vez de minimizar el corte absoluto, dividimos por el volumen de conexiones.
-			Al relajar este problema discreto NP-hard mediante Rayleigh-Ritz, el problema se transforma
-			en los autovectores del Laplaciano Normalizado Simétrico L_sym.
-			Además, implementamos el paso de Ng, Jordan y Weiss: normalizamos euclidianamente cada fila
-			de la matriz U a norma 1, proyectando cada activo sobre una hiperesfera unitaria.
-			Esto impide que empresas de alta capitalización o grado extremo distorsionen K-Means.
-			Paso la palabra a Jorge para ver qué reveló el espectro.
-		}
-		
-		```
+
 		
 	\end{frame}
 	
@@ -288,7 +243,7 @@
 					
 					$$\Delta_k = \lambda_{k+1} - \lambda_k$$
 					
-					```
+
 					\begin{itemize}
 						\item \(\lambda_1, \lambda_2, \lambda_3, \lambda_4\) crecen suavemente.
 						\item Quiebre abrupto en \(\lambda_5 - \lambda_4\) (\textbf{Eigengap}).
@@ -300,34 +255,19 @@
 			\begin{column}{0.50\textwidth}
 				\begin{center}
 					% Placeholder para la curva del Eigengap obtenida en el Bloque 3
-					\begin{tikzpicture}
-						\draw[->] (0,0) -- (6,0) node[right] {\scriptsize \(i\)};
-						\draw[->] (0,0) -- (0,3.5) node[above] {\scriptsize Magnitud \(\lambda_i\)};
-						\draw[blue!70!black, thick, mark=*] plot coordinates {
-							(0.5,0.0) (1.0,0.15) (1.5,0.32) (2.0,0.50) (2.5,1.40) (3.0,1.65) (3.5,1.85) (4.0,2.05) (4.5,2.20) (5.0,2.35)
-						};
-						\draw[red, thick, dashed] (2.0,0.5) -- (2.5,1.4);
-						\node[red, right] at (2.2,0.95) {\textbf{\scriptsize Salto Eigengap (\(k=4\))}};
-						\node[below] at (2.0,0) {\scriptsize \(\lambda_4\)};
-						\node[below] at (2.5,0) {\scriptsize \(\lambda_5\)};
-					\end{tikzpicture}\\
-					\vspace{0.1cm}
+					\begin{figure}
+						\centering
+						\includegraphics[width=0.7\linewidth]{graph1}
+						\caption{}
+						\label{fig:graph1}
+					\end{figure}
+
+
 					\small\textit{Espectro del Laplaciano: Los datos piden 4 grupos sin forzar la hipótesis.}
 				\end{center}
 			\end{column}
 		\end{columns}
-		\note{
-			[7:15 - 8:30] Jorge:
-			Gracias, Miguel. Al descomponer espectralmente L_sym, ordenamos sus autovalores.
-			$\Lambda_1$ es 0 y tiene multiplicidad 1 porque nuestra red es completamente conexa.
-			Para fijar k de manera rigurosa sin sesgos usamos la heurística del Eigengap,
-			buscando el salto máximo entre autovalores consecutivos.
-			Como observan en la curva, los primeros 4 autovalores son pequeños y crecen suavemente,
-			pero tras $\lambda_4$ se produce un quiebre pronunciado hacia $\lambda_5$.
-			El espectro reveló de forma intrínseca que el grafo se desacopla naturalmente en 4 comunidades.
-		}
-		
-		```
+
 		
 	\end{frame}
 	
@@ -354,40 +294,23 @@
 				\end{block}
 			\end{column}
 			
-			```
+
 			\begin{column}{0.50\textwidth}
 				\begin{center}
 					% Espacio para la gráfica de dispersión 2D del Embedding
-					\begin{tikzpicture}[scale=0.9]
-						\draw[->, gray] (-2.5,0) -- (2.5,0) node[right, black] {\scriptsize \(v_2\) (Fiedler)};
-						\draw[->, gray] (0,-2.2) -- (0,2.2) node[above, black] {\scriptsize \(v_3\)};
-						% Nubes de puntos representativas
-						\draw[fill=orange!80, opacity=0.8] plot coordinates {(1.5,0.2) (1.8,0.4) (1.6,-0.1) (2.0,0.1) (1.7,0.3)};
-						\node[right, orange!90!black] at (1.8,-0.3) {\scriptsize Energía};
-						\draw[fill=blue!70, opacity=0.8] plot coordinates {(0.1,1.4) (-0.2,1.6) (0.3,1.7) (-0.1,1.9) (0.2,1.3)};
-						\node[above, blue!80!black] at (0.2,1.9) {\scriptsize Finanzas};
-						\draw[fill=red!70, opacity=0.8] plot coordinates {(-1.4,0.3) (-1.7,0.5) (-1.3,0.1) (-1.8,0.2)};
-						\node[left, red!80!black] at (-1.8,0.3) {\scriptsize Tecnología};
-						\draw[fill=green!70!black, opacity=0.8] plot coordinates {(-0.5,-1.2) (-0.8,-1.5) (-0.3,-1.4) (-0.6,-1.7)};
-						\node[below, green!70!black] at (-0.5,-1.7) {\scriptsize Salud};
-					\end{tikzpicture}\\
-					\vspace{0.1cm}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{graph4}
+	\caption{}
+	\label{fig:graph4}
+\end{figure}
+
+
 					\small\textit{Proyección Espectral: La distancia euclidiana refleja disimilitud topológica.}
 				\end{center}
 			\end{column}
 		\end{columns}
-		\note{
-			[8:30 - 9:55] Jorge:
-			Antes de ejecutar K-Means, visualizamos el embedding espectral proyectando las acciones
-			en el plano del vector de Fiedler v_2 y el autovector v_3.
-			Aquí los nodos pasan de ser vértices a coordenadas euclidianas en R^4.
-			Observen el fenómeno: sin haber corrido clustering aún, el Laplaciano ya separó los sectores.
-			Las energéticas forman un rayo hacia la derecha; las finanzas están compactas arriba;
-			y salud con tecnología ocupan cuadrantes opuestos.
-			K-Means simplemente formaliza las fronteras que el espectro ya resolvió algebraicamente.
-		}
-		
-		```
+
 		
 	\end{frame}
 	
@@ -412,31 +335,23 @@
 				\end{itemize}
 			\end{column}
 			
-			```
+
 			\begin{column}{0.50\textwidth}
 				\begin{center}
 					% Espacio para la figura exportada por NetworkX
-					\begin{tikzpicture}
-						\draw[fill=SoftGray, draw=NavyDark, thick] (0,0) rectangle (6,3.8);
-						\node at (3,2) {\textit{\small [Gráfico NetworkX: 141 Nodos / 4 Comunidades]}};
-						\node[below] at (3,1.4) {\scriptsize \textbf{Rojo}: Tech | \textbf{Azul}: Finanzas | \textbf{Verde}: Salud | \textbf{Naranja}: Energía};
-					\end{tikzpicture}\\
-					\vspace{0.1cm}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{graph3}
+	\caption{}
+	\label{fig:graph3}
+\end{figure}
+
+
 					\small\textit{Grafo S\&P 500: Separación limpia de la densidad estructural de covarianza.}
 				\end{center}
 			\end{column}
 		\end{columns}
-		\note{
-			[9:55 - 11:15] Jorge:
-			Al proyectar las etiquetas sobre el grafo topológico, el resultado fue contundente:
-			el algoritmo reconstruyó a ciegas las comunidades sectoriales del mercado.
-			El bloque de Energía quedó encapsulado con aristas densas internas;
-			el clúster Financiero agrupó a la banca y aseguradoras aislado del resto;
-			y Tecnología con Salud se consolidaron como macro-comunidades estables.
-			Aquel colapso del clúster único que vimos con el Laplaciano estándar quedó superado.
-		}
-		
-		```
+
 		
 	\end{frame}
 	
@@ -496,15 +411,7 @@
 			\small\textit{Altísima pureza diagonal; los cruces corresponden a activos con dinámicas híbridas.}
 		\end{column}
 	\end{columns}
-	\note{
-		[11:15 - 12:35] Jorge:
-		Medimos el desempeño cuantitativo del diseño experimental.
-		Con el Laplaciano no normalizado, el Adjusted Rand Index fue nulo.
-		Al migrar a L\_sym, el ARI saltó a 0.835 y el NMI a casi 0.80, respaldando la coincidencia
-		con los sectores reales.
-		Además, contrastamos contra Scikit-Learn obteniendo resultados idénticos,
-		lo que garantiza la reproducibilidad de nuestro código.
-	}
+
 \end{frame}
 	
 	% =============================================================================
@@ -527,7 +434,7 @@
 				\end{block}
 			\end{column}
 			
-			```
+
 			\begin{column}{0.48\textwidth}
 				\begin{alertblock}{Conclusión del Analista Cuantitativo}
 					El clustering espectral no cometió un error de clasificación: \\
@@ -545,17 +452,7 @@
 				\end{tikzpicture}
 			\end{column}
 		\end{columns}
-		\note{
-			[12:35 - 13:45] Jorge:
-			El hallazgo más valioso provino de los 'errores' de clasificación: los nodos fronterizos.
-			Empresas como First Solar y Enphase están catalogadas en Energía o Tecnología tradicional,
-			pero el algoritmo las situó en la frontera periférica.
-			¿Por qué? Porque son empresas de energía solar: sus retornos no covarían con el barril
-			de crudo de Exxon o Chevron, sino con el ciclo de tasas de interés y componentes tecnológicos.
-			El modelo no falló: detectó que el riesgo financiero real desafía la etiqueta burocrática.
-		}
-		
-		```
+
 		
 	\end{frame}
 	
@@ -585,16 +482,7 @@
 				\end{block}
 			\end{column}
 		\end{columns}
-		\note{
-			[13:45 - 14:20] Jorge:
-			Como limitaciones principales, la correlación de Pearson asume relaciones lineales estáticas
-			y el umbral de 0.40 es sensible.
-			Como extensiones, proponemos construir redes dinámicas con ventanas móviles para observar
-			cómo se reconfigura el Laplaciano en crisis; comparar con optimización de modularidad vía Louvain;
-			o implementar Graph Neural Networks para combinar topología con métricas fundamentales.
-		}
-		
-		```
+
 		
 	\end{frame}
 	
@@ -612,18 +500,8 @@
 	\vspace{0.4cm}
 	\centering
 	\textbf{\Large Muchas gracias}\\
-	\vspace{0.2cm}
-	\textit{Quedamos a disposición de la comisión para la ronda de preguntas.}\\
-	\vspace{0.3cm}
-	\footnotesize\textbf{Repositorio y Código Reproducible disponible en la entrega.}
-	\note{
-		[14:20 - 14:40] Miguel:
-		Para concluir: el clustering espectral demostró ser un puente formidable entre el álgebra
-		lineal y la ciencia de datos en redes complejas.
-		Transformó un problema combinatorio intratable en un cálculo de autovalores estable,
-		filtrando el ruido del mercado y revelando la verdadera estructura del riesgo.
-		Muchas gracias. Quedamos a su entera disposición para sus preguntas.
-	}
+
+
 \end{frame}
 	
 \end{document}

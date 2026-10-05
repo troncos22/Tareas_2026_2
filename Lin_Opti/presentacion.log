@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2026.5.13)  5 OCT 2026 00:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2026.5.13)  5 OCT 2026 01:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -992,20 +992,20 @@ LaTeX Info: Redefining \% on input line 50.
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 106
-.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 92.
+
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 106
-.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 92.
+
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on inp
-ut line 106.
+ut line 92.
 
 (/usr/share/texlive/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/ma
@@ -1019,15 +1019,21 @@ thkerncmss.
 [3
 
 ]
-Overfull \vbox (37.97339pt too high) detected at line 209
+<graph2.png, id=119, 1149.093pt x 860.013pt>
+File: graph2.png Graphic file (type png)
+<use graph2.png>
+Package pdftex.def Info: graph2.png  used on input line 176.
+(pdftex.def)             Requested size: 140.15001pt x 104.88994pt.
+
+Overfull \vbox (10.0845pt too high) detected at line 176
  []
 
 
 
 [4
 
-]
-Overfull \vbox (32.8114pt too high) detected at line 272
+ <./graph2.png>]
+Overfull \vbox (11.36694pt too high) detected at line 227
  []
 
 
@@ -1035,18 +1041,36 @@ Overfull \vbox (32.8114pt too high) detected at line 272
 [5
 
 ]
+<graph1.png, id=173, 489.9906pt x 341.1144pt>
+File: graph1.png Graphic file (type png)
+<use graph1.png>
+Package pdftex.def Info: graph1.png  used on input line 272.
+(pdftex.def)             Requested size: 152.33475pt x 106.04625pt.
+
 
 [6
 
-]
+ <./graph1.png>]
+<graph4.png, id=194, 549.0111pt x 394.5942pt>
+File: graph4.png Graphic file (type png)
+<use graph4.png>
+Package pdftex.def Info: graph4.png  used on input line 315.
+(pdftex.def)             Requested size: 152.33475pt x 109.48613pt.
+
 
 [7
 
-]
+ <./graph4.png>]
+<graph3.png, id=203, 1149.093pt x 860.013pt>
+File: graph3.png Graphic file (type png)
+<use graph3.png>
+Package pdftex.def Info: graph3.png  used on input line 356.
+(pdftex.def)             Requested size: 152.33475pt x 114.01022pt.
+
 
 [8
 
-]
+ <./graph3.png>]
 
 [9
 
@@ -1084,11 +1108,11 @@ Package rerunfilecheck Info: File `presentacion.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 26627 strings out of 473197
- 527752 string characters out of 5718605
- 907568 words of memory out of 5000000
- 49325 multiletter control sequences out of 15000+600000
- 574202 words of font info for 91 fonts, out of 8000000 for 9000
+ 26652 strings out of 473197
+ 528254 string characters out of 5718605
+ 899694 words of memory out of 5000000
+ 49346 multiletter control sequences out of 15000+600000
+ 573908 words of font info for 90 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,16n,123p,387b,1042s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
@@ -1105,14 +1129,13 @@ s/cm/cmssi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mssi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.
 pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></u
 sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on presentacion.pdf (12 pages, 254622 bytes).
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on presentacion.pdf (12 pages, 1763275 bytes).
 PDF statistics:
- 375 PDF objects out of 1000 (max. 8388607)
- 219 compressed objects within 3 object streams
- 25 named destinations out of 1000 (max. 500000)
- 595 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 383 PDF objects out of 1000 (max. 8388607)
+ 221 compressed objects within 3 object streams
+ 29 named destinations out of 1000 (max. 500000)
+ 615 words of extra memory for PDF output out of 10000 (max. 10000000)
 
