@@ -1,0 +1,25 @@
+{
+  "definicion": "valores propios del hessiano de la pérdida MSE de entrenamiento completa respecto de (vec W_Q, vec W_K, vec W_V), en float64",
+  "lambda_min_inicial": [
+    -0.3276333329714656,
+    -0.2678957515153496,
+    -0.25562606879615346
+  ],
+  "lambda_max_inicial": [
+    0.540010042521359,
+    0.5342933706736954,
+    0.5164985247344052
+  ],
+  "lambda_min_profesor": -2.295950609064847e-08,
+  "lambda_max_profesor": 3.7278679943559254,
+  "tolerancia_casi_nulo_relativa": 1e-06,
+  "n_valores_propios_casi_nulos_profesor": 64,
+  "mayor_abs_casi_nulo_profesor": 2.295950609064847e-08,
+  "menor_valor_propio_no_nulo_profesor": 0.002667294886373045,
+  "limite_estabilidad_gd_inicial": [
+    3.7036348262373178,
+    3.743261866562525,
+    3.8722279042877106
+  ],
+  "limite_estabilidad_gd_profesor": 0.5364996837409598
+}

@@ -1,0 +1,25 @@
+{
+  "_instrucciones": "Completar SOLO después de terminar a mano las Actividades 1 y 2. Matrices 2x2 como listas de filas. A admite fracciones como texto, por ejemplo \"1/4\". La sección manual es opcional: deje null lo que no quiera comparar.",
+  "X":   [[null, null], [null, null]],
+  "W_Q": [[null, null], [null, null]],
+  "W_K": [[null, null], [null, null]],
+  "W_V": [[null, null], [null, null]],
+  "A":   [[null, null], [null, null]],
+  "T":   [[null, null], [null, null]],
+  "eta": "1/2",
+  "manual": {
+    "Q":   [[null, null], [null, null]],
+    "K":   [[null, null], [null, null]],
+    "V":   [[null, null], [null, null]],
+    "QKt": [[null, null], [null, null]],
+    "S":   [[null, null], [null, null]],
+    "A_softmax": [[null, null], [null, null]],
+    "H":   [[null, null], [null, null]],
+    "H0":  [[null, null], [null, null]],
+    "L0":  null,
+    "G":   [[null, null], [null, null]],
+    "W_V1": [[null, null], [null, null]],
+    "H1":  [[null, null], [null, null]],
+    "L1":  null
+  }
+}

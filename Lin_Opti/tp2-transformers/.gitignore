@@ -2,3 +2,16 @@ __pycache__/
 *.pyc
 .ipynb_checkpoints/
 .env
+# Archivos intermedios de LaTeX (los PDF sí se versionan)
+*.aux
+*.log
+!auditoria/verificaciones/*.log
+!auditoria/verificaciones/**/*.log
+*.fls
+*.fdb_latexmk
+*.out
+*.toc
+*.nav
+*.snm
+*.vrb
+*.synctex.gz

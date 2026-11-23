@@ -1,0 +1,131 @@
+{
+  "problema": {
+    "n_secuencia": 4,
+    "d_modelo": 8,
+    "d_k": 8,
+    "d_v": 8,
+    "n_entrenamiento": 512,
+    "n_validacion": 128,
+    "n_prueba": 128,
+    "semilla_datos": 2026,
+    "semilla_profesor": 2027,
+    "escala_profesor": 2.0,
+    "escala_estudiante": 1.0,
+    "inicializacion": "entradas N(0, escala^2/d) para W_Q, W_K, W_V; X con entradas N(0, 1)",
+    "salidas_objetivo": "Y = softmax_filas(X W*_Q (X W*_K)^T / sqrt(d_k)) X W*_V, sin ruido",
+    "division": "primeros 512 ejemplos: entrenamiento; 128 siguientes: validación; 128 últimos: prueba",
+    "semilla_corrida": "semilla s -> pesos iniciales con semilla 100+s, orden de minibatches con semilla 10000+s",
+    "perdida": "MSE: media de (H - Y)^2 sobre todas las entradas (B x n x d_v)"
+  },
+  "punto": "pesos iniciales del estudiante con semilla 0",
+  "minibatch": {
+    "semilla": 7,
+    "tamano": 32,
+    "indices_entrenamiento": [
+      175,
+      203,
+      333,
+      262,
+      487,
+      374,
+      325,
+      301,
+      228,
+      183,
+      238,
+      33,
+      20,
+      343,
+      76,
+      317,
+      58,
+      234,
+      167,
+      375,
+      404,
+      48,
+      67,
+      239,
+      420,
+      243,
+      6,
+      184,
+      16,
+      466,
+      19,
+      353
+    ]
+  },
+  "entradas": [
+    {
+      "matriz": "W_Q",
+      "i": 3,
+      "j": 1
+    },
+    {
+      "matriz": "W_Q",
+      "i": 6,
+      "j": 4
+    },
+    {
+      "matriz": "W_Q",
+      "i": 2,
+      "j": 4
+    },
+    {
+      "matriz": "W_K",
+      "i": 0,
+      "j": 5
+    },
+    {
+      "matriz": "W_K",
+      "i": 1,
+      "j": 4
+    },
+    {
+      "matriz": "W_K",
+      "i": 7,
+      "j": 7
+    },
+    {
+      "matriz": "W_V",
+      "i": 1,
+      "j": 5
+    },
+    {
+      "matriz": "W_V",
+      "i": 5,
+      "j": 1
+    },
+    {
+      "matriz": "W_V",
+      "i": 3,
+      "j": 7
+    }
+  ],
+  "semilla_entradas": 11,
+  "eps_barrido": [
+    0.1,
+    0.01,
+    0.001,
+    0.0001,
+    1e-05,
+    1e-06,
+    1e-07,
+    1e-08,
+    1e-09,
+    1e-10,
+    1e-11
+  ],
+  "perdida": "MSE media sobre el minibatch (la misma de entrenamiento)",
+  "entorno": {
+    "fecha_utc": "2026-11-23T05:57:37+00:00",
+    "comando": "actividad3_gradientes.py",
+    "python": "3.13.18",
+    "torch": "2.15.0+cpu",
+    "numpy": "2.5.5",
+    "hilos_torch": 2,
+    "host": "teoria",
+    "rol_contenedor": "teoria"
+  }
+}

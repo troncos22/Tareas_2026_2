@@ -1,0 +1,16 @@
+{
+  "conjunto": "SMS Spam Collection",
+  "autores": "Tiago A. Almeida, José María Gómez Hidalgo",
+  "cita": "Almeida, T. & Hidalgo, J. (2011). SMS Spam Collection [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5CC84",
+  "articulo": "Almeida, Gómez Hidalgo y Yamakami (2011). Contributions to the Study of SMS Spam Filtering: New Collection and Results. ACM DocEng 2011.",
+  "pagina": "https://archive.ics.uci.edu/dataset/228/sms+spam+collection",
+  "url_descarga": "https://archive.ics.uci.edu/static/public/228/sms+spam+collection.zip",
+  "licencia": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+  "descargado_utc": "2026-11-23T05:52:37+00:00",
+  "lineas_SMSSpamCollection": 5574,
+  "sha256": {
+    "sms+spam+collection.zip": "1587ea43e58e82b14ff1f5425c88e17f8496bfcdb67a583dbff9eefaf9963ce3",
+    "SMSSpamCollection": "7d039a24a6083ed9ef0f806ebad56bbb976e3aeb8de05669173bfdc4996c239d",
+    "readme": "8753cd2d3cab68f80c8257851b8c2037778c267f55accb6fd1b5a2e32d36a84e"
+  }
+}

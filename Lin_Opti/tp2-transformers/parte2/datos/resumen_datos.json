@@ -1,0 +1,37 @@
+{
+  "archivo_crudo_sha256": "7d039a24a6083ed9ef0f806ebad56bbb976e3aeb8de05669173bfdc4996c239d",
+  "lineas_originales": 5574,
+  "etiquetas_originales": {
+    "ham": 4827,
+    "spam": 747
+  },
+  "mensajes_repetidos_eliminados": 414,
+  "textos_con_etiquetas_contradictorias": 0,
+  "mensajes_unicos": 5160,
+  "semilla_particion": 2026,
+  "particiones": {
+    "entrenamiento": {
+      "mensajes": 3612,
+      "spam": 449,
+      "proporcion_spam": 0.1243
+    },
+    "prueba": {
+      "mensajes": 774,
+      "spam": 97,
+      "proporcion_spam": 0.1253
+    },
+    "validacion": {
+      "mensajes": 774,
+      "spam": 96,
+      "proporcion_spam": 0.124
+    }
+  },
+  "tokens_por_mensaje_entrenamiento": {
+    "mediana": 16.0,
+    "p95": 42.0,
+    "p99": 64.77999999999975,
+    "maximo": 178,
+    "mensajes_mayores_a_64": 37
+  },
+  "particion_csv_sha256": "10f84b650f20191360192ad98e54501d0cd6bf705c2a091359b85fb4fd360424"
+}

@@ -1,0 +1,69 @@
+{
+  "arquitectura": {
+    "d": 64,
+    "cabezas": 4,
+    "capas": 2,
+    "d_ff": 128,
+    "dropout": 0.1
+  },
+  "presupuesto": {
+    "lote": 32,
+    "pasos": 250,
+    "max_epocas": 3,
+    "evaluar_cada": 25
+  },
+  "perdida": "entropía cruzada binaria con logits (BCEWithLogits), media del lote",
+  "optimizadores": {
+    "adamw": "torch.optim.AdamW(weight_decay=0.01, betas=(0.9, 0.999))",
+    "sgd": "torch.optim.SGD(momentum=0.9, weight_decay=0)"
+  },
+  "rejilla": [
+    {
+      "optimizador": "adamw",
+      "lr": 0.0001
+    },
+    {
+      "optimizador": "adamw",
+      "lr": 0.001
+    },
+    {
+      "optimizador": "adamw",
+      "lr": 0.01
+    },
+    {
+      "optimizador": "sgd",
+      "lr": 0.01
+    },
+    {
+      "optimizador": "sgd",
+      "lr": 0.1
+    },
+    {
+      "optimizador": "sgd",
+      "lr": 1.0
+    }
+  ],
+  "semillas": [
+    0,
+    1,
+    2
+  ],
+  "vocabulario": 3184,
+  "mensajes_truncados_a_64": {
+    "entrenamiento": 37,
+    "validacion": 13
+  },
+  "ejemplos_entrenamiento": 3612,
+  "ejemplos_validacion": 774,
+  "parametros_entrenables_transformer": 274625,
+  "segundos_totales": 258.0,
+  "versiones": {
+    "python": "3.13.18",
+    "torch": "2.15.0+cpu",
+    "numpy": "2.5.5",
+    "pandas": "3.1.1",
+    "scikit-learn": "1.9.1",
+    "hilos_torch": 2,
+    "plataforma": "Linux-7.0.14-linuxkit-x86_64-with-glibc2.41"
+  }
+}

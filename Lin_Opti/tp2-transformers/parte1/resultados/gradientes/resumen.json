@@ -1,0 +1,54 @@
+{
+  "eps_elegido": {
+    "float64": 6.055454452393343e-06,
+    "float32": 0.00492156660115185
+  },
+  "justificacion_eps": "eps = u^(1/3), con u el épsilon de máquina: equilibra el error de truncamiento O(eps^2) de la diferencia central con el de redondeo O(u / eps). Error esperado del orden de u^(2/3).",
+  "por_tipo": {
+    "float64": {
+      "perdida_minibatch": 4.548147069838646,
+      "eps_maquina": 2.220446049250313e-16,
+      "eps_elegido": 6.055454452393343e-06,
+      "error_rel_max_9_entradas": 2.150017521007335e-07,
+      "error_abs_max_9_entradas": 1.197907537053844e-10,
+      "todas_las_192_entradas": {
+        "error_abs_max": 1.5263552921584989e-10,
+        "error_rel_norma": 7.722370678625765e-10,
+        "norma_gradiente": 0.8560262654658404,
+        "abs_grad_min": 0.00011100311419267282
+      },
+      "eps_barrido_mediana_error_rel": {
+        "1e-01": 0.0010802959521382142,
+        "1e-02": 1.0810128959727217e-05,
+        "1e-03": 1.0808594720301547e-07,
+        "1e-04": 8.307393833058358e-10,
+        "1e-05": 3.965604261622772e-10,
+        "1e-06": 9.028176608372318e-09,
+        "1e-07": 1.5172353526126285e-08,
+        "1e-08": 1.0048571935726878e-06,
+        "1e-09": 1.2202587273044452e-05,
+        "1e-10": 6.766437469826206e-05,
+        "1e-11": 0.0020472940019963227
+      },
+      "eps_con_menor_mediana": 1e-05
+    },
+    "float32": {
+      "perdida_minibatch": 4.548146724700928,
+      "eps_maquina": 1.1920928955078125e-07,
+      "eps_elegido": 0.00492156660115185,
+      "error_rel_max_9_entradas": 0.00858143808626168,
+      "error_abs_max_9_entradas": 4.1228930756916776e-05,
+      "eps_barrido_mediana_error_rel": {
+        "1e-01": 0.0009521846818796829,
+        "1e-02": 0.0005548826629819425,
+        "1e-03": 0.003616116634039787,
+        "1e-04": 0.03767770607882749,
+        "1e-05": 0.6311799776766894,
+        "1e-06": 1.7909997597772438,
+        "1e-07": 1.0,
+        "1e-08": 1.0
+      },
+      "eps_con_menor_mediana": 0.01
+    }
+  }
+}

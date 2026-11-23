@@ -1,0 +1,36 @@
+{
+  "modelo": "TF-IDF (unigramas y bigramas, tf sublineal) + regresión logística L2",
+  "ajustado_con": "entrenamiento",
+  "criterio_seleccion": "mayor F1 de spam en validación; empate -> menor C",
+  "C_elegido": 1000.0,
+  "caracteristicas": 41923,
+  "validacion": {
+    "exactitud": 0.9935400516795866,
+    "precision": 0.9789473684210527,
+    "exhaustividad": 0.96875,
+    "f1": 0.9738219895287958,
+    "vp": 93,
+    "fp": 2,
+    "fn": 3,
+    "vn": 676
+  },
+  "clase_mayoritaria_validacion": {
+    "exactitud": 0.875968992248062,
+    "precision": 0.0,
+    "exhaustividad": 0.0,
+    "f1": 0.0,
+    "vp": 0,
+    "fp": 0,
+    "fn": 96,
+    "vn": 678
+  },
+  "versiones": {
+    "python": "3.13.18",
+    "torch": "2.15.0+cpu",
+    "numpy": "2.5.5",
+    "pandas": "3.1.1",
+    "scikit-learn": "1.9.1",
+    "hilos_torch": 2,
+    "plataforma": "Linux-7.0.14-linuxkit-x86_64-with-glibc2.41"
+  }
+}

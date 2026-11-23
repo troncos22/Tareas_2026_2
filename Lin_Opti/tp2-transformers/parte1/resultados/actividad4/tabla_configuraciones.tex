@@ -1,0 +1,17 @@
+\begin{tabular}{llccccccc}
+\toprule
+Opt. & $\eta$ & $L_{\mathrm{val}}$ final & $L_{\mathrm{ent}}$ final & $L_{\mathrm{val}}$ final/mín & pasos a $L_{\mathrm{val}}<10^{-2}$ & $\|\nabla L\|$ final & $\lambda_{\max}$ final & $L_{\mathrm{prueba}}$ (elegidas) \\
+\midrule
+SGD & \num{0.03} & \num{4.53e-03} [\num{3.82e-03}, \num{6.52e-03}] & \num{3.75e-03} & \num{1} & \num{1130} & \num{5.76e-02} & \num{3.15} &  \\
+SGD & \num{0.1} & \num{1.32e-04} [\num{2.77e-05}, \num{9.67e-04}] & \num{9.76e-05} & \num{1} & \num{340} & \num{1.53e-02} & \num{3.19} &  \\
+SGD & \textbf{\num{0.3}} & \num{2.95e-08} [\num{3.39e-09}, \num{5.68e-04}] & \num{2.13e-08} & \num{1} & \num{120} & \num{5.54e-04} & \num{3.15} & \num{2.58e-08} [\num{4.21e-09}, \num{3.00e-04}] \\
+SGD & \num{1} & \num{4.59e-02} [\num{2.90e-02}, \num{7.16e-02}] & \num{4.91e-02} & \num{5.05} & 2/3 alcanzan & \num{5.67e-01} & \num{2.00} &  \\
+SGD & \num{3} & \num{1.64e+00} [\num{9.79e-01}, \num{2.10e+00}] & \num{1.70e+00} & \num{2.49} & 0/3 alcanzan & \num{6.11e-01} & \num{4.36} &  \\
+\midrule
+Adam & \num{0.001} & \num{1.63e-01} [\num{7.51e-02}, \num{2.45e-01}] & \num{1.63e-01} & \num{1} & 0/3 alcanzan & \num{3.13e-01} & \num{2.46} &  \\
+Adam & \textbf{\num{0.003}} & \num{2.71e-04} [\num{1.70e-04}, \num{3.71e-04}] & \num{3.80e-04} & \num{1} & \num{920} & \num{1.96e-02} & \num{3.06} & \num{2.98e-04} [\num{1.58e-04}, \num{3.50e-04}] \\
+Adam & \num{0.01} & \num{1.05e-03} [\num{5.88e-06}, \num{4.33e-03}] & \num{1.57e-03} & \num{6.7} & \num{280} & \num{1.08e-01} & \num{2.83} &  \\
+Adam & \num{0.03} & \num{7.72e-03} [\num{5.29e-03}, \num{2.21e-02}] & \num{8.15e-03} & \num{1.66} & \num{190} & \num{2.29e-01} & \num{2.37} &  \\
+Adam & \num{0.1} & \num{1.43e-01} [\num{1.01e-01}, \num{1.83e-01}] & \num{1.37e-01} & \num{2.2} & 0/3 alcanzan & \num{6.34e-01} & \num{2.09} &  \\
+\bottomrule
+\end{tabular}

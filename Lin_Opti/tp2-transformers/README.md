@@ -114,6 +114,18 @@ que tienen los permisos del usuario del anfitrión. Para acotarlo:
 
 Esta limitación debe quedar descrita en el `HANDOFF.md`.
 
+## Si los contenedores ven las carpetas vacías
+
+Los montajes apuntan a las carpetas que existían cuando se creó cada contenedor. Si `parte1/`,
+`parte2/` o `auditoria/` se borran y se vuelven a crear (por ejemplo, al cambiar a una rama de git
+donde no existen y luego volver), los contenedores siguen viendo las carpetas borradas, vacías.
+Compruébelo y recree los contenedores:
+
+```bash
+docker compose exec practica stat -c %h /workspace/parte2   # 0 = carpeta borrada
+docker compose up -d --force-recreate
+```
+
 ## Nota sobre los montajes de archivos
 
 `compose.yaml`, `Dockerfile`, `requirements.txt` y `README.md` se montan como archivos individuales
