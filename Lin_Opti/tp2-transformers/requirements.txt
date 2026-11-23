@@ -1,0 +1,8 @@
+# Dependencias del TP2. torch se instala en su versión CPU desde el índice oficial de PyTorch.
+# Tras modificar este archivo: docker compose up -d --build
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.15.0+cpu
+numpy==2.5.5
+pandas==3.1.1
+matplotlib==3.11.2
+scikit-learn==1.9.1

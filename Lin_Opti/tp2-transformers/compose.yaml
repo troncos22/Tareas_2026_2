@@ -1,0 +1,84 @@
+# Infraestructura del TP2 (ING560): tres contenedores, uno por función.
+# Comandos en README.md; pruebas de aislamiento en scripts/verificar_aislamiento.sh.
+name: tp2-transformers
+
+# Configuración compartida por los tres servicios.
+x-comun: &comun
+  image: tp2-transformers:py3.13-torch2.15
+  build:
+    context: .
+    dockerfile: Dockerfile
+  init: true
+  command: ["sleep", "infinity"]
+  # Con Docker Desktop el root del contenedor se mapea a su usuario del anfitrión,
+  # así que 0:0 crea los archivos a su nombre. Con Docker Engine nativo en Linux
+  # defina TP2_UID y TP2_GID en un archivo .env (ver README.md).
+  user: "${TP2_UID:-0}:${TP2_GID:-0}"
+  privileged: false
+  cap_drop: [ALL]
+  security_opt: ["no-new-privileges:true"]
+
+x-entorno: &entorno
+  OMP_NUM_THREADS: "2"
+  MKL_NUM_THREADS: "2"
+
+services:
+  teoria:
+    <<: *comun
+    hostname: teoria
+    working_dir: /workspace/parte1
+    environment:
+      <<: *entorno
+      TP2_ROL: teoria
+    volumes:
+      - ./parte1:/workspace/parte1
+    network_mode: none
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 2G
+
+  practica:
+    <<: *comun
+    hostname: practica
+    working_dir: /workspace/parte2
+    environment:
+      <<: *entorno
+      TP2_ROL: practica
+    volumes:
+      - ./parte2:/workspace/parte2
+    # Única red con salida a Internet: la Parte 2 puede necesitar descargar datos.
+    networks: [practica_red]
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 4G
+
+  auditoria:
+    <<: *comun
+    hostname: auditoria
+    working_dir: /workspace/auditoria
+    environment:
+      <<: *entorno
+      TP2_ROL: auditoria
+    volumes:
+      - ./parte1:/workspace/parte1:ro
+      - ./parte2:/workspace/parte2:ro
+      - ./auditoria:/workspace/auditoria
+      # Archivos de infraestructura, para que el auditor pueda revisarlos.
+      - ./compose.yaml:/workspace/infra/compose.yaml:ro
+      - ./Dockerfile:/workspace/infra/Dockerfile:ro
+      - ./requirements.txt:/workspace/infra/requirements.txt:ro
+      - ./README.md:/workspace/infra/README.md:ro
+      - ./scripts:/workspace/infra/scripts:ro
+    network_mode: none
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 2G
+
+networks:
+  practica_red: {}
