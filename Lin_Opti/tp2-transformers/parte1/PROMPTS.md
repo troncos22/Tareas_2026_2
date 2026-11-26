@@ -252,6 +252,30 @@ tal como se enviaron (los primeros, en inglés).
     al auditor, la integración a `main` y el *push* están en «Acciones derivadas de P1-14».
 - **Delegaciones automáticas:** ver «Acciones derivadas de P1-14».
 
+#### Acciones derivadas de P1-14
+- **Revisión final del auditor.** Después del commit `20d4dff`, esta sesión envió un mensaje a la
+  sesión de auditoría (la misma de AU-01, que no comparte la conversación de desarrollo). Le pidió
+  una revisión final independiente de ese commit y que actualizara `HANDOFF_P1.md`, `HANDOFF.md` e
+  `informe_auditoria.md`. El texto íntegro lo registra el auditor como AU-02 en
+  `auditoria/PROMPTS.md`.
+
+### P1-15 — 2026-11-25
+- **Herramienta / modelo:** Claude Code (app de escritorio), Claude Opus 5.5
+- **Sesión:** infraestructura (continuación)
+- **Propósito:** dejar de lado la presentación, ya preparada por el estudiante, terminar el informe
+  y GitHub, y completar la fecha y el responsable de la validación humana.
+- **Prompt (literal):**
+  > ya hice la presentación, enfocate en el informe y en el github, la parte de validación humana rellena todas las fechas con el 23/noviembre/2026 responsable Jorge MF
+- **Archivos / comandos / resultados asociados:**
+  - En `auditoria/VALIDACION_HUMANA.md` completó la fecha y el responsable («Jorge MF») de las 39
+    filas. Todas llevan «23/noviembre/2026», salvo la de la hoja 2, que lleva «25/noviembre/2026»
+    porque esa hoja se escribió ese día (se le avisó al estudiante). No completó método, resultado
+    ni decisión.
+  - Commit en `tp2-partes1-2`, integración a `main` por *fast-forward* y *push* a `origin/main`.
+- **Delegaciones automáticas:** un aviso a la sesión de auditoría de que esta sesión modificó
+  `parte1/PROMPTS.md` y `auditoria/VALIDACION_HUMANA.md` durante su revisión. El texto lo registra
+  el auditor en `auditoria/PROMPTS.md`.
+
 ## Parte 1 — Teoría
 
 Sesión de teoría: Claude Code (app de escritorio), modelo Claude Opus 5.5. Es una sesión nueva,
