@@ -408,3 +408,152 @@ auditoria/verificaciones/
 
 Las carpetas de reejecución ocupan unos 17 MB y duplican lo entregado; el estudiante puede decidir si las
 incluye en la entrega o conserva solo los registros, comparaciones y scripts.
+
+---
+
+# Revisión final (2026-11-25)
+
+- **Pedido:** AU-02 en `auditoria/PROMPTS.md` (revisión independiente final, sección 4.5). Misma sesión de
+  auditoría, sin la conversación de desarrollo.
+- **Versión revisada:** pedido sobre `20d4dff` (rama `tp2-partes1-2`). Durante la revisión la sesión de
+  infraestructura hizo dos commits más: `656d56f` (P1-15; movió `main` a él) y `c1e235e` (P1-16). Entre
+  `20d4dff` y `c1e235e` solo cambian `parte1/PROMPTS.md` y `auditoria/VALIDACION_HUMANA.md`; esta revisión
+  cubre `c1e235e`. SHA-256 de `parte1/` y `parte2/` en `verificaciones/sha256_revision_final_inicio.txt`
+  (al empezar) y `verificaciones/sha256_revision_final_final.txt` (al terminar): solo difiere
+  `parte1/PROMPTS.md`, cuyo contenido final es el de `c1e235e`.
+- **Montajes:** el cambio de rama no recreó las carpetas (mismos inodos en el anfitrión y en el
+  contenedor); los contenedores son los creados el 23-11 a las 02:49, con la misma imagen.
+- **Qué cambió desde `a5a766f`** [E, comparación de SHA-256 y `git diff`]: en la Parte 1, el informe, el
+  desarrollo manual (`informe/manual/`), `matrices_estudiante.json`, `resultados/verificacion_manual/`,
+  los `PROMPTS.md`, el README y el docstring de `verificar_manual.py`. En la Parte 2, el README, las
+  diapositivas, `guion.md`/`guion.pdf`, `codigo/casi_duplicados.py`, una línea de `reproducir.sh` y dos
+  resultados nuevos (`casi_duplicados.*`). **Ningún otro código ni resultado cambió**: la reejecución de la
+  Parte 1 y la reproducción de la Parte 2 de la primera ronda siguen valiendo para ellos.
+
+## Verificaciones de esta ronda
+
+| Verificación | Resultado | Evidencia |
+|---|---|---|
+| Pruebas de aislamiento | 52 pasan, 0 fallan | [E] `verificaciones/aislamiento_20261125_231006.log` |
+| Pruebas unitarias de la Parte 1 | 11/11 | [E] `docker compose exec auditoria sh -c 'cd /workspace/parte1 && python -m unittest discover -s codigo -p "test_*.py"'` |
+| `verificar_manual.py` con `matrices_estudiante.json` | Se cumplen las 9 restricciones y coinciden los 13 valores; código 0. El `.md` es idéntico al entregado; el `.json` solo difiere en la ruta de entrada | [E] `verificaciones/parte1/verificacion_manual.log`, `verificaciones/parte1/verificacion_manual/` |
+| Recálculo independiente (código propio, fracciones exactas) | Q, K, V, QKᵀ, H0, G, W_V⁽¹⁾, H1 exactos; L0 = 65/32 y L1 = 56225/32768; S, A, H dentro de 4,2·10⁻⁵ de los decimales manuales | [E] `verificaciones/scripts/verif_manual_independiente.py` → `verificaciones/parte1/verif_manual_independiente.json` |
+| `comprobaciones_adicionales.md` | Todo correcto: M = AX, MᵀM, valores propios 0,152403 y 0,410097 = (9+√17)/32, 2/λ_max = 4,876894, ‖G‖² = 169/256, ‖AXG‖² = 481/4096, la fórmula cuadrática da L1, umbral de un paso 416/37 ≈ 11,24, reducción 15,5273 % | [E] mismo archivo |
+| Transcripción frente a las fuentes | `matrices_estudiante.json` coincide con el PDF digitado en las 6 matrices elegidas y los 13 resultados, y con la hoja 1 en las 6 matrices elegidas (X, W_Q, W_K, W_V, A, T) | [E] lectura de `informe/manual/*` |
+| Informe 2.5, 3.3 y Anexos A y B frente a las fuentes | Coinciden con el PDF digitado; el Anexo B describe bien las discrepancias de las hojas | [E] lectura; ver abajo |
+| Informe recompilado en una copia | 25 páginas; texto idéntico al `informe.pdf` entregado; sin referencias indefinidas | [E] |
+| Diapositivas recompiladas en una copia | 7 páginas; texto idéntico al `presentacion.pdf` entregado; sin cajas sobrellenas | [E] |
+| Cifras de las diapositivas y del guion | Las ~40 cifras del guion y las de las diapositivas coinciden con `parte2/resultados/`; el guion tiene 1049 palabras habladas (≈ 8 min a 130 por minuto) | [E] lectura y `registro_pasos.csv`, `seleccion.json`, `metricas_prueba.csv`, `evaluacion_prueba.json`, `casi_duplicados.json` |
+| `casi_duplicados.py` | Reproducido sobre la reproducción de la primera ronda: `casi_duplicados.json` y `.csv` idénticos byte a byte; mismas cifras que H-03 | [E] `verificaciones/parte2/reproduccion.log` (final), `verificaciones/parte2/resultados/casi_duplicados.*` |
+
+**Desarrollo manual: detalle de la comparación con las fuentes.**
+- Hoja 1 (foto): X, W_Q, W_K, W_V, A y T iguales a la transcripción. Como dice el Anexo B, la hoja anota
+  como K la matriz XW_V y como V la XW_K, y obtiene (QKᵀ)₂₂ = 0; el desarrollo digitado lo corrige
+  (K = XW_K, V = XW_V, (QKᵀ)₂₂ = −2) [E].
+- Hoja 2 (foto): Kᵀ, QKᵀ, S, las expresiones exactas de A y las de H coinciden con el desarrollo
+  digitado; el segundo elemento de la fila 1 está rotulado A₂₁ en vez de A₁₂, con el valor correcto [E].
+  La foto muestra en el fondo una pantalla con el desarrollo digitado y la hora «25 de nov 23:02»: la
+  hoja se reescribió a partir del documento digitado, como declaran el Anexo A y P1-14.
+- PDF digitado (6 páginas, LuaTeX, creado el 2026-11-23 08:19): contiene la Actividad 1 completa y toda
+  la Actividad 2; es el único registro de la Actividad 2. Su autoría es [R] (P1-10 dice que lo escribió
+  el estudiante en LaTeX). Indicios coherentes con eso [E]: se creó antes de la primera verificación por
+  un agente (P1-10) y con otro motor que el informe de los agentes (pdfTeX). No es una prueba.
+- Las secciones 2.5 y 3.3 del informe reproducen el desarrollo digitado (matrices, pasos y resultados) [E].
+
+## Estado de cada hallazgo
+
+| ID | Gravedad | Estado | Evidencia |
+|---|---|---|---|
+| H-01 | Alta | **Parcialmente resuelto.** Hecho: cálculos manuales incorporados y verificados después (arriba), Actividad 5 resumida, nombre del estudiante en informe y diapositivas. Abierto: `VALIDACION_HUMANA.md` sin resultado ni decisión en ninguna de las 39 filas (ver H-14); integrante 2 en ambas portadas y fecha de la presentación marcados como pendientes; marcadores `\pendiente` de validación humana y de revisión personal en `informe.tex:821` y `:838` | [E] |
+| H-02 | Media | **Abierto, documentado** (limitación estructural). Descrito en la sección 1.3 del informe y en los handoff. En esta ronda, los SHA-256 de `parte1/` y `parte2/` no cambiaron durante la revisión | [E] |
+| H-03 | Media | **Resuelto como limitación documentada.** No se rehízo la partición. `codigo/casi_duplicados.py` mide el efecto (reproducido, idéntico); README, diapositiva 7 y guion lo informan con las cifras correctas | [E] |
+| H-04 | Media | **Resuelto.** La diapositiva 7 compara la ablación solo en validación (0,958 frente a 0,926) y separa las cifras de prueba; la frase sobre la arquitectura se suavizó | [E] `presentacion.tex`, `presentacion.pdf` |
+| H-05 | Media | **Resuelto en lo posible.** `parte1/PROMPTS.md` tiene P1-09 a P1-16 y «Acciones derivadas de P1-14»; `parte2/PROMPTS.md` tiene P2-04 a P2-06. Las calibraciones de teoría no se conservaron y quedan declaradas como limitación (informe, sección 7). Detalle menor: el aviso a la auditoría que menciona P1-15 llegó cuando la revisión ya estaba cerrada (registrado en AU-02); los cambios ya se habían detectado por SHA-256 y `git log` | [E] |
+| H-06 | Baja | **Resuelto.** Las dos frases dicen ahora «aproximadamente entre 2·10⁻² y 5·10⁻¹» y «norma suavizada … entre 0,2 y 0,8», coherentes con lo medido (0,22–0,80 y 0,26–0,84) | [E] `informe.tex:691`, `:770` |
+| H-07 | Baja | **Resuelto.** `\ref{sec:productos}` y `\ref{sec:dependencia}` | [E] `informe.tex:578` |
+| H-08 | Baja | **Parcialmente resuelto.** Desaparecieron las dos cajas grandes (88 y 96 pt); quedan 6 menores, la mayor de 31,7 pt (líneas 142–147) | [E] recompilación |
+| H-09 | Baja | **Abierto, aceptado sin cambios** (el informe lo dice). No infringe el enunciado | [E] |
+| H-10 | Baja | **Resuelto como limitación documentada** en README, diapositivas, notas y guion (≈ 2,5 % de encogimiento en 250 pasos) | [E] |
+| H-11 | Baja | **Resuelto como limitación declarada** (informe, sección 7; README de la Parte 2). Sigue sin poder verificarse | [NV] |
+| H-12 | Baja | **Parcialmente resuelto.** Ruta del docstring unificada; colores de `act4_A_sgd_tasas.pdf` y `NaN` en los JSON sin cambios | [E] |
+
+## Hallazgos nuevos
+
+### H-13 — Frase incorrecta en la discusión e) de la Actividad 2 (baja)
+
+`informe.tex:384-385` (y el PDF digitado, sección 2.2 e): «Con una tasa mayor que 4,877 el paso sobrepasaría
+el mínimo y la pérdida aumentaría». Para **un paso** no es cierto: el umbral exacto de este paso es
+2‖G‖²/‖AXG‖² = 416/37 ≈ 11,24, y con η = 5, 8 u 11 la pérdida baja tras un paso (0,198; 0,508; 1,874 frente a
+L0 = 2,031). 2/λ_max ≈ 4,877 es una condición suficiente; lo que sí ocurre por encima es que, al **repetir**
+los pasos, la pérdida diverge (tras 6 pasos: 1,6·10³ con η = 8). El párrafo siguiente del informe («Criterio
+general») y el Anexo B ya lo dicen, así que el informe se contradice. Es texto del desarrollo del estudiante:
+decide él si lo corrige. Evidencia [E]: `verificaciones/parte1/discusion_e_pasos.txt`,
+`verif_manual_independiente.json` (`umbral_eta`).
+
+### H-14 — Validación humana prellenada por un agente (media)
+
+La sesión de infraestructura completó en `VALIDACION_HUMANA.md`, a pedido del estudiante, cinco de las siete
+columnas de las 39 filas: «Qué se verificó» y «Evidencia» (P1-14), la fecha «23/noviembre/2026» y el
+responsable «Jorge MF» (P1-15; la fila de la hoja 2 con «25/noviembre/2026»), y el «Método» (P1-16, commit
+`c1e235e`), que describe cómo se obtuvo cada evidencia y qué agente la ejecutó. Ninguna fila tiene resultado ni
+decisión, así que **ninguna validación está hecha** (el propio archivo lo advierte). Riesgos:
+- La sección 5.3 pide que quien revisa registre qué comprobó, **cómo** lo comprobó y qué decidió. Un método
+  que describe lo que hizo un agente no es el método de la revisión humana, aunque el responsable sea el
+  estudiante: al completar cada fila, el método debería decir qué hizo él (por ejemplo, rehacer una cuenta,
+  ejecutar un comando, mirar una figura contra su CSV).
+- La fecha registrada no será la de la comprobación real si esta se hace después; varias filas se refieren a
+  cosas revisadas después del 23-11 (por ejemplo, el estado final de H-04 o esta revisión final).
+
+Sugerencia: completar cada fila al hacer la comprobación, con la fecha real y el método propio. Evidencia [E]:
+`git show 656d56f c1e235e -- auditoria/VALIDACION_HUMANA.md`; `parte1/PROMPTS.md`, P1-14 a P1-16.
+
+### H-15 — Registro manuscrito incompleto de la Actividad 2 (media, riesgo de cumplimiento)
+
+El enunciado pide incorporar el desarrollo manual «legible (escaneo o fotografía), identificado por su autor».
+La Actividad 2 solo existe como documento digitado en LaTeX: la hoja manuscrita original se perdió (P1-10).
+La hoja 2 de la Actividad 1 es una reescritura posterior hecha con el documento digitado a la vista, y la hoja
+1 tiene un error (K y V intercambiadas) que el digitado corrige. Las hojas no llevan el nombre del autor; el
+Anexo A lo identifica. El informe declara todo esto con honestidad (Anexos A y B). No es un error de cálculo:
+los valores son correctos y los verifiqué. Es un riesgo de evaluación (rúbrica 6.1: 3 + 5 puntos de cálculo
+manual) que el estudiante debe conocer y estar preparado para defender en las preguntas individuales.
+Evidencia [E]: fotos y PDF de `informe/manual/`, `informe.tex` Anexo A.
+
+### Observaciones sin número
+
+- El cuerpo del informe ocupa 13 páginas antes de los anexos (la extensión sugerida es de 8 a 12).
+- `parte2/presentacion/` contiene archivos intermedios de LaTeX (`*.nav`, `*.snm`), excluidos por
+  `.gitignore`: no llegan al repositorio.
+
+## Qué sigue pendiente del estudiante
+
+1. Completar `VALIDACION_HUMANA.md`: resultado y decisión de cada fila, con la fecha real y el método propio
+   de la revisión (H-01, H-14), incluidas las decisiones sobre H-01 a H-15.
+2. Decidir sobre la frase de la discusión e) (H-13).
+3. Integrante 2 (o quitar la columna si el trabajo es individual) en el informe y en las diapositivas; fecha
+   de la presentación.
+4. Revisión personal del informe (marcador en `informe.tex:838`) y preparación de las preguntas individuales
+   sobre el desarrollo manual (H-15).
+
+## Qué quedó sin verificar en esta ronda
+
+- La autoría del PDF digitado y de las fotos ([R]: P1-10 y P1-14).
+- La duración real de la exposición (solo se estimó por el número de palabras del guion).
+- Lo ya indicado en la primera ronda: reconstrucción de la imagen, descarga de datos, otro hardware,
+  calibraciones y pilotos no guardados.
+
+## Comandos de esta ronda
+
+```bash
+# Desde tp2-transformers/
+docker compose exec -T auditoria sh -c 'cd /workspace && find parte1 parte2 -type f ! -path "*/__pycache__/*" -print0 | sort -z | xargs -0 sha256sum' > auditoria/verificaciones/sha256_revision_final_inicio.txt
+scripts/verificar_aislamiento.sh
+docker compose exec -T auditoria sh -c 'cd /workspace/parte1 && python -m unittest discover -s codigo -p "test_*.py" -v'
+docker compose exec -T auditoria python /workspace/parte1/codigo/verificar_manual.py --entrada /workspace/parte1/matrices_estudiante.json --salida /workspace/auditoria/verificaciones/parte1/verificacion_manual
+docker compose exec -T auditoria sh -c 'cd /workspace && diff parte1/resultados/verificacion_manual/verificacion_actividades_1_2.json auditoria/verificaciones/parte1/verificacion_manual/verificacion_actividades_1_2.json'
+docker compose exec -T auditoria python /workspace/auditoria/verificaciones/scripts/verif_manual_independiente.py /workspace/parte1/matrices_estudiante.json
+docker compose exec -T auditoria python /workspace/parte2/codigo/casi_duplicados.py --datos /workspace/auditoria/verificaciones/parte2/datos --resultados /workspace/auditoria/verificaciones/parte2/resultados --salida /workspace/auditoria/verificaciones/parte2/resultados
+docker compose exec -T auditoria sh -c 'cd /workspace && cmp parte2/resultados/casi_duplicados.json auditoria/verificaciones/parte2/resultados/casi_duplicados.json'
+# Recompilación en copias temporales (el contenedor no tiene LaTeX)
+cp -r parte1/informe parte1/resultados /tmp/c1/ && (cd /tmp/c1/informe && latexmk -pdf -interaction=nonstopmode informe.tex)
+cp -r parte2/presentacion parte2/resultados /tmp/c2/ && (cd /tmp/c2/presentacion && latexmk -pdf -interaction=nonstopmode presentacion.tex)
+```

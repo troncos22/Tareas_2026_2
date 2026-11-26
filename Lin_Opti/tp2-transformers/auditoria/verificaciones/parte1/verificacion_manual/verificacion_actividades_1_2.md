@@ -1,0 +1,60 @@
+# Verificación posterior de las Actividades 1 y 2
+
+Generado por `codigo/verificar_manual.py` después del desarrollo manual.
+
+## Restricciones
+
+| Regla | Descripción | Cumple | Detalle |
+|---|---|---|---|
+| 3.2 a | entradas en {-1, 0, 1} | sí |  |
+| 3.2 b | ninguna es la matriz nula ni la identidad | sí |  |
+| 3.2 c | X invertible (det X != 0) | sí | det X = -1 |
+| 3.2 d | alguna fila de S = QK^T/sqrt(2) tiene dos puntajes distintos | sí | filas con puntajes distintos: [1, 2] |
+| 3.3 A | entradas de A en {1/4, 1/2, 3/4} (estrictamente positivas) | sí |  |
+| 3.3 A | cada fila de A suma 1 | sí | sumas por fila: ['1', '1'] |
+| 3.3 A | filas de A distintas | sí |  |
+| 3.3 T | entradas de T en {-1, 0, 1} | sí |  |
+| 3.3 T | T no es la matriz nula ni la identidad | sí |  |
+
+## Actividad 1
+
+- `Q` = [0, 1; -1, -1]
+- `K` = [0, -1; 1, 1]
+- `V` = [0, -1; -1, 1]
+- `QKt` = [-1, 1; 1, -2]
+- `S` exacta = [-1/√2 = -1/2·√2, 1/√2 = 1/2·√2; 1/√2 = 1/2·√2, -2/√2 = -√2]
+- `S` ≈ [-0.707107, 0.707107; 0.707107, -1.414214]
+- `A` exacta = [1/(1 + e^(2/√2)), 1/(1 + e^(-2/√2)); 1/(1 + e^(-3/√2)), 1/(1 + e^(3/√2))]
+- `A` ≈ [0.195570, 0.804430; 0.892958, 0.107042]
+- `H` exacta = [(0)·A_11 + (-1)·A_12, (-1)·A_11 + (1)·A_12; (0)·A_21 + (-1)·A_22, (-1)·A_21 + (1)·A_22]
+- `H` ≈ [-0.804430, 0.608859; -0.107042, -0.785916]
+
+## Actividad 2
+
+- `H0` = [-1/4, -1/2; -1/2, 0]
+- `H0_menos_T` = [3/4, -1/2; -3/2, 1]
+- `G` = [3/8, -1/4; 9/16, -3/8]
+- `W_V1` = [-3/16, -7/8; 23/32, 3/16]
+- `H1` = [-35/128, -31/64; -23/64, -3/32]
+- `L0` = 65/32 ≈ 2.031250
+- `L1` = 56225/32768 ≈ 1.715851
+- `L1 - L0` = -10335/32768 (disminuye)
+- comprobación de G por diferencia central exacta: correcta
+
+## Comparación con el desarrollo manual
+
+| Cantidad | Coincide | Detalle |
+|---|---|---|
+| Q | sí |  |
+| K | sí |  |
+| V | sí |  |
+| QKt | sí |  |
+| S | sí |  |
+| A_softmax | sí |  |
+| H | sí |  |
+| H0 | sí |  |
+| L0 | sí |  |
+| G | sí |  |
+| W_V1 | sí |  |
+| H1 | sí |  |
+| L1 | sí |  |

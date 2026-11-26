@@ -102,7 +102,7 @@ desde una sola imagen, \texttt{tp2-transformers:py3.13-torch2.15}. Su \path{Dock
   \centering\small
   \caption{Servicios de \texttt{compose.yaml}. Rutas dentro de \texttt{/workspace}.}
   \label{tab:servicios}
-  \begin{tabular}{lllll}
+  \begin{tabular}{lp{0.3\linewidth}lll}
     \toprule
     Servicio & Montajes & Escritura & Red & Límites \\
     \midrule
@@ -130,6 +130,7 @@ para construir, iniciar y ejecutar cada entorno (\texttt{docker compose build}, 
 El script \path{scripts/verificar_aislamiento.sh} ejecuta las pruebas de la sección 2.5 del
 enunciado y deja su registro en \path{auditoria/verificaciones/}. En la ejecución registrada en
 \path{aislamiento_20261123_020804.log} pasan 52 pruebas y fallan 0:
+\begin{sloppypar}
 \begin{enumerate}[nosep]
   \item Los tres servicios están en ejecución, ven sus carpetas y tienen Python 3.13.18,
         torch 2.15.0+cpu y numpy 2.5.5.
@@ -145,6 +146,7 @@ enunciado y deja su registro en \path{auditoria/verificaciones/}. En la ejecuci�
         \texttt{docker.sock} ni el directorio personal. \texttt{teoria} y \texttt{auditoria} no
         tienen red (\texttt{Network is unreachable}).
 \end{enumerate}
+\end{sloppypar}
 El punto 5 de la sección 2.5 (auditor en sesión independiente que escribe en su carpeta) se cumplió
 con la sesión de auditoría de la Actividad 5 (sección~\ref{sec:act5}).
 
@@ -510,11 +512,11 @@ mayor valor propio del hessiano de la pérdida (Actividad 4). El ciclo está en
 \texttt{atencion.entrenar()}; este extracto, con los comentarios abreviados, muestra dónde ocurre cada
 etapa:
 \begin{verbatim}
-H = modelo(Xb)                       # (1) prediccion: H = softmax(Q K^T / sqrt(d_k)) V
-perdida = perdida_mse(H, Yb)         # (2) perdida MSE
+H = modelo(Xb)                      # (1) prediccion: H = softmax(Q K^T / sqrt(d_k)) V
+perdida = perdida_mse(H, Yb)        # (2) perdida MSE
 modelo.zero_grad(set_to_none=True)
-perdida.backward()                   # (3) gradientes dL/dW_Q, dL/dW_K, dL/dW_V (autograd)
-with torch.no_grad():                # (4) actualizacion SGD: W <- W - tasa * dL/dW
+perdida.backward()                  # (3) gradientes dL/dW_Q, dL/dW_K, dL/dW_V (autograd)
+with torch.no_grad():               # (4) actualizacion SGD: W <- W - tasa * dL/dW
     for nombre in nombres:
         W = getattr(modelo, nombre)
         W -= config.tasa * W.grad
@@ -796,6 +798,7 @@ temprana de una tasa demasiado grande.
 Una sesión \emph{nueva} de Claude Code (Claude Opus 5.5), sin la conversación de desarrollo, auditó el
 commit \texttt{a5a766f} desde el contenedor \texttt{auditoria}, que monta \path{parte1/} y
 \path{parte2/} en solo lectura. Su prompt está en \path{auditoria/PROMPTS.md} (AU-01). La sesión:
+\begin{sloppypar}
 \begin{itemize}[nosep]
   \item repitió las pruebas de aislamiento: 52 aprobadas y 0 fallidas
         (\path{auditoria/verificaciones/aislamiento_20261123_063334.log});
@@ -808,17 +811,21 @@ commit \texttt{a5a766f} desde el contenedor \texttt{auditoria}, que monta \path{
   \item guardó las sumas SHA-256 de lo entregado al empezar y al terminar, que muestran que no
         modificó \path{parte1/} ni \path{parte2/}.
 \end{itemize}
+\end{sloppypar}
+\begin{sloppypar}
 Sus resultados están en \path{auditoria/HANDOFF_P1.md}, \path{auditoria/HANDOFF.md} y
 \path{auditoria/verificaciones/informe_auditoria.md}. No encontró errores de cálculo en el código.
 Informó 12 hallazgos: uno de gravedad alta (H-01, los cálculos manuales aún pendientes, ya
-incorporados), cuatro medios y siete bajos. Los que tocan las Partes 0 y 1 y qué se hizo con cada uno
-en esta versión están en la tabla~\ref{tab:auditoria} (Anexo~\ref{anx:auditoria}): se corrigieron dos
-frases que no coincidían con los registros (H-06), una referencia cruzada (H-07) y texto fuera del
-margen (H-08), y se completó el registro de prompts (H-05). Los de la Parte 2 (H-03, H-04, H-10) se
-atienden en su entrega.
+incorporados), cuatro medios y siete bajos. Se corrigieron dos frases que no coincidían con los
+registros (H-06), una referencia cruzada (H-07) y texto fuera del margen (H-08), y se completó el
+registro de prompts (H-05); los de la Parte 2 (H-03, H-04, H-10) se atienden en su entrega. Una
+revisión final de la misma sesión sobre el estado definitivo (AU-02) repitió las pruebas y la
+verificación del desarrollo manual sin encontrar errores y agregó tres hallazgos (H-13 a H-15). El
+detalle y el estado de cada hallazgo están en el Anexo~\ref{anx:auditoria}.
+\end{sloppypar}
 
 
-\pendiente{Validación humana: revisar personalmente cada hallazgo (H-01 a H-12) y registrar en
+\pendiente{Validación humana: revisar personalmente cada hallazgo (H-01 a H-15) y registrar en
 \texttt{auditoria/VALIDACION\_HUMANA.md} si se acepta o se rechaza y por qué. Según el enunciado, la
 declaración del agente de que «todo está correcto» no constituye validación humana.}
 
@@ -841,6 +848,7 @@ resultados y redacción.}
 % ============================================================================================
 \section*{Referencias}
 \addcontentsline{toc}{section}{Referencias}
+\begin{sloppypar}
 \begin{enumerate}[nosep, label={[\arabic*]}]
   \item Vaswani, A. et al. (2017). Attention Is All You Need. \url{https://arxiv.org/abs/1706.03762}
   \item Kingma, D. P. y Ba, J. (2014). Adam: A Method for Stochastic Optimization.
@@ -854,6 +862,7 @@ resultados y redacción.}
   \item PyTorch. Automatic Differentiation. \url{https://docs.pytorch.org/docs/stable/autograd.html}
   \item Docker. Compose File Reference y Bind Mounts. \url{https://docs.docker.com/reference/compose-file/services/}
 \end{enumerate}
+\end{sloppypar}
 
 \appendix
 \section{Desarrollo manual}\label{anx:escaneo}
@@ -930,29 +939,55 @@ $|1-\eta\lambda_{\max}|>1$ (aquí esa componente no es nula) y la pérdida termi
 estudiantes deciden si ajustan esa frase.
 
 \section{Hallazgos de la auditoría}\label{anx:auditoria}
+\textbf{Revisión final.} Después de incorporar el desarrollo manual, la misma sesión de auditoría
+revisó el estado final (commit \texttt{c1e235e}; prompt AU-02). Repitió las pruebas de aislamiento
+(52 de 52, \path{aislamiento_20261125_231006.log}) y las 11 pruebas unitarias, ejecutó
+\path{verificar_manual.py} en su contenedor con el mismo resultado, recalculó el desarrollo manual con
+código propio y comprobó que \path{matrices_estudiante.json}, las secciones~\ref{sec:manual1}
+y~\ref{sec:manual2} y los Anexos~\ref{anx:escaneo} y~\ref{anx:verificacion} coinciden con las fotos y
+el PDF del desarrollo. Según su informe, H-04, H-06 y H-07 quedaron resueltos; H-03, H-10 y H-11,
+como limitaciones declaradas; H-01 y H-12, en parte; y H-02 y H-09 siguen abiertos y documentados.
+H-08 quedaba en parte y se corrigió después. Agregó tres hallazgos:
+\begin{itemize}[nosep]
+  \item H-13 (baja): la última frase de la discusión e) no vale para un solo paso; el Anexo B lo
+        explica y la decisión es del estudiante.
+  \item H-14 (media): la guía de \path{VALIDACION_HUMANA.md} la prellenó un agente y ninguna fila
+        tiene todavía resultado ni decisión; el método de cada fila debe describir la revisión propia
+        del estudiante.
+  \item H-15 (media): la Actividad 2 solo tiene registro digitado y la hoja 2 es una reescritura;
+        es un riesgo de evaluación que el Anexo A declara.
+\end{itemize}
+
 \begin{table}[H]
   \centering\small
-  \caption{Hallazgos de la auditoría para las Partes 0 y 1 y acciones en esta versión.}
+  \caption{Hallazgos de la auditoría para las Partes 0 y 1 (primera ronda y revisión final) y acciones.}
   \label{tab:auditoria}
   \begin{tabular}{@{}llp{0.38\linewidth}p{0.36\linewidth}@{}}
     \toprule
     ID & Gravedad & Hallazgo & Acción \\
     \midrule
     H-01 & alta  & Cálculos manuales y su verificación pendientes & Incorporados (secciones~\ref{sec:manual1}
-                   y~\ref{sec:manual2}, Anexo~\ref{anx:escaneo}) \\
+                   y~\ref{sec:manual2}, Anexo~\ref{anx:escaneo}); quedan la validación humana y el
+                   integrante 2 \\
     H-02 & media & Los agentes corren en el anfitrión, fuera de Docker & Limitación descrita en la
                    sección~\ref{sec:sesiones} y en el \texttt{HANDOFF} \\
-    H-05 & media & Huecos de trazabilidad en \texttt{PROMPTS.md} & Entradas P1-09 en adelante agregadas;
+    H-05 & media & Huecos de trazabilidad en \texttt{PROMPTS.md} & Entradas P1-09 a P1-16 agregadas;
                    las calibraciones previas de la sesión de teoría no se conservaron \\
     H-06 & baja  & Dos frases sobre $\eta = 1$ y $3$ no coinciden con los registros & Corregidas en la
                    sección~\ref{sec:act4} con \texttt{registro\_pasos.csv} \\
     H-07 & baja  & Referencia cruzada «sección 2.4» errónea & Reemplazada por referencias automáticas \\
-    H-08 & baja  & Texto fuera del margen en el PDF & Corregido \\
+    H-08 & baja  & Texto fuera del margen en el PDF & Corregido en dos pasos; después de la
+                   revisión final se eliminaron las cajas restantes \\
     H-09 & baja  & Detalles de endurecimiento de Docker & Sin cambios \\
     H-11 & baja  & Afirmaciones no verificables (calibraciones, otro hardware) & Declaradas como
                    limitación \\
     H-12 & baja  & Detalles de forma (ruta de ejemplo, colores) & Ruta de \texttt{verificar\_manual.py}
-                   unificada \\
+                   unificada; colores sin cambios \\
+    \midrule
+    H-13 & baja  & Frase de la discusión e) sobre $\eta > 4{,}877$ & Explicada en el Anexo B; decisión
+                   del estudiante \\
+    H-14 & media & Validación humana prellenada por un agente, sin resultados & Pendiente del estudiante \\
+    H-15 & media & Actividad 2 sin registro manuscrito; hoja 2 reescrita & Declarado en el Anexo A \\
     \bottomrule
   \end{tabular}
 \end{table}

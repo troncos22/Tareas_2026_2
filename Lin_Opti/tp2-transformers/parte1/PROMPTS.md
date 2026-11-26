@@ -292,6 +292,18 @@ tal como se enviaron (los primeros, en inglés).
   estudiante, porque el repositorio es público.
 - **Delegaciones automáticas:** ninguna.
 
+#### Acciones derivadas de la revisión final del auditor (AU-02)
+- Al terminar la revisión final, esta sesión leyó `auditoria/verificaciones/informe_auditoria.md`
+  («Revisión final»: estado de H-01 a H-12 y hallazgos nuevos H-13 a H-15) y, sin prompt nuevo del
+  estudiante, actualizó `informe/informe.tex`:
+  - un resumen de la revisión final en la Actividad 5;
+  - el detalle y la tabla de hallazgos ampliada en el Anexo C;
+  - las cajas sobrellenas que quedaban de H-08, corregidas con `sloppypar` y una columna de ancho
+    fijo, hasta no dejar ninguna;
+  - el recuadro de validación humana, que ahora llega hasta H-15.
+- Commit en `main` con el informe y los archivos de la revisión final del auditor. Sin *push*,
+  hasta que el estudiante lo confirme.
+
 ## Parte 1 — Teoría
 
 Sesión de teoría: Claude Code (app de escritorio), modelo Claude Opus 5.5. Es una sesión nueva,
