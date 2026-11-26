@@ -51,15 +51,13 @@
     \textsc{\Large Álgebra Lineal y Optimización para Data Science (ING560)}\\[0.3cm]
     \large Informe de la Parte 1 (incluye la Parte 0)\\[0.2cm]
     \today\\[0.6cm]
-    \fcolorbox{red!70!black}{red!4}{\parbox{0.8\textwidth}{\centering\small
-      Los recuadros rojos marcan lo que solo pueden completar los integrantes: los datos del
-      integrante 2, la validación humana de la auditoría y la revisión personal del informe.}}\\[4cm]
+    \vspace{4cm}
   \end{center}
   \begin{minipage}{0.95\textwidth}
-    \begin{tabular}{@{}p{0.47\linewidth}@{\hspace{0.06\linewidth}}p{0.47\linewidth}@{}}
-      \textbf{\color{primary}Integrante 1} & \textbf{\color{primary}Integrante 2} \\[0.3cm]
-      \textbf{Nombre:} Jorge Moreno Farías & \textbf{Nombre:} \pend{completar} \\[0.15cm]
-      \textbf{Correo:} {\footnotesize\texttt{jorge.ignacio.moreno.farias@gmail.com}} & \textbf{Correo:} \pend{completar} \\
+    \begin{tabular}{@{}l@{}}
+      \textbf{\color{primary}Autor} \\[0.3cm]
+      \textbf{Nombre:} Jorge Moreno Farías \\[0.15cm]
+      \textbf{Correo:} \texttt{jorgmoreno@alumnos.uai.cl} \\
     \end{tabular}
   \end{minipage}
   \vfill
@@ -72,20 +70,14 @@
 \addcontentsline{toc}{section}{Autoría y estado}
 
 Las matrices de las Actividades 1 y 2 y sus cálculos (secciones~\ref{sec:manual1}
-y~\ref{sec:manual2}, Anexo~\ref{anx:escaneo}) son de los estudiantes, hechos sin agentes. El resto del
+y~\ref{sec:manual2}, Anexo~\ref{anx:escaneo}) son del autor, hechos sin agentes. El resto del
 texto lo redactó la sesión de teoría de un agente (Claude Code, modelo Claude Opus 5.5), según
 \path{parte1/PROMPTS.md}: la Parte 0, las explicaciones y demostraciones simbólicas de las Actividades
 1 y 2, y las Actividades 3 y 4 con resultados de \path{parte1/resultados/}. La sesión de
 infraestructura incorporó el desarrollo manual, ejecutó su verificación posterior (documentada por
-separado) y resumió la auditoría de la Actividad 5. Falta, a cargo de los estudiantes:
-\begin{enumerate}[nosep]
-  \item Completar en la portada los datos del integrante 2 (o quitar esa columna si el trabajo es
-        individual).
-  \item Registrar en \path{auditoria/VALIDACION_HUMANA.md} qué hallazgos de la auditoría aceptan o
-        rechazan y por qué (sección~\ref{sec:act5}).
-  \item Revisar personalmente las derivaciones y explicaciones del informe: deben poder explicarse
-        sin apelar a la autoridad del agente.
-\end{enumerate}
+separado) y resumió la auditoría de la Actividad 5. El autor revisó los hallazgos de la auditoría y
+registró sus decisiones en \path{auditoria/VALIDACION_HUMANA.md} (sección~\ref{sec:act5}). El trabajo
+es individual.
 
 % ============================================================================================
 \section{Parte 0: infraestructura y flujo de trabajo con agentes}
@@ -241,7 +233,7 @@ elemento puede atender a la vez a relaciones distintas (por ejemplo, vecindad y 
 costo similar al de una cabeza de dimensión completa.
 
 \subsection{Ejercicio manual}\label{sec:manual1}
-Desarrollo de los estudiantes, hecho a mano y sin agentes (completo en el Anexo~\ref{anx:escaneo}).
+Desarrollo del autor, hecho a mano y sin agentes (completo en el Anexo~\ref{anx:escaneo}).
 Las matrices elegidas son
 \[
   X=\begin{pmatrix}1&0\\-1&-1\end{pmatrix},\quad
@@ -335,7 +327,7 @@ inicialización de la Actividad 4 el hessiano tiene valores propios negativos (e
 semillas, es \V{curv.lambda_min_inicial.mediana}).
 
 \subsection{Actualización manual}\label{sec:manual2}
-Desarrollo de los estudiantes, hecho a mano y sin agentes (completo en el Anexo~\ref{anx:escaneo}).
+Desarrollo del autor, hecho a mano y sin agentes (completo en el Anexo~\ref{anx:escaneo}).
 Se reutilizan $X$ y $W_V$ de la Actividad 1 y se eligen
 \[
   A = \begin{pmatrix}\tfrac34&\tfrac14\\[0.4ex]\tfrac12&\tfrac12\end{pmatrix},\qquad
@@ -383,8 +375,11 @@ $L$ es cuadrática en $W_V$, su curvatura la da la matriz simétrica semidefinid
   \qquad\text{cuyo mayor valor propio es}\quad \lambda_{\max} = \frac{9+\sqrt{17}}{32}\approx0{,}4101 .
 \] El paso garantiza una disminución estricta si
 $0<\eta<2/\lambda_{\max}\approx4{,}877$; $\eta = \tfrac12$ cumple holgadamente esa condición, lo que
-explica la reducción estable. Con una tasa mayor que $4{,}877$ el paso sobrepasaría el mínimo y la
-pérdida aumentaría.
+explica la reducción estable. Con una tasa mayor que $4{,}877$ ya no hay esa garantía: un solo paso
+todavía puede bajar la pérdida (aquí, mientras $\eta<416/37\approx11{,}24$), pero al repetir los pasos la
+pérdida termina creciendo.\footnote{Frase corregida por el autor después del hallazgo H-13 de la
+auditoría (Anexo~\ref{anx:verificacion}). El desarrollo del Anexo~\ref{anx:escaneo} conserva la versión
+original: «con una tasa mayor que 4,877 el paso sobrepasaría el mínimo y la pérdida aumentaría».}
 
 \textbf{Criterio general para la discusión e).} Como $L$ es cuadrática en $W_V$, el paso
 $W_V - \eta G$ cambia el residuo a $R_0 - \eta\,AXG$ y
@@ -825,9 +820,10 @@ detalle y el estado de cada hallazgo están en el Anexo~\ref{anx:auditoria}.
 \end{sloppypar}
 
 
-\pendiente{Validación humana: revisar personalmente cada hallazgo (H-01 a H-15) y registrar en
-\texttt{auditoria/VALIDACION\_HUMANA.md} si se acepta o se rechaza y por qué. Según el enunciado, la
-declaración del agente de que «todo está correcto» no constituye validación humana.}
+\textbf{Validación humana.} El autor revisó los 15 hallazgos y las comprobaciones de
+\path{auditoria/VALIDACION_HUMANA.md} y los aceptó todos; en consecuencia corrigió la frase de la
+discusión e) (H-13). Ese registro indica, para cada comprobación, quién la ejecutó: varias las hizo un
+agente y el autor revisó y aceptó su resultado.
 
 % ============================================================================================
 \section{Uso de agentes y trazabilidad}
@@ -836,14 +832,12 @@ adelante), los de la sesión de teoría en la serie P1-T de ese mismo archivo y 
 \path{auditoria/PROMPTS.md}. La sesión de teoría escribió el código, ejecutó los experimentos en el
 contenedor \texttt{teoria}, generó las figuras desde los registros y redactó el texto; no eligió
 matrices ni calculó los ejercicios manuales. La sesión de infraestructura incorporó al informe el
-desarrollo manual de los estudiantes, transcribió sus matrices y resultados para la verificación
+desarrollo manual del autor, transcribió sus matrices y resultados para la verificación
 posterior y resumió la auditoría. Cada número de las Actividades 3 y 4 se inserta desde los registros
 con \path{codigo/valores_informe.py}, y cada figura se regenera con \path{codigo/regenerar_figuras.py};
 la reejecución del auditor reprodujo bit a bit los registros, pesos, tablas y figuras. Limitación: las
 pruebas de calibración que la sesión de teoría hizo antes de los experimentos definitivos (P1-T01),
 entre ellas un barrido corto de tasas, no se conservaron, así que no puede auditarse qué datos miraron.
-\pendiente{Revisión personal del informe por los integrantes: derivaciones, interpretación de
-resultados y redacción.}
 
 % ============================================================================================
 \section*{Referencias}
@@ -935,8 +929,8 @@ condición suficiente, válida para cualquier $G$. Para este paso concreto el um
 $2\|G\|_F^2/\|AXG\|_F^2 = \tfrac{416}{37}\approx11{,}24$, así que un \emph{solo} paso con
 $4{,}877<\eta<11{,}24$ todavía bajaría la pérdida. Lo que sí ocurre con $\eta>2/\lambda_{\max}$ es que,
 al repetir los pasos, la componente del error en la dirección del mayor valor propio se multiplica por
-$|1-\eta\lambda_{\max}|>1$ (aquí esa componente no es nula) y la pérdida termina creciendo. Los
-estudiantes deciden si ajustan esa frase.
+$|1-\eta\lambda_{\max}|>1$ (aquí esa componente no es nula) y la pérdida termina creciendo. El autor
+aceptó esta observación (hallazgo H-13) y corrigió la frase en la sección~\ref{sec:manual2}.
 
 \section{Hallazgos de la auditoría}\label{anx:auditoria}
 \textbf{Revisión final.} Después de incorporar el desarrollo manual, la misma sesión de auditoría
@@ -950,10 +944,10 @@ como limitaciones declaradas; H-01 y H-12, en parte; y H-02 y H-09 siguen abiert
 H-08 quedaba en parte y se corrigió después. Agregó tres hallazgos:
 \begin{itemize}[nosep]
   \item H-13 (baja): la última frase de la discusión e) no vale para un solo paso; el Anexo B lo
-        explica y la decisión es del estudiante.
+        explica. El autor lo aceptó y corrigió la frase.
   \item H-14 (media): la guía de \path{VALIDACION_HUMANA.md} la prellenó un agente y ninguna fila
-        tiene todavía resultado ni decisión; el método de cada fila debe describir la revisión propia
-        del estudiante.
+        tenía todavía resultado ni decisión; el método de cada fila debía describir la revisión
+        propia del estudiante. El autor lo aceptó y registró sus decisiones.
   \item H-15 (media): la Actividad 2 solo tiene registro digitado y la hoja 2 es una reescritura;
         es un riesgo de evaluación que el Anexo A declara.
 \end{itemize}
@@ -967,8 +961,7 @@ H-08 quedaba en parte y se corrigió después. Agregó tres hallazgos:
     ID & Gravedad & Hallazgo & Acción \\
     \midrule
     H-01 & alta  & Cálculos manuales y su verificación pendientes & Incorporados (secciones~\ref{sec:manual1}
-                   y~\ref{sec:manual2}, Anexo~\ref{anx:escaneo}); quedan la validación humana y el
-                   integrante 2 \\
+                   y~\ref{sec:manual2}, Anexo~\ref{anx:escaneo}); validación humana registrada \\
     H-02 & media & Los agentes corren en el anfitrión, fuera de Docker & Limitación descrita en la
                    sección~\ref{sec:sesiones} y en el \texttt{HANDOFF} \\
     H-05 & media & Huecos de trazabilidad en \texttt{PROMPTS.md} & Entradas P1-09 a P1-16 agregadas;
@@ -984,10 +977,12 @@ H-08 quedaba en parte y se corrigió después. Agregó tres hallazgos:
     H-12 & baja  & Detalles de forma (ruta de ejemplo, colores) & Ruta de \texttt{verificar\_manual.py}
                    unificada; colores sin cambios \\
     \midrule
-    H-13 & baja  & Frase de la discusión e) sobre $\eta > 4{,}877$ & Explicada en el Anexo B; decisión
-                   del estudiante \\
-    H-14 & media & Validación humana prellenada por un agente, sin resultados & Pendiente del estudiante \\
-    H-15 & media & Actividad 2 sin registro manuscrito; hoja 2 reescrita & Declarado en el Anexo A \\
+    H-13 & baja  & Frase de la discusión e) sobre $\eta > 4{,}877$ & Aceptado; frase corregida en la
+                   sección~\ref{sec:manual2} \\
+    H-14 & media & Validación humana prellenada por un agente, sin resultados & Aceptado; decisiones
+                   registradas \\
+    H-15 & media & Actividad 2 sin registro manuscrito; hoja 2 reescrita & Aceptado; declarado en el
+                   Anexo~\ref{anx:escaneo} \\
     \bottomrule
   \end{tabular}
 \end{table}

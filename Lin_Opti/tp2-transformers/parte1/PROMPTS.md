@@ -316,6 +316,34 @@ tal como se enviaron (los primeros, en inglés).
   aceptó que eso incluye su correo, las fotos del desarrollo manual y la solución completa.
 - **Delegaciones automáticas:** ninguna.
 
+### P1-18 — 2026-11-25
+- **Herramienta / modelo:** Claude Code (app de escritorio), Claude Opus 5.5
+- **Sesión:** infraestructura (continuación)
+- **Propósito:** registrar las decisiones del estudiante sobre la validación humana, dejar el
+  informe como trabajo individual y usar el correo institucional.
+- **Prompt (literal):**
+  > todas las desiciones se aceptaron, no hay integrante N°2 correo institucional de jorge jorgmoreno@alumnos.uai.cl
+- **Archivos / comandos / resultados asociados:**
+  - En `auditoria/VALIDACION_HUMANA.md`:
+    - la decisión de las 39 filas es «Aceptado», según lo indicado por el estudiante;
+    - la columna «Resultado» resume lo que muestra cada evidencia, transcrito por esta sesión
+      desde los archivos citados (la nota inicial lo aclara);
+    - se agregaron los hallazgos H-13 a H-15 de la revisión final, con fecha 25/noviembre/2026, en
+      que se informaron.
+  - En `parte1/informe/informe.tex`:
+    - portada de autor único (Jorge Moreno Farías, `jorgmoreno@alumnos.uai.cl`), sin integrante 2;
+    - el texto pasa de «los estudiantes» a «el autor»;
+    - sin recuadros de pendientes;
+    - la Actividad 5 registra que el autor aceptó los 15 hallazgos;
+    - por H-13, aceptado, se corrigió la última frase de la discusión e) en la sección 3.3, con una
+      nota al pie que conserva la frase original;
+    - los Anexos B y C se actualizaron.
+  - En `parte2/presentacion/presentacion.tex`: autor único. Sigue marcada la fecha de la
+    presentación.
+  - Commit en `main` y *push* a `origin/main`. El correo personal sigue en el historial de git ya
+    publicado.
+- **Delegaciones automáticas:** ninguna.
+
 ## Parte 1 — Teoría
 
 Sesión de teoría: Claude Code (app de escritorio), modelo Claude Opus 5.5. Es una sesión nueva,
