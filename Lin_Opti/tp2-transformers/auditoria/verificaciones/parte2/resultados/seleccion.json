@@ -1,0 +1,56 @@
+{
+  "criterio": "mayor F1 medio de spam en validación al final del presupuesto; empate -> menor pérdida media de validación",
+  "configuracion": "adamw_lr0.01",
+  "optimizador": "adamw",
+  "lr": 0.01,
+  "semillas": [
+    0,
+    1,
+    2
+  ],
+  "f1_validacion_media": 0.9264226454520501,
+  "perdida_validacion_media": 0.0637652762234211,
+  "corridas": [
+    "transformer_adamw_lr0.01_s0",
+    "transformer_adamw_lr0.01_s1",
+    "transformer_adamw_lr0.01_s2"
+  ],
+  "ranking": [
+    {
+      "configuracion": "adamw_lr0.01",
+      "f1_validacion_mean": 0.9264226454520501,
+      "perdida_validacion_mean": 0.0637652762234211
+    },
+    {
+      "configuracion": "adamw_lr0.001",
+      "f1_validacion_mean": 0.9110621796015054,
+      "perdida_validacion_mean": 0.07238149518767993
+    },
+    {
+      "configuracion": "sgd_lr0.1",
+      "f1_validacion_mean": 0.8413784178850943,
+      "perdida_validacion_mean": 0.11201761662960052
+    },
+    {
+      "configuracion": "sgd_lr0.01",
+      "f1_validacion_mean": 0.6195280238860748,
+      "perdida_validacion_mean": 0.19612615803877512
+    },
+    {
+      "configuracion": "adamw_lr0.0001",
+      "f1_validacion_mean": 0.0,
+      "perdida_validacion_mean": 0.27462346355120343
+    },
+    {
+      "configuracion": "sgd_lr1",
+      "f1_validacion_mean": 0.0,
+      "perdida_validacion_mean": NaN
+    }
+  ],
+  "ablacion_promedio": {
+    "parametros_entrenables": 203969,
+    "f1_validacion_media": 0.95774364657058,
+    "f1_validacion_desviacion": 0.018955880138148033,
+    "perdida_validacion_media": 0.03786930193503698
+  }
+}

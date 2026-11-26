@@ -14,6 +14,7 @@
 \setlist[itemize]{label=-}
 \usepackage{booktabs}
 \usepackage{graphicx}
+\usepackage{pdfpages}
 \usepackage{float}
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage{xcolor}
@@ -50,9 +51,9 @@
     \textsc{\Large Álgebra Lineal y Optimización para Data Science (ING560)}\\[0.3cm]
     \large Informe de la Parte 1 (incluye la Parte 0)\\[0.2cm]
     \today\\[0.6cm]
-    \fcolorbox{red!70!black}{red!4}{\parbox{0.8\textwidth}{\centering\small\textbf{Borrador.}
-      Los recuadros rojos marcan lo que falta: los cálculos manuales de las Actividades 1 y 2, su
-      escaneo, su verificación posterior y la auditoría de la Actividad 5.}}\\[4cm]
+    \fcolorbox{red!70!black}{red!4}{\parbox{0.8\textwidth}{\centering\small
+      Los recuadros rojos marcan lo que solo pueden completar los integrantes: sus nombres, la
+      validación humana de la auditoría y la revisión personal del informe.}}\\[4cm]
   \end{center}
   \begin{minipage}{0.95\textwidth}
     \begin{tabular}{@{}p{0.47\linewidth}@{\hspace{0.06\linewidth}}p{0.47\linewidth}@{}}
@@ -67,26 +68,23 @@
 
 \tableofcontents
 
-\section*{Estado del borrador}
-\addcontentsline{toc}{section}{Estado del borrador}
+\section*{Autoría y estado}
+\addcontentsline{toc}{section}{Autoría y estado}
 
-Este borrador lo preparó la sesión de teoría de un agente (Claude Code, modelo Claude Opus 5.5),
-según el registro de \path{parte1/PROMPTS.md}. Contiene la Parte 0, las explicaciones conceptuales y
-las demostraciones simbólicas de las Actividades 1 y 2, y las Actividades 3 y 4 con resultados reales
-de los registros de \path{parte1/resultados/}. Ningún agente eligió las matrices de las Actividades 1
-y 2 ni hizo esos cálculos. Falta, a cargo de los estudiantes:
+Las matrices de las Actividades 1 y 2 y sus cálculos (secciones~\ref{sec:manual1}
+y~\ref{sec:manual2}, Anexo~\ref{anx:escaneo}) son de los estudiantes, hechos sin agentes. El resto del
+texto lo redactó la sesión de teoría de un agente (Claude Code, modelo Claude Opus 5.5), según
+\path{parte1/PROMPTS.md}: la Parte 0, las explicaciones y demostraciones simbólicas de las Actividades
+1 y 2, y las Actividades 3 y 4 con resultados de \path{parte1/resultados/}. La sesión de
+infraestructura incorporó el desarrollo manual, ejecutó su verificación posterior (documentada por
+separado) y resumió la auditoría de la Actividad 5. Falta, a cargo de los estudiantes:
 \begin{enumerate}[nosep]
-  \item Actividad 1: elegir $X, W_Q, W_K, W_V$, calcular a mano $Q, K, V, S, A, H$ y escanearlo
-        (sección~\ref{sec:manual1} y Anexo~\ref{anx:escaneo}).
-  \item Actividad 2: elegir $A$ y $T$ y calcular a mano $H_0, L_0, G, W_V^{(1)}, H_1, L_1$
-        (sección~\ref{sec:manual2}).
-  \item La verificación posterior de ambos cálculos con \path{codigo/verificar_manual.py},
-        documentada por separado.
-  \item La Actividad 5 (auditoría independiente y validación humana) y guardar en
-        \path{auditoria/verificaciones/} el registro de las pruebas de aislamiento posteriores a la
-        recreación de los contenedores (sección~\ref{sec:incidente}).
-  \item Revisar personalmente las derivaciones y explicaciones de este borrador: deben poder
-        explicarse sin apelar a la autoridad del agente.
+  \item Completar los nombres de la portada e identificar con su autor el desarrollo manual del
+        Anexo~\ref{anx:escaneo}.
+  \item Registrar en \path{auditoria/VALIDACION_HUMANA.md} qué hallazgos de la auditoría aceptan o
+        rechazan y por qué (sección~\ref{sec:act5}).
+  \item Revisar personalmente las derivaciones y explicaciones del informe: deben poder explicarse
+        sin apelar a la autoridad del agente.
 \end{enumerate}
 
 % ============================================================================================
@@ -116,6 +114,7 @@ desde una sola imagen, \texttt{tp2-transformers:py3.13-torch2.15}. Su \path{Dock
   \end{tabular}
 \end{table}
 
+\begin{sloppypar}
 Los tres servicios comparten la configuración de seguridad: \texttt{privileged: false},
 \texttt{cap\_drop: [ALL]}, \texttt{no-new-privileges:true} e \texttt{init: true}. Ninguno monta el
 directorio personal, claves de API ni \texttt{/var/run/docker.sock}. \texttt{teoria} y
@@ -125,6 +124,7 @@ archivos de infraestructura (\path{compose.yaml}, \path{Dockerfile}, \path{requi
 \texttt{practica} tiene salida a Internet, por si la Parte 2 necesita descargar datos. Los comandos
 para construir, iniciar y ejecutar cada entorno (\texttt{docker compose build}, \texttt{up -d},
 \texttt{exec <servicio> ...}) están en \path{README.md} y en el Anexo~\ref{anx:comandos}.
+\end{sloppypar}
 
 \subsection{Pruebas de aislamiento}
 El script \path{scripts/verificar_aislamiento.sh} ejecuta las pruebas de la sección 2.5 del
@@ -145,10 +145,10 @@ enunciado y deja su registro en \path{auditoria/verificaciones/}. En la ejecuci�
         \texttt{docker.sock} ni el directorio personal. \texttt{teoria} y \texttt{auditoria} no
         tienen red (\texttt{Network is unreachable}).
 \end{enumerate}
-El punto 5 de la sección 2.5 (auditor en sesión independiente que escribe en su carpeta) se cumple
-con la Actividad 5, todavía pendiente.
+El punto 5 de la sección 2.5 (auditor en sesión independiente que escribe en su carpeta) se cumplió
+con la sesión de auditoría de la Actividad 5 (sección~\ref{sec:act5}).
 
-\subsection{Sesiones de agentes y limitaciones}
+\subsection{Sesiones de agentes y limitaciones}\label{sec:sesiones}
 Se usó Claude Code (aplicación de escritorio, modelo Claude Opus 5.5) en sesiones separadas: una de
 infraestructura (Parte 0), una de teoría (este borrador), una de práctica (Parte 2) y, después, una
 sesión nueva e independiente de auditoría que no comparte la conversación de desarrollo. Los prompts
@@ -169,11 +169,10 @@ ejecutar código. La sesión de infraestructura recreó los contenedores con
 \texttt{docker compose up -d --force-recreate} a partir de la misma imagen (según
 \texttt{docker inspect}, la imagen es de las 02:00 y los contenedores nuevos de las 02:49 del
 23-11-2026) e informó que \texttt{scripts/verificar\_aislamiento.sh} volvió a pasar 52 de 52 pruebas.
-Todos los resultados de este informe se obtuvieron después de la recreación.
-\pendiente{El registro de esa nueva ejecución no está en \texttt{auditoria/verificaciones/} (solo
-está el de las 02:08, anterior a la recreación). Repetir
-\texttt{scripts/verificar\_aislamiento.sh}, conservar su registro en \texttt{auditoria/verificaciones/}
-y citarlo aquí.}
+Todos los resultados de este informe se obtuvieron después de la recreación. El registro de esa
+ejecución no se guardó en el proyecto; la sesión de auditoría repitió las pruebas sobre los
+contenedores recreados y su registro, \path{auditoria/verificaciones/aislamiento_20261123_063334.log},
+también da 52 pruebas aprobadas y 0 fallidas.
 
 % ============================================================================================
 \section{Actividad 1: atención y operaciones matriciales}
@@ -196,7 +195,7 @@ $AV$ multiplica $(n\times n)(n\times d_v)$: las $n$ columnas de $A$ (una por cla
 las $n$ filas de $V$ (un valor por clave). La salida $H\in\R^{n\times d_v}$ tiene una fila por
 elemento, como $X$.
 
-\subsection{Productos internos, softmax y combinaciones ponderadas}
+\subsection{Productos internos, softmax y combinaciones ponderadas}\label{sec:productos}
 \textbf{Productos internos.} $S_{ij} = q_i\cdot k_j/\sqrt{d_k}
 = \|q_i\|\,\|k_j\|\cos\theta_{ij}/\sqrt{d_k}$ es grande cuando la consulta $i$ y la clave $j$
 apuntan en direcciones parecidas: mide la compatibilidad entre los elementos. Equivale a la forma
@@ -240,23 +239,50 @@ elemento puede atender a la vez a relaciones distintas (por ejemplo, vecindad y 
 costo similar al de una cabeza de dimensión completa.
 
 \subsection{Ejercicio manual}\label{sec:manual1}
-\pendiente{Elegir $X, W_Q, W_K, W_V\in\{-1,0,1\}^{2\times2}$ que cumplan las restricciones a)--d) de
-la sección 3.2 (ninguna nula ni identidad, $\det X\neq0$, alguna fila de $S$ con puntajes distintos)
-y justificar que se cumplen. Calcular a mano y paso a paso $Q, K, V$, $QK^\top$,
-$S = QK^\top/\sqrt2$, $A = \operatorname{softmax}_{\text{filas}}(S)$ (con exponenciales exactas y,
-si se quiere, decimales) y $H = AV$, mostrando cada multiplicación. Incluir el escaneo legible e
-identificado por su autor en el Anexo~\ref{anx:escaneo}.}
+Desarrollo de los estudiantes, hecho a mano y sin agentes (completo en el Anexo~\ref{anx:escaneo}).
+Las matrices elegidas son
+\[
+  X=\begin{pmatrix}1&0\\-1&-1\end{pmatrix},\quad
+  W_Q=\begin{pmatrix}0&1\\1&0\end{pmatrix},\quad
+  W_K=\begin{pmatrix}0&-1\\-1&0\end{pmatrix},\quad
+  W_V=\begin{pmatrix}0&-1\\1&0\end{pmatrix}.
+\]
+Cumplen las restricciones: a) todas las entradas están en $\{-1,0,1\}$; b) ninguna es la matriz
+nula ni la identidad; c) $\det X = -1\neq0$; d) las dos filas de $S$ tienen puntajes distintos
+(abajo). Las proyecciones son
+\[
+  Q = XW_Q = \begin{pmatrix}0&1\\-1&-1\end{pmatrix},\qquad
+  K = XW_K = \begin{pmatrix}0&-1\\1&1\end{pmatrix},\qquad
+  V = XW_V = \begin{pmatrix}0&-1\\-1&1\end{pmatrix}.
+\]
+\textbf{Puntajes.} Con $K^\top = \begin{pmatrix}0&1\\-1&1\end{pmatrix}$, entrada por entrada,
+\begin{gather*}
+  QK^\top = \begin{pmatrix}(0)(0)+(1)(-1) & (0)(1)+(1)(1)\\ (-1)(0)+(-1)(-1) & (-1)(1)+(-1)(1)\end{pmatrix}
+  = \begin{pmatrix}-1&1\\1&-2\end{pmatrix},\\
+  S = \frac{QK^\top}{\sqrt2} = \begin{pmatrix}-\tfrac1{\sqrt2}&\tfrac1{\sqrt2}\\[0.4ex] \tfrac1{\sqrt2}&-\sqrt2\end{pmatrix}
+  \approx \begin{pmatrix}-0{,}7071&0{,}7071\\0{,}7071&-1{,}4142\end{pmatrix}.
+\end{gather*}
+\textbf{Softmax por filas.} En la fila 1 se multiplican numerador y denominador por $e^{1/\sqrt2}$, y en
+la fila 2 por $e^{\sqrt2}$, usando $\tfrac1{\sqrt2}+\sqrt2 = \tfrac3{\sqrt2}$; con
+$e^{\sqrt2}\approx4{,}11325$ y $e^{3/\sqrt2}\approx8{,}34214$:
+\[
+  A = \begin{pmatrix}\dfrac{1}{1+e^{\sqrt2}} & \dfrac{e^{\sqrt2}}{1+e^{\sqrt2}}\\[2ex]
+                     \dfrac{e^{3/\sqrt2}}{1+e^{3/\sqrt2}} & \dfrac{1}{1+e^{3/\sqrt2}}\end{pmatrix}
+  \approx \begin{pmatrix}0{,}1956&0{,}8044\\0{,}8930&0{,}1070\end{pmatrix},
+\]
+y cada fila suma $1{,}0000$.
 
-\textbf{Verificación posterior (separada del desarrollo manual).} Solo después de terminar el
-desarrollo a mano se usa \path{codigo/verificar_manual.py} (instrucciones en
-\path{parte1/README.md}). El script comprueba las restricciones a)--d), calcula los mismos
-resultados con fracciones exactas y expresiones exactas para el softmax, y compara cada valor
-manual que se le entregue. Sus pruebas (\path{codigo/test_verificar_manual.py}) lo contrastan con
-cálculos independientes en numpy en cientos de ensayos aleatorios, sin guardar ni imprimir
-matrices.
-\pendiente{Ejecutar la verificación, incluir aquí su informe
-(\texttt{resultados/verificacion\_manual/verificacion\_actividades\_1\_2.md}), comentar cualquier
-discrepancia y registrarla en \texttt{auditoria/VALIDACION\_HUMANA.md}.}
+\textbf{Salida.}
+\[
+  H = AV = \begin{pmatrix}-A_{12} & A_{12}-A_{11}\\ -A_{22} & A_{22}-A_{21}\end{pmatrix}
+  = \begin{pmatrix}-\dfrac{e^{\sqrt2}}{1+e^{\sqrt2}} & \dfrac{e^{\sqrt2}-1}{1+e^{\sqrt2}}\\[2ex]
+                   -\dfrac{1}{1+e^{3/\sqrt2}} & \dfrac{1-e^{3/\sqrt2}}{1+e^{3/\sqrt2}}\end{pmatrix}
+  \approx \begin{pmatrix}-0{,}8044&0{,}6089\\-0{,}1070&-0{,}7859\end{pmatrix}.
+\]
+
+\textbf{Verificación posterior.} Después de terminado el desarrollo, se contrastó con
+\path{codigo/verificar_manual.py}: se cumplen las restricciones a)--d) y coinciden todos los valores.
+La verificación, documentada por separado, está en el Anexo~\ref{anx:verificacion}.
 
 % ============================================================================================
 \section{Actividad 2: gradiente y actualización de pesos}
@@ -307,11 +333,56 @@ inicialización de la Actividad 4 el hessiano tiene valores propios negativos (e
 semillas, es \V{curv.lambda_min_inicial.mediana}).
 
 \subsection{Actualización manual}\label{sec:manual2}
-\pendiente{Reutilizar $X$ y $W_V$ de la Actividad 1 y elegir $A\in\{\tfrac14,\tfrac12,\tfrac34\}^{2\times2}$
-(filas que suman 1 y distintas) y $T\in\{-1,0,1\}^{2\times2}$ (ni nula ni identidad). Calcular a mano:
-a) $H_0 = AXW_V$ y $L_0 = \tfrac12\|H_0-T\|_F^2$; b) $G = X^\top A^\top(AXW_V - T)$;
-c) $W_V^{(1)} = W_V - \tfrac12 G$; d) $H_1 = AXW_V^{(1)}$ y $L_1$; e) discutir si la pérdida
-disminuyó, usando el criterio de abajo con sus propias matrices.}
+Desarrollo de los estudiantes, hecho a mano y sin agentes (completo en el Anexo~\ref{anx:escaneo}).
+Se reutilizan $X$ y $W_V$ de la Actividad 1 y se eligen
+\[
+  A = \begin{pmatrix}\tfrac34&\tfrac14\\[0.4ex]\tfrac12&\tfrac12\end{pmatrix},\qquad
+  T = \begin{pmatrix}-1&0\\1&-1\end{pmatrix}:
+\]
+$A$ tiene entradas positivas en $\{\tfrac14,\tfrac12,\tfrac34\}$ y filas distintas que suman 1, y $T$
+tiene entradas en $\{-1,0,1\}$ y no es nula ni la identidad. Como paso auxiliar se calcula
+\[
+  M = AX = \begin{pmatrix}\frac12&-\frac14\\[0.3ex]0&-\frac12\end{pmatrix},
+  \qquad\text{de modo que } H = MW_V \text{ y } X^\top A^\top = M^\top .
+\]
+\textbf{a)} Salida, error y pérdida iniciales:
+\[
+  H_0 = MW_V = \begin{pmatrix}-\frac14&-\frac12\\[0.3ex]-\frac12&0\end{pmatrix},\qquad
+  E_0 = H_0 - T = \begin{pmatrix}\frac34&-\frac12\\[0.3ex]-\frac32&1\end{pmatrix},\qquad
+  L_0 = \tfrac12\Big(\tfrac9{16}+\tfrac4{16}+\tfrac{36}{16}+\tfrac{16}{16}\Big) = \tfrac{65}{32} = 2{,}03125 .
+\]
+\textbf{b)} Gradiente:
+\begin{align*}
+  G = M^\top E_0
+  &= \begin{pmatrix}\frac12&0\\[0.3ex]-\frac14&-\frac12\end{pmatrix}
+     \begin{pmatrix}\frac34&-\frac12\\[0.3ex]-\frac32&1\end{pmatrix}
+   = \begin{pmatrix}\frac12\cdot\frac34+0 & \frac12\big(-\frac12\big)+0\\[0.5ex]
+                    -\frac14\cdot\frac34+\big(-\frac12\big)\big(-\frac32\big) & -\frac14\big(-\frac12\big)+\big(-\frac12\big)(1)\end{pmatrix}\\
+  &= \begin{pmatrix}\frac38&-\frac14\\[0.3ex]\frac9{16}&-\frac38\end{pmatrix}.
+\end{align*}
+\textbf{c)} Actualización con $\eta=\tfrac12$:
+\[
+  W_V^{(1)} = W_V - \tfrac12G
+  = \begin{pmatrix}0&-1\\1&0\end{pmatrix} - \begin{pmatrix}\frac3{16}&-\frac18\\[0.3ex]\frac9{32}&-\frac3{16}\end{pmatrix}
+  = \begin{pmatrix}-\frac3{16}&-\frac78\\[0.3ex]\frac{23}{32}&\frac3{16}\end{pmatrix}.
+\]
+\textbf{d)} Nueva salida, nuevo error y nueva pérdida, con denominador común $128^2 = 16384$:
+\begin{gather*}
+  H_1 = MW_V^{(1)} = \begin{pmatrix}-\frac{35}{128}&-\frac{31}{64}\\[0.3ex]-\frac{23}{64}&-\frac3{32}\end{pmatrix},\qquad
+  E_1 = H_1 - T = \begin{pmatrix}\frac{93}{128}&-\frac{31}{64}\\[0.3ex]-\frac{87}{64}&\frac{29}{32}\end{pmatrix},\\
+  \|E_1\|_F^2 = \frac{93^2+62^2+174^2+116^2}{16384} = \frac{8649+3844+30276+13456}{16384} = \frac{56225}{16384},
+  \qquad L_1 = \frac{56225}{32768}\approx 1{,}71585 .
+\end{gather*}
+\textbf{e)} La pérdida bajó de $L_0 = 2{,}03125$ a $L_1\approx1{,}71585$: $\Delta L = -\tfrac{10335}{32768}
+\approx -0{,}31540$, cerca de un 15,53\,\%. El descenso no está garantizado para cualquier $\eta>0$. Como
+$L$ es cuadrática en $W_V$, su curvatura la da la matriz simétrica semidefinida positiva
+\[
+  M^\top M = \begin{pmatrix}\frac14&-\frac18\\[0.3ex]-\frac18&\frac5{16}\end{pmatrix},
+  \qquad\text{cuyo mayor valor propio es}\quad \lambda_{\max} = \frac{9+\sqrt{17}}{32}\approx0{,}4101 .
+\] El paso garantiza una disminución estricta si
+$0<\eta<2/\lambda_{\max}\approx4{,}877$; $\eta = \tfrac12$ cumple holgadamente esa condición, lo que
+explica la reducción estable. Con una tasa mayor que $4{,}877$ el paso sobrepasaría el mínimo y la
+pérdida aumentaría.
 
 \textbf{Criterio general para la discusión e).} Como $L$ es cuadrática en $W_V$, el paso
 $W_V - \eta G$ cambia el residuo a $R_0 - \eta\,AXG$ y
@@ -324,6 +395,11 @@ $AXG\neq0$, la pérdida baja si y solo si $0<\eta<2\|G\|_F^2/\|AXG\|_F^2$. Una c
 válida para cualquier $G$, es $\eta < 2/\sigma_{\max}(AX)^2$, con $\sigma_{\max}$ el mayor valor
 singular. Ninguna tasa fija garantiza el descenso para todas las matrices: depende de la curvatura
 $(AX)^\top AX$ del problema elegido. La Actividad 4 muestra el mismo fenómeno en el entrenamiento.
+
+\textbf{Verificación posterior.} El contraste posterior con \path{codigo/verificar_manual.py}
+confirma $H_0$, $L_0$, $G$, $W_V^{(1)}$, $H_1$ y $L_1$ con fracciones exactas, y una comprobación
+adicional confirma $\lambda_{\max}$ y la cota de e) (Anexo~\ref{anx:verificacion}, que también comenta
+la última frase de e)).
 
 \subsection{Derivada del softmax}
 Sea $a = \operatorname{softmax}(s)\in\R^n$, con $a_i = e^{s_i}/Z$ y $Z = \sum_\ell e^{s_\ell}$, de modo
@@ -339,7 +415,7 @@ positivo y con $J(a)\mathbf 1 = 0$ (sumar una constante a $s$ no cambia $a$). Su
 más $1/4$ y tienden a cero cuando $a$ se acerca a un vector canónico: un softmax saturado casi no
 transmite gradiente, otro motivo para el factor $1/\sqrt{d_k}$.
 
-\subsection{Dependencia de la pérdida respecto de $W_Q$ y $W_K$}
+\subsection{Dependencia de la pérdida respecto de $W_Q$ y $W_K$}\label{sec:dependencia}
 La pérdida depende de $W_Q$ y $W_K$ a través de la cadena
 $W_Q, W_K \to Q, K \to S \to A \to H \to L$. Con $G_H = \partial L/\partial H = R$ (para
 $L = \tfrac12\|H-T\|_F^2$), la regla de la cadena da, de atrás hacia adelante:
@@ -361,14 +437,12 @@ de $W_Q$ y $W_K$ se anula. Además $L$ solo depende de $W_QW_K^\top$, por lo que
 $W_KR^{-\top}$ dan la misma pérdida para toda $R$ invertible: hay direcciones planas, que se miden en
 la Actividad 3. Esta cadena es la que calcula autograd en modo reverso; la prueba de diferencias
 finitas de la Actividad 3 la contrasta numéricamente.
-\pendiente{Verificación posterior de la Actividad 2 con \texttt{verificar\_manual.py} (incluye una
-comprobación de $G$ por diferencias centrales exactas con fracciones), separada del desarrollo manual
-y registrada en \texttt{auditoria/VALIDACION\_HUMANA.md}.}
 
 % ============================================================================================
 \section{Actividad 3: implementación y entrenamiento controlado}
 
 \subsection{Implementación}
+\begin{sloppypar}
 La cabeza está en \path{codigo/atencion.py} (función \texttt{cabeza\_atencion}) y calcula cada
 cantidad con operaciones explícitas de PyTorch: \texttt{Q = X @ W\_Q}, \texttt{K = X @ W\_K},
 \texttt{V = X @ W\_V}, \texttt{S = Q @ K.transpose(-2,-1) / sqrt(d\_k)}, el softmax por filas escrito
@@ -377,6 +451,7 @@ a mano y \texttt{H = A @ V}. No se usan \texttt{nn.MultiheadAttention},
 fila antes de \texttt{exp}, lo que no cambia el resultado (el factor $e^{-m_i}$ se cancela) y evita
 desbordes; como $A$ no depende de ese máximo, se separa del grafo con \texttt{detach}. Autograd
 calcula los gradientes de $W_Q, W_K, W_V$.
+\end{sloppypar}
 
 \begin{table}[H]
   \centering\small
@@ -500,7 +575,7 @@ $W_Q$ no se recupera: su error relativo frente a $W_Q^*$ es
 \V{a3.comparacion_profesor.error_relativo_W_Q}. En cambio $W_QW_K^\top$ coincide con
 $W_Q^*W_K^{*\top}$ con error relativo \V{a3.comparacion_profesor.error_relativo_W_Q_W_KT}, y $W_V$
 con $W_V^*$ con error \V{a3.comparacion_profesor.error_relativo_W_V} (figura~\ref{fig:profesor}).
-Es lo que predice la sección 2.4: $S$ solo depende de $M = W_QW_K^\top$, y para toda $R\in\R^{8\times8}$
+Es lo que predicen las secciones~\ref{sec:productos} y~\ref{sec:dependencia}: $S$ solo depende de $M = W_QW_K^\top$, y para toda $R\in\R^{8\times8}$
 invertible $(W_QR)(W_KR^{-\top})^\top = M$, así que hay una familia de dimensión
 $\dim GL(8) = 64$ de parametrizaciones equivalentes. El hessiano de la pérdida en los pesos del
 profesor lo confirma: tiene exactamente \V{curv.n_valores_propios_casi_nulos_profesor} valores
@@ -558,7 +633,7 @@ redondea a cero: float32 no basta para validar gradientes con precisión.
 \end{figure}
 
 % ============================================================================================
-\section{Actividad 4: comparación de optimizadores}
+\section{Actividad 4: comparación de optimizadores}\label{sec:act4}
 
 \subsection{Diseño controlado}
 Todas las corridas (\path{codigo/actividad4_experimentos.py}) usan la cabeza, los datos y la división
@@ -613,7 +688,7 @@ $\eta=0{,}3$ (\V{run.sgd.0.3.2.perdida_validacion_final}) como con $\eta=0{,}1$
 \V{run.sgd.0.3.2.norma_grad_media_ultimos_50}, frente a \V{run.sgd.0.3.0.norma_grad_media_ultimos_50}
 con la semilla 0. La mediana sola ocultaría esa sensibilidad a la inicialización.
 
-Con $\eta=1$ la pérdida cae rápido al principio, pero luego oscila entre $10^{-2}$ y $10^{-1}$ sin
+Con $\eta=1$ la pérdida cae rápido al principio, pero luego oscila aproximadamente entre $2\cdot10^{-2}$ y $5\cdot10^{-1}$ sin
 converger: la pérdida final es \V{tab.sgd.1.val_final_sobre_min} veces la mínima alcanzada y la norma
 del gradiente se mantiene en \V{tab.sgd.1.norma_grad_final}. Con $\eta=3$ se estanca: termina con
 pérdida de entrenamiento \V{tab.sgd.3.ent_final} (mediana), del orden de predecir cero, y la mejor
@@ -692,7 +767,7 @@ $\|\theta_{t+1}-\theta_t\| = \eta\|\nabla L\|$ con desvío relativo máximo de
 norma baja de \V{run.sgd.0.3.0.norma_grad_inicial} a \V{run.sgd.0.3.0.norma_grad_media_ultimos_50}
 (semilla 0) y los pasos se achican con ella, mientras la pérdida baja en paralelo en escala
 logarítmica (figura~\ref{fig:Cdin}); los saltos de la pérdida van acompañados de picos de la norma
-(por ejemplo, cerca del paso 1350). Con $\eta = 1$ y $3$ la norma se mantiene entre $0{,}3$ y $0{,}7$
+(por ejemplo, cerca del paso 1350). Con $\eta = 1$ y $3$ la norma suavizada se mantiene aproximadamente entre $0{,}2$ y $0{,}8$
 durante toda la corrida (figura~\ref{fig:Cnorma}, Anexo~\ref{anx:figuras}): los pasos siguen siendo grandes y la pérdida no
 converge. En Adam el paso no es proporcional al gradiente: el primero mide $\eta\sqrt{192}$ sin importar
 $\|\nabla L\|$, y los siguientes dependen del cociente entre los promedios móviles del gradiente y de su
@@ -717,26 +792,50 @@ temprana de una tasa demasiado grande.
 \end{itemize}
 
 % ============================================================================================
-\section{Actividad 5: auditoría y validación humana}
-\pendiente{Iniciar una sesión \emph{nueva} del agente auditor (sin la conversación de desarrollo),
-que ejecute en el contenedor \texttt{auditoria} y escriba solo en \texttt{auditoria/}. Pedirle que
-revise derivaciones, código, pruebas de gradientes, métricas y conclusiones, que reejecute los
-comandos de \texttt{parte1/README.md} con \texttt{--salida /workspace/auditoria/verificaciones/...}
-y que genere \texttt{auditoria/HANDOFF\_P1.md}. Conservar su informe y registrar su prompt en
-\texttt{auditoria/PROMPTS.md}. Luego verificar personalmente sus observaciones y registrar en
-\texttt{auditoria/VALIDACION\_HUMANA.md} qué se aceptó o rechazó y por qué. Resumir aquí los hallazgos
-y las decisiones.}
+\section{Actividad 5: auditoría y validación humana}\label{sec:act5}
+Una sesión \emph{nueva} de Claude Code (Claude Opus 5.5), sin la conversación de desarrollo, auditó el
+commit \texttt{a5a766f} desde el contenedor \texttt{auditoria}, que monta \path{parte1/} y
+\path{parte2/} en solo lectura. Su prompt está en \path{auditoria/PROMPTS.md} (AU-01). La sesión:
+\begin{itemize}[nosep]
+  \item repitió las pruebas de aislamiento: 52 aprobadas y 0 fallidas
+        (\path{auditoria/verificaciones/aislamiento_20261123_063334.log});
+  \item reejecutó las pruebas y los scripts de las Actividades 3 y 4 con salida en
+        \path{auditoria/verificaciones/parte1/}: registros, pesos, tablas y figuras coinciden bit a
+        bit con los entregados, y \path{valores.tex} regenerado es idéntico;
+  \item comprobó con código propio, sin importar el entregado, los gradientes, la selección por
+        validación y las afirmaciones numéricas del texto, y revisó las demostraciones de la
+        Actividad 2, que encontró correctas;
+  \item guardó las sumas SHA-256 de lo entregado al empezar y al terminar, que muestran que no
+        modificó \path{parte1/} ni \path{parte2/}.
+\end{itemize}
+Sus resultados están en \path{auditoria/HANDOFF_P1.md}, \path{auditoria/HANDOFF.md} y
+\path{auditoria/verificaciones/informe_auditoria.md}. No encontró errores de cálculo en el código.
+Informó 12 hallazgos: uno de gravedad alta (H-01, los cálculos manuales aún pendientes, ya
+incorporados), cuatro medios y siete bajos. Los que tocan las Partes 0 y 1 y qué se hizo con cada uno
+en esta versión están en la tabla~\ref{tab:auditoria} (Anexo~\ref{anx:auditoria}): se corrigieron dos
+frases que no coincidían con los registros (H-06), una referencia cruzada (H-07) y texto fuera del
+margen (H-08), y se completó el registro de prompts (H-05). Los de la Parte 2 (H-03, H-04, H-10) se
+atienden en su entrega.
+
+
+\pendiente{Validación humana: revisar personalmente cada hallazgo (H-01 a H-12) y registrar en
+\texttt{auditoria/VALIDACION\_HUMANA.md} si se acepta o se rechaza y por qué. Según el enunciado, la
+declaración del agente de que «todo está correcto» no constituye validación humana.}
 
 % ============================================================================================
 \section{Uso de agentes y trazabilidad}
-Los prompts de la Parte 0 están en \path{parte1/PROMPTS.md} (entradas P1-01 a P1-08) y los de esta
-sesión de teoría en la serie P1-T de ese mismo archivo. La sesión de teoría escribió el código, ejecutó
-los experimentos en el contenedor \texttt{teoria}, generó las figuras desde los registros y redactó
-este borrador; no eligió matrices ni calculó los ejercicios manuales. Cada número de las Actividades 3
-y 4 se inserta desde los registros con \path{codigo/valores_informe.py}, y cada figura se regenera con
-\path{codigo/regenerar_figuras.py}; una reejecución completa en el mismo contenedor reprodujo bit a bit
-los registros, pesos, tablas y figuras.
-\pendiente{Revisión personal de este borrador por los integrantes: derivaciones, interpretación de
+Los prompts de la sesión de infraestructura están en \path{parte1/PROMPTS.md} (entradas P1-01 en
+adelante), los de la sesión de teoría en la serie P1-T de ese mismo archivo y el de la auditoría en
+\path{auditoria/PROMPTS.md}. La sesión de teoría escribió el código, ejecutó los experimentos en el
+contenedor \texttt{teoria}, generó las figuras desde los registros y redactó el texto; no eligió
+matrices ni calculó los ejercicios manuales. La sesión de infraestructura incorporó al informe el
+desarrollo manual de los estudiantes, transcribió sus matrices y resultados para la verificación
+posterior y resumió la auditoría. Cada número de las Actividades 3 y 4 se inserta desde los registros
+con \path{codigo/valores_informe.py}, y cada figura se regenera con \path{codigo/regenerar_figuras.py};
+la reejecución del auditor reprodujo bit a bit los registros, pesos, tablas y figuras. Limitación: las
+pruebas de calibración que la sesión de teoría hizo antes de los experimentos definitivos (P1-T01),
+entre ellas un barrido corto de tasas, no se conservaron, así que no puede auditarse qué datos miraron.
+\pendiente{Revisión personal del informe por los integrantes: derivaciones, interpretación de
 resultados y redacción.}
 
 % ============================================================================================
@@ -757,9 +856,95 @@ resultados y redacción.}
 \end{enumerate}
 
 \appendix
-\section{Desarrollo manual escaneado}\label{anx:escaneo}
-\pendiente{Escaneo o fotografía legible del desarrollo manual de las Actividades 1 y 2, identificado
-por su autor.}
+\section{Desarrollo manual}\label{anx:escaneo}
+El desarrollo manual de las Actividades 1 y 2 tiene dos partes:
+\begin{enumerate}[nosep]
+  \item La fotografía de la primera hoja manuscrita (figura~\ref{fig:hoja1}): elección de $X$, $W_Q$,
+        $W_K$, $W_V$, $A$ y $T$, cálculo de $Q$, $K$, $V$ y comienzo de $QK^\top$
+        (\path{informe/manual/hoja_actividad1.jpg}).
+  \item El desarrollo completo de la Actividad 1 ($S$, $A$, $H$) y de la Actividad 2, escrito por los
+        estudiantes en \LaTeX{} (páginas siguientes, \path{informe/manual/desarrollo_actividades_1_2.pdf}).
+\end{enumerate}
+La segunda hoja manuscrita, con $S$, $A$, $H$ y la Actividad 2, se perdió; su contenido está en el
+desarrollo digitado. En la hoja fotografiada $K$ y $V$ están intercambiadas y $(QK^\top)_{22} = 0$; el
+desarrollo digitado lo corrige (Anexo~\ref{anx:verificacion}).
+\pendiente{Identificar el desarrollo con su autor (nombre en la hoja o en este anexo). El enunciado
+pide el desarrollo manual como escaneo o fotografía: si es posible, rehacer a mano la hoja perdida y
+agregar aquí su fotografía.}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[height=0.62\textheight]{manual/hoja_actividad1.jpg}
+  \caption{Primera hoja del desarrollo manual (fotografía).}
+  \label{fig:hoja1}
+\end{figure}
+
+\includepdf[pages=-, scale=0.82, frame, pagecommand={\thispagestyle{plain}}]{manual/desarrollo_actividades_1_2.pdf}
+
+\section{Verificación posterior del desarrollo manual}\label{anx:verificacion}
+Esta verificación se hizo después de terminado el desarrollo manual del Anexo~\ref{anx:escaneo} y
+no forma parte de él.
+
+\textbf{Actividad 1.} Solo después de terminado el
+desarrollo a mano se usó \path{codigo/verificar_manual.py} (instrucciones en
+\path{parte1/README.md}). El script comprueba las restricciones a)--d), calcula los mismos
+resultados con fracciones exactas y expresiones exactas para el softmax, y compara cada valor
+manual que se le entregue. Sus pruebas (\path{codigo/test_verificar_manual.py}) lo contrastan con
+cálculos independientes en numpy en cientos de ensayos aleatorios. La sesión de infraestructura
+transcribió las matrices y los resultados del desarrollo final a \path{parte1/matrices_estudiante.json}
+y ejecutó el script en el contenedor \texttt{teoria}. Según su informe,
+\path{resultados/verificacion_manual/verificacion_actividades_1_2.md}, se cumplen las restricciones
+a)--d) y coinciden $Q, K, V, QK^\top$ (exactos) y $S$, $A$, $H$ (decimales, tolerancia
+$5\cdot10^{-4}$; el script da $A_{11}\approx0{,}195570$ y $A_{21}\approx0{,}892958$).
+
+Al contrastar la hoja fotografiada (Anexo~\ref{anx:escaneo}) con estos resultados aparece una
+discrepancia que el desarrollo final ya corrige: la hoja anota como $K$ la matriz $XW_V$ y como $V$ la
+matriz $XW_K$, y con esa $K$ obtiene $(QK^\top)_{22} = 0$. El desarrollo final usa $K = XW_K$ y
+$V = XW_V$ y obtiene $(QK^\top)_{22} = -2$, el valor correcto.
+
+\textbf{Actividad 2.} La misma
+ejecución de \path{codigo/verificar_manual.py} comprueba las restricciones de $A$ y $T$ y confirma,
+con fracciones exactas, $H_0$, $L_0$, $G$, $W_V^{(1)}$, $H_1$ y $L_1$; además comprueba $G$ con
+diferencias centrales exactas (al ser $L$ cuadrática en $W_V$, la diferencia central con fracciones no
+tiene error de truncamiento). Las comprobaciones adicionales de la discusión e)
+(\path{resultados/verificacion_manual/comprobaciones_adicionales.md}) confirman los valores propios de
+$M^\top M$, $0{,}1524$ y $0{,}4101 = (9+\sqrt{17})/32$, la cota $2/\lambda_{\max}\approx4{,}8769$ y que el
+criterio de arriba reproduce $L_1$ con $\|G\|_F^2 = \tfrac{169}{256}$ y $\|AXG\|_F^2 = \tfrac{481}{4096}$.
+Una observación sobre la última frase de e): $2/\sigma_{\max}(AX)^2 = 2/\lambda_{\max}$ es una
+condición suficiente, válida para cualquier $G$. Para este paso concreto el umbral exacto es
+$2\|G\|_F^2/\|AXG\|_F^2 = \tfrac{416}{37}\approx11{,}24$, así que un \emph{solo} paso con
+$4{,}877<\eta<11{,}24$ todavía bajaría la pérdida. Lo que sí ocurre con $\eta>2/\lambda_{\max}$ es que,
+al repetir los pasos, la componente del error en la dirección del mayor valor propio se multiplica por
+$|1-\eta\lambda_{\max}|>1$ (aquí esa componente no es nula) y la pérdida termina creciendo. Los
+estudiantes deciden si ajustan esa frase.
+
+\section{Hallazgos de la auditoría}\label{anx:auditoria}
+\begin{table}[H]
+  \centering\small
+  \caption{Hallazgos de la auditoría para las Partes 0 y 1 y acciones en esta versión.}
+  \label{tab:auditoria}
+  \begin{tabular}{@{}llp{0.38\linewidth}p{0.36\linewidth}@{}}
+    \toprule
+    ID & Gravedad & Hallazgo & Acción \\
+    \midrule
+    H-01 & alta  & Cálculos manuales y su verificación pendientes & Incorporados (secciones~\ref{sec:manual1}
+                   y~\ref{sec:manual2}, Anexo~\ref{anx:escaneo}); faltan los nombres \\
+    H-02 & media & Los agentes corren en el anfitrión, fuera de Docker & Limitación descrita en la
+                   sección~\ref{sec:sesiones} y en el \texttt{HANDOFF} \\
+    H-05 & media & Huecos de trazabilidad en \texttt{PROMPTS.md} & Entradas P1-09 en adelante agregadas;
+                   las calibraciones previas de la sesión de teoría no se conservaron \\
+    H-06 & baja  & Dos frases sobre $\eta = 1$ y $3$ no coinciden con los registros & Corregidas en la
+                   sección~\ref{sec:act4} con \texttt{registro\_pasos.csv} \\
+    H-07 & baja  & Referencia cruzada «sección 2.4» errónea & Reemplazada por referencias automáticas \\
+    H-08 & baja  & Texto fuera del margen en el PDF & Corregido \\
+    H-09 & baja  & Detalles de endurecimiento de Docker & Sin cambios \\
+    H-11 & baja  & Afirmaciones no verificables (calibraciones, otro hardware) & Declaradas como
+                   limitación \\
+    H-12 & baja  & Detalles de forma (ruta de ejemplo, colores) & Ruta de \texttt{verificar\_manual.py}
+                   unificada \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 \section{Figuras complementarias}\label{anx:figuras}
 \begin{figure}[H]

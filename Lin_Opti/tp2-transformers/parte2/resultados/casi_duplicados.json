@@ -1,0 +1,47 @@
+{
+  "definicion": "minúsculas; todo lo que no sea a-z se reemplaza por un espacio; claves vacías ignoradas",
+  "validacion_con_casi_duplicado_en_entrenamiento": {
+    "mensajes": 19,
+    "spam": 16
+  },
+  "prueba_con_casi_duplicado_en_entrenamiento": {
+    "mensajes": 16,
+    "spam": 13,
+    "de_un_total_de": 774,
+    "spam_total": 97
+  },
+  "sensibilidad_prueba": {
+    "transformer_adamw_lr0.01_s0": {
+      "f1_todo": 0.9,
+      "f1_sin_casi_duplicados": 0.8831168831168832,
+      "diferencia_f1": -0.016883116883116833,
+      "exhaustividad_todo": 0.8350515463917526,
+      "exhaustividad_sin_casi_duplicados": 0.8095238095238095,
+      "aciertos_en_casi_duplicados": 16
+    },
+    "transformer_adamw_lr0.01_s1": {
+      "f1_todo": 0.8900523560209425,
+      "f1_sin_casi_duplicados": 0.8727272727272727,
+      "diferencia_f1": -0.017325083293669774,
+      "exhaustividad_todo": 0.8762886597938144,
+      "exhaustividad_sin_casi_duplicados": 0.8571428571428571,
+      "aciertos_en_casi_duplicados": 16
+    },
+    "transformer_adamw_lr0.01_s2": {
+      "f1_todo": 0.8888888888888888,
+      "f1_sin_casi_duplicados": 0.8701298701298702,
+      "diferencia_f1": -0.018759018759018642,
+      "exhaustividad_todo": 0.8247422680412371,
+      "exhaustividad_sin_casi_duplicados": 0.7976190476190477,
+      "aciertos_en_casi_duplicados": 16
+    },
+    "tfidf_logistica": {
+      "f1_todo": 0.9312169312169312,
+      "f1_sin_casi_duplicados": 0.920245398773006,
+      "diferencia_f1": -0.010971532443925125,
+      "exhaustividad_todo": 0.9072164948453608,
+      "exhaustividad_sin_casi_duplicados": 0.8928571428571429,
+      "aciertos_en_casi_duplicados": 16
+    }
+  }
+}

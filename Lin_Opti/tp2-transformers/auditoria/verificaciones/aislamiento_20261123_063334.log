@@ -1,0 +1,103 @@
+== Pruebas de aislamiento TP2 — 2026-11-23 06:33:34 -0300 ==
+Anfitrión: Linux 6.12.113+deb13-amd64 | Docker version 29.9.3, build 5457199 | Docker Compose version v5.7.0
+Contexto Docker: desktop-linux
+
+SERVICE     IMAGE                               STATUS
+auditoria   tp2-transformers:py3.13-torch2.15   Up 4 hours
+practica    tp2-transformers:py3.13-torch2.15   Up 4 hours
+teoria      tp2-transformers:py3.13-torch2.15   Up 4 hours
+
+== 1. Los tres servicios se inician y tienen las carpetas esperadas ==
+  PASA   teoria está en ejecución
+  PASA   practica está en ejecución
+  PASA   auditoria está en ejecución
+  PASA   teoria: Python y dependencias
+         -> Python 3.13.18 | torch 2.15.0+cpu | numpy 2.5.5
+  PASA   practica: Python y dependencias
+         -> Python 3.13.18 | torch 2.15.0+cpu | numpy 2.5.5
+  PASA   auditoria: Python y dependencias
+         -> Python 3.13.18 | torch 2.15.0+cpu | numpy 2.5.5
+  PASA   teoria ve parte1/ (codigo, resultados, PROMPTS.md)
+  PASA   practica ve parte2/ (codigo, datos, resultados, PROMPTS.md)
+  PASA   auditoria ve parte1/, parte2/, auditoria/verificaciones e infra/
+
+== 2. Teoría y práctica no pueden modificar los archivos del otro ==
+  PASA   teoria escribe en parte1/
+  PASA   practica escribe en parte2/
+  PASA   teoria no ve parte2/
+         -> ls: cannot access '/workspace/parte2': No such file or directory
+  PASA   teoria no ve auditoria/
+         -> ls: cannot access '/workspace/auditoria': No such file or directory
+  PASA   practica no ve parte1/
+         -> ls: cannot access '/workspace/parte1': No such file or directory
+  PASA   practica no ve auditoria/
+         -> ls: cannot access '/workspace/auditoria': No such file or directory
+
+== 3. El auditor lee ambos proyectos y su escritura en ellos falla ==
+  PASA   auditoria lee parte1/PROMPTS.md
+         -> # Registro de prompts — Parte 0 y Parte 1 (contenedor `teoria`)
+  PASA   auditoria lee parte2/PROMPTS.md
+         -> # Registro de prompts — Parte 2 (contenedor `practica`)
+  PASA   auditoria no puede crear archivos en parte1/
+         -> touch: cannot touch '/workspace/parte1/.prueba_aislamiento_73611': Read-only file system
+  PASA   auditoria no puede crear archivos en parte1/codigo/
+         -> touch: cannot touch '/workspace/parte1/codigo/.prueba_aislamiento_73611': Read-only file system
+  PASA   auditoria no puede crear archivos en parte2/
+         -> touch: cannot touch '/workspace/parte2/.prueba_aislamiento_73611': Read-only file system
+  PASA   auditoria no puede crear archivos en parte2/datos/
+         -> touch: cannot touch '/workspace/parte2/datos/.prueba_aislamiento_73611': Read-only file system
+  PASA   auditoria no puede crear archivos en infra/scripts/
+         -> touch: cannot touch '/workspace/infra/scripts/.prueba_aislamiento_73611': Read-only file system
+  PASA   auditoria escribe en auditoria/verificaciones/
+
+== 4. Límites, red, montajes y permisos (docker inspect) ==
+  -- teoria: privilegiado=false cpus=2 memoria=2GiB red=none cap_drop=[ALL] security_opt=[no-new-privileges:true]
+     montaje /home/troncos1/Documentos/códigos/Tareas_2026_2/Lin_Opti/tp2-transformers/parte1 -> /workspace/parte1 (escritura=true)
+     cgroup dentro del contenedor: cpu.max=200000 100000 memory.max=2147483648
+  PASA   teoria: no es privilegiado
+  PASA   teoria: sin capacidades de Linux (cap_drop ALL)
+  PASA   teoria: no-new-privileges activo
+  PASA   teoria: límite de 2 CPU
+  PASA   teoria: límite de 2 GiB de RAM
+  PASA   teoria: sin red
+  PASA   teoria: solo tiene los montajes esperados
+  PASA   teoria: no monta docker.sock
+  PASA   teoria: no monta el directorio personal
+  -- practica: privilegiado=false cpus=2 memoria=4GiB red=tp2-transformers_practica_red cap_drop=[ALL] security_opt=[no-new-privileges:true]
+     montaje /home/troncos1/Documentos/códigos/Tareas_2026_2/Lin_Opti/tp2-transformers/parte2 -> /workspace/parte2 (escritura=true)
+     cgroup dentro del contenedor: cpu.max=200000 100000 memory.max=4294967296
+  PASA   practica: no es privilegiado
+  PASA   practica: sin capacidades de Linux (cap_drop ALL)
+  PASA   practica: no-new-privileges activo
+  PASA   practica: límite de 2 CPU
+  PASA   practica: límite de 4 GiB de RAM
+  PASA   practica: red propia (tp2-transformers_practica_red)
+  PASA   practica: solo tiene los montajes esperados
+  PASA   practica: no monta docker.sock
+  PASA   practica: no monta el directorio personal
+  -- auditoria: privilegiado=false cpus=2 memoria=2GiB red=none cap_drop=[ALL] security_opt=[no-new-privileges:true]
+     montaje /home/troncos1/Documentos/códigos/Tareas_2026_2/Lin_Opti/tp2-transformers/auditoria -> /workspace/auditoria (escritura=true)
+     montaje /home/troncos1/Documentos/códigos/Tareas_2026_2/Lin_Opti/tp2-transformers/parte1 -> /workspace/parte1 (escritura=false)
+     montaje /home/troncos1/Documentos/códigos/Tareas_2026_2/Lin_Opti/tp2-transformers/parte2 -> /workspace/parte2 (escritura=false)
+     montaje /home/troncos1/Documentos/códigos/Tareas_2026_2/Lin_Opti/tp2-transformers/Dockerfile -> /workspace/infra/Dockerfile (escritura=false)
+     montaje /home/troncos1/Documentos/códigos/Tareas_2026_2/Lin_Opti/tp2-transformers/README.md -> /workspace/infra/README.md (escritura=false)
+     montaje /home/troncos1/Documentos/códigos/Tareas_2026_2/Lin_Opti/tp2-transformers/compose.yaml -> /workspace/infra/compose.yaml (escritura=false)
+     montaje /home/troncos1/Documentos/códigos/Tareas_2026_2/Lin_Opti/tp2-transformers/requirements.txt -> /workspace/infra/requirements.txt (escritura=false)
+     montaje /home/troncos1/Documentos/códigos/Tareas_2026_2/Lin_Opti/tp2-transformers/scripts -> /workspace/infra/scripts (escritura=false)
+     cgroup dentro del contenedor: cpu.max=200000 100000 memory.max=2147483648
+  PASA   auditoria: no es privilegiado
+  PASA   auditoria: sin capacidades de Linux (cap_drop ALL)
+  PASA   auditoria: no-new-privileges activo
+  PASA   auditoria: límite de 2 CPU
+  PASA   auditoria: límite de 2 GiB de RAM
+  PASA   auditoria: sin red
+  PASA   auditoria: solo tiene los montajes esperados
+  PASA   auditoria: no monta docker.sock
+  PASA   auditoria: no monta el directorio personal
+  PASA   teoria no tiene salida a la red
+         -> OSError: [Errno 101] Network is unreachable
+  PASA   auditoria no tiene salida a la red
+         -> OSError: [Errno 101] Network is unreachable
+
+== Resumen: 52 pruebas pasan, 0 fallan ==
+Registro: auditoria/verificaciones/aislamiento_20261123_063334.log

@@ -1,0 +1,4 @@
+parte1/README.md: 15 rutas citadas; no encontradas: ninguna
+parte2/README.md: 21 rutas citadas; no encontradas: ninguna
+parte1/informe/informe.tex: 15 rutas citadas; no encontradas: ninguna
+parte2/presentacion/presentacion.tex: 12 rutas citadas; no encontradas: ninguna

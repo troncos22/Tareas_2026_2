@@ -21,7 +21,7 @@ Qué hace:
 
 Uso (desde tp2-transformers/):
     docker compose exec teoria python codigo/verificar_manual.py \\
-        --entrada verificacion_manual/matrices_estudiante.json
+        --entrada matrices_estudiante.json
 El informe queda en --salida (por defecto parte1/resultados/verificacion_manual/). El código de
 salida es 0 si se cumplen todas las restricciones y coinciden todos los valores manuales dados.
 """

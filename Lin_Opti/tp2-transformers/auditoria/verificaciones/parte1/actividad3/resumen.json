@@ -1,0 +1,67 @@
+{
+  "divergio": false,
+  "pasos_completados": 1500,
+  "segundos_entrenamiento": 1.299832785000035,
+  "perdidas": {
+    "inicial": {
+      "entrenamiento": 4.516202449798584,
+      "validacion": 4.323360443115234,
+      "prueba": 4.120376110076904
+    },
+    "final": {
+      "entrenamiento": 2.6023165844435425e-09,
+      "validacion": 3.3930034337714687e-09,
+      "prueba": 4.209065984639437e-09
+    }
+  },
+  "referencias_triviales": {
+    "validacion": {
+      "predecir_cero": 3.6314730644226074,
+      "predecir_media_entrenamiento": 3.6369130611419678
+    },
+    "prueba": {
+      "predecir_cero": 3.637669563293457,
+      "predecir_media_entrenamiento": 3.642533302307129
+    }
+  },
+  "cambio_pesos": {
+    "W_Q": {
+      "norma_F_inicial": 2.6922159004997677,
+      "norma_F_final": 5.004540760427727,
+      "norma_F_cambio": 4.435361366123557,
+      "cambio_relativo": 1.6474761052039701,
+      "max_abs_cambio_entrada": 1.4348070621490479
+    },
+    "W_K": {
+      "norma_F_inicial": 3.16761657184244,
+      "norma_F_final": 5.244159937769759,
+      "norma_F_cambio": 4.062388841486605,
+      "cambio_relativo": 1.2824749300777027,
+      "max_abs_cambio_entrada": 1.314681887626648
+    },
+    "W_V": {
+      "norma_F_inicial": 2.5415485227952024,
+      "norma_F_final": 5.9856340319158905,
+      "norma_F_cambio": 6.915575009297085,
+      "cambio_relativo": 2.7210084510569628,
+      "max_abs_cambio_entrada": 2.699397325515747
+    }
+  },
+  "comparacion_profesor": {
+    "error_relativo_W_Q": 1.432497648747358,
+    "error_relativo_W_K": 1.452585811334775,
+    "error_relativo_W_V": 3.73220384389596e-06,
+    "error_relativo_W_Q_W_KT": 2.7627740091602082e-05,
+    "nota": "S solo depende de W_Q W_K^T: W_Q R y W_K R^{-T} dan la misma salida para toda R invertible, así que W_Q y W_K no son identificables por separado."
+  },
+  "atencion_profesor_entrenamiento": {
+    "max_medio": 0.7988726831236013,
+    "entropia_media": 0.49842152387453326,
+    "entropia_uniforme": 1.3862943611198906
+  },
+  "atencion_estudiante_inicial_entrenamiento": {
+    "max_medio": 0.493645947762596,
+    "entropia_media": 1.131765531061965,
+    "entropia_uniforme": 1.3862943611198906
+  }
+}

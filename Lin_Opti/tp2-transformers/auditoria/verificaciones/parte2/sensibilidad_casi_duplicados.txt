@@ -1,0 +1,5 @@
+mensajes de prueba: 774, spam 97; con casi duplicado en entrenamiento: 16 (spam 13)
+transformer_adamw_lr0.01_s0      F1 todo 0.900 (exh. 0.835) | F1 sin casi duplicados 0.883 (exh. 0.810) | aciertos en los casi duplicados 1.00
+transformer_adamw_lr0.01_s1      F1 todo 0.890 (exh. 0.876) | F1 sin casi duplicados 0.873 (exh. 0.857) | aciertos en los casi duplicados 1.00
+transformer_adamw_lr0.01_s2      F1 todo 0.889 (exh. 0.825) | F1 sin casi duplicados 0.870 (exh. 0.798) | aciertos en los casi duplicados 1.00
+tfidf_logistica                  F1 todo 0.931 (exh. 0.907) | F1 sin casi duplicados 0.920 (exh. 0.893) | aciertos en los casi duplicados 1.00

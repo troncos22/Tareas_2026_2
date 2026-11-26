@@ -1,0 +1,32 @@
+1) SGD eta=1 y 3: norma del gradiente, mediana móvil de 25 pasos y mediana de 3 semillas
+   eta=1: desde el paso 1: min 0.223, max 0.800
+   eta=1: desde el paso 50: min 0.223, max 0.800
+   eta=1: desde el paso 100: min 0.223, max 0.800
+   eta=1: valores crudos por paso: fracción fuera de [0,3; 0,7] = 0.50
+   eta=3: desde el paso 1: min 0.258, max 0.941
+   eta=3: desde el paso 50: min 0.258, max 0.841
+   eta=3: desde el paso 100: min 0.258, max 0.841
+   eta=3: valores crudos por paso: fracción fuera de [0,3; 0,7] = 0.47
+2) SGD eta=1: pérdida de validación (cada 10 pasos), desde el paso 300
+   semilla 0: percentiles 5/50/95 = [0.01977527 0.08211167 0.3471067 ], fracción en [1e-2, 1e-1] = 0.55, máx 0.604
+   semilla 1: percentiles 5/50/95 = [0.02012878 0.10778923 0.51311916], fracción en [1e-2, 1e-1] = 0.47, máx 1.07
+   semilla 2: percentiles 5/50/95 = [0.02200763 0.09322263 0.37977904], fracción en [1e-2, 1e-1] = 0.51, máx 1.1
+3) SGD eta=0,3 semilla 0: saltos de la pérdida de entrenamiento (evaluada cada 10 pasos)
+   pasos con cociente > 10 respecto de la evaluación anterior: [(980, 18.3)]
+   paso 1340: norma_grad 0.00114 (máx en ±5 pasos), perdida_batch 1.63e-07; mediana de la norma en 1200-1500: 0.000175
+   paso 1350: norma_grad 0.00244 (máx en ±5 pasos), perdida_batch 2.81e-07; mediana de la norma en 1200-1500: 0.000175
+   paso 1360: norma_grad 0.000519 (máx en ±5 pasos), perdida_batch 4.95e-08; mediana de la norma en 1200-1500: 0.000175
+   5 mayores normas desde el paso 1000: [(1025, 0.0083), (1018, 0.0074), (1027, 0.0054), (1036, 0.0032), (1115, 0.0031)]
+4) SGD eta=3: pérdida de entrenamiento final frente a predecir cero (3,63 en validación)
+    semilla  perdida_entrenamiento_final  perdida_validacion_min
+       0                     0.815648                0.494449
+       1                     1.700210                0.658146
+       2                     1.793337                0.675317
+5) Semilla 2 con SGD 0,1 y 0,3 (estancamiento cerca de 1e-3)
+    tasa  semilla  perdida_validacion_final  norma_grad_media_ultimos_50
+  0.1        0              1.322747e-04                     0.015282
+  0.1        1              2.769894e-05                     0.006312
+  0.1        2              9.667710e-04                     0.038879
+  0.3        0              3.393003e-09                     0.000120
+  0.3        1              2.947824e-08                     0.000554
+  0.3        2              5.680334e-04                     0.037102

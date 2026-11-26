@@ -8,6 +8,7 @@ del contenedor `teoria` (Python 3.13, torch 2.15 CPU, numpy, pandas, matplotlib;
 parte1/
   PROMPTS.md                      registro de prompts (Parte 0 y Parte 1)
   README.md                       este archivo
+  matrices_estudiante.json        transcripción del desarrollo manual, para la verificación posterior
   codigo/
     atencion.py                   cabeza de atención explícita, problema teacher–student, ciclo de entrenamiento
     actividad3_entrenar.py        Actividad 3: entrenamiento de W_Q, W_K, W_V
@@ -25,9 +26,11 @@ parte1/
     actividad3/                   config, registro por paso, pesos, resumen, figuras act3_*
     gradientes/                   barrido de eps, 192 entradas, resumen, figura
     actividad4/                   registro por paso, corridas, selección, prueba, tabla, figuras act4_*
+    verificacion_manual/          verificación posterior de las Actividades 1 y 2 y comprobaciones adicionales
   informe/
-    informe.tex                   borrador del informe (los cálculos manuales quedan marcados como pendientes)
-    informe.pdf                   borrador compilado (15 páginas con anexos)
+    informe.tex                   informe (los recuadros rojos marcan lo que solo pueden completar los integrantes)
+    informe.pdf                   informe compilado (24 páginas; el cuerpo termina en la 14, el resto son anexos)
+    manual/                       desarrollo manual del estudiante: foto de la hoja 1 y PDF completo
     generado/valores.tex          números del informe, generados por valores_informe.py
 ```
 
@@ -117,10 +120,11 @@ contrastarlos, documentando esa verificación por separado. Ninguna sesión de a
 ni calculó esos resultados; las pruebas del script usan matrices aleatorias que no se guardan ni se
 imprimen.
 
-Cuando el desarrollo a mano esté terminado y escaneado:
+El desarrollo a mano ya está terminado (`informe/manual/`) y la verificación se ejecutó con la
+transcripción `matrices_estudiante.json`: todas las restricciones se cumplen y los 13 valores
+coinciden (`resultados/verificacion_manual/`). Para repetirla:
 
 ```bash
-cp parte1/codigo/plantilla_matrices.json parte1/matrices_estudiante.json   # completar X, W_Q, W_K, W_V, A, T
 docker compose exec teoria python codigo/verificar_manual.py --entrada matrices_estudiante.json
 ```
 

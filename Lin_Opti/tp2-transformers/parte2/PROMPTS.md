@@ -136,3 +136,97 @@ Diagnóstico confirmado: la causa fue un `git switch main` de la sesión de infr
   El mensaje no pidió cambios: cuando llegó, la Parte 2 ya estaba terminada y todas sus
   ejecuciones habían ocurrido después de la recreación.
 - **Delegaciones automáticas:** ninguna.
+
+### P2-04 — 2026-11-23
+- **Herramienta / modelo:** Claude Code (app de escritorio), Claude Opus 5.5, mensaje entre sesiones.
+- **Sesión:** práctica (continuación). Mensaje **recibido** de la sesión de infraestructura, que
+  transmite un pedido del estudiante.
+- **Propósito:** dejar lista la presentación de la Parte 2, corregir los hallazgos H-03, H-04 y
+  H-10 de la auditoría y escribir un guion de exposición.
+- **Pedido del estudiante (cita literal, transmitida por la sesión de infraestructura):**
+
+````text
+has la presentación y una explicacion para esta tipo script
+````
+
+- **Prompt recibido (literal):**
+
+````text
+Pedido del estudiante para la Parte 2: presentación final y guion de exposición (mensaje de la sesión de infraestructura).
+
+El estudiante escribió, literalmente: «has la presentación y una explicacion para esta tipo script». Lo interpreto como: dejar lista la presentación de la Parte 2 y escribir un guion (texto para leer o seguir al exponer). Regístralo en parte2/PROMPTS.md como prompt recibido, con la cita literal del estudiante y este mensaje completo.
+
+Requisitos del enunciado (sección 4.4): 8 minutos de exposición y 2 de preguntas; 5 a 6 diapositivas; no repetir de más la teoría de la Parte 1; priorizar los experimentos de optimización. Tiempos sugeridos: problema, datos y objetivo, 1 min; arquitectura y pesos entrenables, 1 min; entrenamiento y optimización, 2,5 min; curvas, comparaciones y métricas, 2,5 min; conclusiones y limitaciones, 1 min. Todos los integrantes deben poder responder preguntas individuales sobre los datos, el entrenamiento, los parámetros y la interpretación de los resultados.
+
+La auditoría independiente (auditoria/verificaciones/informe_auditoria.md) encontró tres cosas que afectan las diapositivas. Compruébalas tú mismo en el contenedor practica antes de cambiar nada:
+- H-04 (media): en presentacion.tex, líneas 327-328, la diapositiva 7 dice que TF-IDF + RL (prueba, F1 0,931) y el promedio de embeddings superan al transformer (0,893). Pero el 0,893 es F1 de prueba y la ablación «promedio» solo se evaluó en validación (0,958 ± 0,019 frente a 0,926). Corrige la comparación. Suaviza también «el optimizador y η pesan más que la arquitectura», que se apoya en una sola variante de arquitectura.
+- H-03 (media): preparar_datos.py solo quita duplicados exactos. Comparando en minúsculas, sin dígitos, signos ni espacios repetidos, 16 mensajes de prueba (13 de ellos spam) tienen un casi duplicado en entrenamiento. Sin esos 16, el F1 de prueba baja unos 0,017-0,019 en el transformer y 0,011 en TF-IDF. La conclusión no cambia, pero el README dice que la fuga «favorece a todos los modelos por igual», y el efecto medido es algo mayor en el transformer. Prefiero que lo informes como limitación (en el README y en la diapositiva de limitaciones), sin volver a correr todos los experimentos. Si crees que conviene repetirlos, dímelo antes.
+- H-10 (baja): AdamW usa weight_decay=0.01 y SGD ninguno, así que el experimento B cambia dos cosas a la vez. Menciónalo como limitación o déjalo preparado como respuesta a una pregunta.
+
+Entregables:
+1. parte2/presentacion/presentacion.tex y .pdf: 5 o 6 diapositivas de contenido, más la portada si quieres, con los tiempos de arriba y H-04 corregido. Actualiza también presentacion_notas.tex/.pdf.
+2. Un guion, parte2/presentacion/guion.md (y un PDF si te resulta simple). Debe tener, por diapositiva, el texto a decir en lenguaje oral, su duración (total 8 min) y un reparto entre dos expositores. Al final, una sección de preguntas probables con respuestas breves: datos y partición, número de parámetros, por qué AdamW con η = 10⁻², por qué SGD con η = 1 diverge, por qué el transformer pierde contra TF-IDF, la ablación, los casi duplicados y el weight decay.
+3. Las cifras deben salir de parte2/resultados/, sin inventar ninguna.
+
+Restricciones: escribe solo en parte2/, ejecuta en el contenedor practica y compila LaTeX en el anfitrión. No toques parte1/ ni auditoria/, y no hagas commit. Cuando termines, dime en pocas líneas qué cambió y dónde están los archivos.
+````
+
+- **Archivos / comandos / resultados asociados:**
+  - Hallazgos comprobados antes de cambiar nada. H-04: `resultados/seleccion.json` da F1 de
+    validación 0,958 para la ablación y 0,926 para el transformer; `evaluar_prueba.py` no evalúa la
+    ablación en prueba. H-10: `codigo/entrenar.py`, diccionario `OPTIMIZADORES` (AdamW con
+    `weight_decay=0.01`, SGD sin él). H-03: con un script propio, `codigo/casi_duplicados.py`
+    (misma definición de casi duplicado que la auditoría, código escrito aparte), ejecutado con
+    `docker compose exec practica python codigo/casi_duplicados.py --datos datos --resultados
+    resultados --salida resultados`. Resultado: 16 mensajes de prueba (13 spam) con casi duplicado
+    en entrenamiento; F1 sin ellos 0,883 / 0,873 / 0,870 (transformer) y 0,920 (TF-IDF), igual que
+    la auditoría. También 19 de validación (16 spam). Salidas: `resultados/casi_duplicados.json` y
+    `resultados/casi_duplicados_prueba.csv`.
+  - No se volvió a correr ningún experimento: la conclusión no cambia y el pedido prefería
+    informarlo como limitación.
+  - `presentacion/presentacion.tex`: tiempos por diapositiva y expositor en las notas (1 + 1 + 2,5 +
+    1 + 1,5 + 1 min); diapositiva de conclusiones corregida (comparaciones con la ablación solo en
+    validación; «el optimizador y η pesan más que la arquitectura» cambiado por «con esta
+    arquitectura y 250 pasos, el optimizador y η decidieron el resultado»); limitaciones con los casi
+    duplicados y el decaimiento distinto en B; trazabilidad apunta al informe de auditoría y ya no
+    tiene marcador pendiente. Siguen pendientes los nombres y la fecha de la portada.
+  - `presentacion/presentacion.pdf` y `presentacion_notas.pdf` recompilados en el anfitrión con
+    `latexmk -pdf`, sin cajas desbordadas.
+  - `presentacion/guion.md` y `guion.pdf` (pandoc + xelatex): texto oral por diapositiva, duración
+    (8 min en total), reparto entre dos expositores, preguntas probables con respuestas y fuente, y
+    una tabla de cifras.
+  - `README.md`: sección «Sensibilidad a casi duplicados», limitaciones corregidas (casi duplicados
+    medidos, decaimiento distinto en B, tasa de AdamW elegida en el borde de su rejilla), comando de
+    `casi_duplicados.py` y del guion, y una nota sobre los cambios posteriores a la auditoría.
+    `codigo/reproducir.sh` ahora también ejecuta `casi_duplicados.py`.
+- **Delegaciones automáticas:** ninguna. No se usaron subagentes ni agy.
+
+### P2-05 — 2026-11-23
+- **Herramienta / modelo:** Claude Code (app de escritorio), Claude Opus 5.5.
+- **Sesión:** práctica (continuación). Prompt escrito por el estudiante directamente en esta sesión.
+- **Propósito:** pedir una definición breve de los dos optimizadores comparados.
+- **Prompt (literal):**
+
+````text
+defineme brevemente adamW y SDG
+````
+
+- **Archivos / comandos / resultados asociados:** respuesta solo en el chat, sin archivos nuevos.
+  Se interpretó «SDG» como SGD (descenso de gradiente estocástico). Las cifras citadas salen de
+  `resultados/resumen_configuraciones.csv`.
+- **Delegaciones automáticas:** ninguna.
+
+### P2-06 — 2026-11-23
+- **Herramienta / modelo:** Claude Code (app de escritorio), Claude Opus 5.5.
+- **Sesión:** práctica (continuación). Prompt escrito por el estudiante directamente en esta sesión.
+- **Propósito:** preguntar qué arquitecturas de transformer se usaron y con qué cabezas de atención.
+- **Prompt (literal):**
+
+````text
+que arquitecturas de transformers se usaron y ue cabezas?
+````
+
+- **Archivos / comandos / resultados asociados:** respuesta solo en el chat, sin archivos nuevos.
+  Se responde desde `codigo/comun.py`, `codigo/entrenar.py` (`ARQUITECTURA`),
+  `resultados/parametros_transformer.csv` y `resultados/seleccion.json`.
+- **Delegaciones automáticas:** ninguna.

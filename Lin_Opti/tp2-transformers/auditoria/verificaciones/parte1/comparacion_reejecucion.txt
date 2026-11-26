@@ -1,0 +1,86 @@
+== /workspace/parte1/resultados/actividad3 vs /workspace/auditoria/verificaciones/parte1/actividad3
+  IDENTICO act3_cambio_pesos.pdf  sha256=24cd22a95041ba03
+  IDENTICO act3_cambio_pesos.png  sha256=8e77f02b95efa91d
+  IDENTICO act3_comparacion_profesor.pdf  sha256=a82a0564a1e996d0
+  IDENTICO act3_comparacion_profesor.png  sha256=d348a6faf672d643
+  IDENTICO act3_curvas_entrenamiento.pdf  sha256=ecc0a18817dc99bf
+  IDENTICO act3_curvas_entrenamiento.png  sha256=05bb66dfa46be3bc
+  IDENTICO act3_pesos_antes_despues.pdf  sha256=5f38aaeac6fecb67
+  IDENTICO act3_pesos_antes_despues.png  sha256=3d00a3f4295b797c
+  DIFIERE  config.json  (contenido igual salvo entorno/segundos)
+  IDENTICO pesos.json  sha256=b8f766761ff96d3e
+  IDENTICO registro_entrenamiento.csv  sha256=1a81ba6cd3c0c19c
+  DIFIERE  resumen.json  (contenido igual salvo entorno/segundos)
+== /workspace/parte1/resultados/gradientes vs /workspace/auditoria/verificaciones/parte1/gradientes
+  DIFIERE  config.json  (contenido igual salvo entorno/segundos)
+  IDENTICO gradientes_barrido_eps.csv  sha256=70f6aef74a1f0924
+  IDENTICO gradientes_error_vs_epsilon.pdf  sha256=c15d76a4cabf4345
+  IDENTICO gradientes_error_vs_epsilon.png  sha256=90b6c3e6d30ccb96
+  IDENTICO gradientes_todas_entradas.csv  sha256=ed74f1e3595dcb62
+  IDENTICO resumen.json  sha256=ba83ecbe6a265a5c
+== /workspace/parte1/resultados/actividad4 vs /workspace/auditoria/verificaciones/parte1/actividad4
+  IDENTICO act4_A_sgd_tasas.pdf  sha256=40d11d6c2c1af246
+  IDENTICO act4_A_sgd_tasas.png  sha256=f34a69e2f2c89b28
+  IDENTICO act4_B_adam_tasas.pdf  sha256=398a3ea8d4778b27
+  IDENTICO act4_B_adam_tasas.png  sha256=8afc5e423fa32279
+  IDENTICO act4_B_sgd_vs_adam.pdf  sha256=ab78a753e24e2585
+  IDENTICO act4_B_sgd_vs_adam.png  sha256=19518f27849d1ee3
+  IDENTICO act4_C_dinamica.pdf  sha256=569dc95883ba32b5
+  IDENTICO act4_C_dinamica.png  sha256=fb5567dd2b173c7b
+  IDENTICO act4_C_norma_gradiente.pdf  sha256=0633381d253a9c2b
+  IDENTICO act4_C_norma_gradiente.png  sha256=596b3de4a97ab36b
+  IDENTICO act4_curvatura.pdf  sha256=2de92a469a1032d0
+  IDENTICO act4_curvatura.png  sha256=5ff7f1f390d69f1c
+  DIFIERE  config.json  (contenido igual salvo entorno/segundos)
+  DIFIERE  corridas.csv  (contenido igual salvo columnas de tiempo)
+  IDENTICO curvatura.json  sha256=b3917be57563afee
+  IDENTICO pesos_finales.json  sha256=b1847c2eb8494abd
+  IDENTICO prueba.csv  sha256=e57557c825918bd3
+  IDENTICO registro_pasos.csv  sha256=78285a0678afe918
+  IDENTICO seleccion.json  sha256=98c965bf00fc7751
+  IDENTICO tabla_configuraciones.csv  sha256=c31075ea2634a0f1
+  IDENTICO tabla_configuraciones.md  sha256=1a29c0b9625bd067
+  IDENTICO tabla_configuraciones.tex  sha256=bc373eda0fc308b0
+== /workspace/parte1/resultados/actividad3 vs /workspace/auditoria/verificaciones/parte1/figuras_regeneradas/actividad3
+  IDENTICO act3_cambio_pesos.pdf  sha256=24cd22a95041ba03
+  IDENTICO act3_cambio_pesos.png  sha256=8e77f02b95efa91d
+  IDENTICO act3_comparacion_profesor.pdf  sha256=a82a0564a1e996d0
+  IDENTICO act3_comparacion_profesor.png  sha256=d348a6faf672d643
+  IDENTICO act3_curvas_entrenamiento.pdf  sha256=ecc0a18817dc99bf
+  IDENTICO act3_curvas_entrenamiento.png  sha256=05bb66dfa46be3bc
+  IDENTICO act3_pesos_antes_despues.pdf  sha256=5f38aaeac6fecb67
+  IDENTICO act3_pesos_antes_despues.png  sha256=3d00a3f4295b797c
+  FALTA    config.json
+  FALTA    pesos.json
+  FALTA    registro_entrenamiento.csv
+  FALTA    resumen.json
+== /workspace/parte1/resultados/actividad4 vs /workspace/auditoria/verificaciones/parte1/figuras_regeneradas/actividad4
+  IDENTICO act4_A_sgd_tasas.pdf  sha256=40d11d6c2c1af246
+  IDENTICO act4_A_sgd_tasas.png  sha256=f34a69e2f2c89b28
+  IDENTICO act4_B_adam_tasas.pdf  sha256=398a3ea8d4778b27
+  IDENTICO act4_B_adam_tasas.png  sha256=8afc5e423fa32279
+  IDENTICO act4_B_sgd_vs_adam.pdf  sha256=ab78a753e24e2585
+  IDENTICO act4_B_sgd_vs_adam.png  sha256=19518f27849d1ee3
+  IDENTICO act4_C_dinamica.pdf  sha256=569dc95883ba32b5
+  IDENTICO act4_C_dinamica.png  sha256=fb5567dd2b173c7b
+  IDENTICO act4_C_norma_gradiente.pdf  sha256=0633381d253a9c2b
+  IDENTICO act4_C_norma_gradiente.png  sha256=596b3de4a97ab36b
+  IDENTICO act4_curvatura.pdf  sha256=2de92a469a1032d0
+  IDENTICO act4_curvatura.png  sha256=5ff7f1f390d69f1c
+  FALTA    config.json
+  FALTA    corridas.csv
+  FALTA    curvatura.json
+  FALTA    pesos_finales.json
+  FALTA    prueba.csv
+  FALTA    registro_pasos.csv
+  FALTA    seleccion.json
+  FALTA    tabla_configuraciones.csv
+  FALTA    tabla_configuraciones.md
+  FALTA    tabla_configuraciones.tex
+== /workspace/parte1/resultados/gradientes vs /workspace/auditoria/verificaciones/parte1/figuras_regeneradas/gradientes
+  FALTA    config.json
+  FALTA    gradientes_barrido_eps.csv
+  IDENTICO gradientes_error_vs_epsilon.pdf  sha256=c15d76a4cabf4345
+  IDENTICO gradientes_error_vs_epsilon.png  sha256=90b6c3e6d30ccb96
+  FALTA    gradientes_todas_entradas.csv
+  FALTA    resumen.json

@@ -1,0 +1,32 @@
+IDENTICO  datos/particion.csv
+IDENTICO  datos/resumen_datos.json
+FALTA     resultados/.gitkeep
+DIFIERE   resultados/configuracion_experimentos.json: igual salvo versiones/tiempos
+IDENTICO  resultados/evaluacion_prueba.json
+DIFIERE   resultados/figuras/comparacion_validacion.pdf (binario)
+IDENTICO  resultados/figuras/comparacion_validacion.png
+DIFIERE   resultados/figuras/curvas_entrenamiento.pdf (binario)
+IDENTICO  resultados/figuras/curvas_entrenamiento.png
+DIFIERE   resultados/figuras/normas_gradiente.pdf (binario)
+IDENTICO  resultados/figuras/normas_gradiente.png
+DIFIERE   resultados/figuras/prueba.pdf (binario)
+IDENTICO  resultados/figuras/prueba.png
+IDENTICO  resultados/figuras/resumen_normas.csv
+IDENTICO  resultados/metricas_prueba.csv
+IDENTICO  resultados/modelos/transformer_adamw_lr0.01_s0.pt
+IDENTICO  resultados/modelos/transformer_adamw_lr0.01_s1.pt
+IDENTICO  resultados/modelos/transformer_adamw_lr0.01_s2.pt
+IDENTICO  resultados/parametros_transformer.csv
+IDENTICO  resultados/predicciones_prueba.csv
+IDENTICO  resultados/referencia.json
+DIFIERE   resultados/referencia_busqueda.csv: dif. numérica máx. 0 sin columnas de tiempo; texto igual: True
+IDENTICO  resultados/registro_evaluacion.csv
+IDENTICO  resultados/registro_pasos.csv
+DIFIERE   resultados/resumen_configuraciones.csv: dif. numérica máx. 0 sin columnas de tiempo; texto igual: True
+DIFIERE   resultados/resumen_corridas.csv: dif. numérica máx. 0 sin columnas de tiempo; texto igual: True
+IDENTICO  resultados/seleccion.json
+IDENTICO  resultados/vocabulario.json
+comparacion_validacion 22812 22812 igual sin CreationDate: True [b'/CreationDate (D:20261123061002Z)']
+curvas_entrenamiento 29573 29573 igual sin CreationDate: True [b'/CreationDate (D:20261123061000Z)']
+normas_gradiente 34478 34478 igual sin CreationDate: True [b'/CreationDate (D:20261123061001Z)']
+prueba 17177 17177 igual sin CreationDate: True [b'/CreationDate (D:20261123061003Z)']

@@ -1,0 +1,113 @@
+== Reejecución Parte 1 por el auditor — 2026-11-23 06:35:17 -0300 — commit a5a766f
+$ docker compose exec -T auditoria sh -c "cd /workspace/parte1 && python -m unittest discover -s codigo -p test_*.py -v"
+test_contra_numpy_y_dimensiones (test_atencion.PruebasCabeza.test_contra_numpy_y_dimensiones) ... ok
+test_softmax_estable (test_atencion.PruebasCabeza.test_softmax_estable) ... ok
+test_division_y_determinismo (test_atencion.PruebasProblema.test_division_y_determinismo) ... ok
+test_paso_de_sgd (test_atencion.PruebasProblema.test_paso_de_sgd)
+Un paso de entrenar() con SGD debe ser W - tasa * grad del primer minibatch. ... ok
+test_calculo_contra_numpy (test_verificar_manual.PruebasActividad1.test_calculo_contra_numpy) ... ok
+test_restricciones_contra_numpy (test_verificar_manual.PruebasActividad1.test_restricciones_contra_numpy) ... ok
+test_calculo_contra_numpy (test_verificar_manual.PruebasActividad2.test_calculo_contra_numpy) ... ok
+test_restricciones_contra_numpy (test_verificar_manual.PruebasActividad2.test_restricciones_contra_numpy) ... ok
+test_comparacion_manual (test_verificar_manual.PruebasEntradaYComparacion.test_comparacion_manual) ... ok
+test_plantilla_vacia_se_rechaza (test_verificar_manual.PruebasEntradaYComparacion.test_plantilla_vacia_se_rechaza) ... ok
+test_script_completo (test_verificar_manual.PruebasEntradaYComparacion.test_script_completo)
+Ejecuta main() con matrices que NO cumplen 3.2 a) (X tiene un 2). ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 1.069s
+
+OK
+tiempo 3,939 s
+EXIT=0
+
+$ docker compose exec -T auditoria python /workspace/parte1/codigo/actividad3_entrenar.py --salida /workspace/auditoria/verificaciones/parte1/actividad3
+Actividad 3: sgd, tasa 0.3, batch 32, 1500 pasos, semilla 0
+  pérdida inicial: entrenamiento 4.516e+00  validación 4.323e+00  prueba 4.120e+00
+  pérdida final: entrenamiento 2.602e-09  validación 3.393e-09  prueba 4.209e-09
+  ||W_Q final - W_Q inicial||_F = 4.4354 (relativo 1.65)
+  ||W_K final - W_K inicial||_F = 4.0624 (relativo 1.28)
+  ||W_V final - W_V inicial||_F = 6.9156 (relativo 2.72)
+  error relativo frente al profesor: W_Q 1.43e+00, W_Q W_K^T 2.76e-05, W_V 3.73e-06
+Resultados en /workspace/auditoria/verificaciones/parte1/actividad3
+tiempo 8,745 s
+EXIT=0
+
+$ docker compose exec -T auditoria python /workspace/parte1/codigo/actividad3_gradientes.py --salida /workspace/auditoria/verificaciones/parte1/gradientes
+Prueba de gradientes (mismo minibatch de 32 ejemplos, pesos iniciales semilla 0)
+  float64: eps = 6.06e-06, error relativo máximo en 9 entradas = 2.15e-07, menor mediana del barrido con eps = 1e-05
+  float32: eps = 4.92e-03, error relativo máximo en 9 entradas = 8.58e-03, menor mediana del barrido con eps = 1e-02
+  float64, 192 entradas: error absoluto máximo 1.53e-10, error relativo de la norma 7.72e-10
+Resultados en /workspace/auditoria/verificaciones/parte1/gradientes
+tiempo 4,981 s
+EXIT=0
+
+$ docker compose exec -T auditoria python /workspace/parte1/codigo/actividad4_experimentos.py --salida /workspace/auditoria/verificaciones/parte1/actividad4
+lambda_max inicial [0.540010042521359, 0.5342933706736954, 0.5164985247344052], en el profesor 3.728 -> 2/lambda_max = 0.536
+  sgd  tasa 0.03   semilla 0: val final 6.525e-03, divergió False, 1.3 s
+  sgd  tasa 0.03   semilla 1: val final 3.820e-03, divergió False, 1.3 s
+  sgd  tasa 0.03   semilla 2: val final 4.530e-03, divergió False, 1.3 s
+  sgd  tasa 0.1    semilla 0: val final 1.323e-04, divergió False, 1.3 s
+  sgd  tasa 0.1    semilla 1: val final 2.770e-05, divergió False, 1.3 s
+  sgd  tasa 0.1    semilla 2: val final 9.668e-04, divergió False, 1.3 s
+  sgd  tasa 0.3    semilla 0: val final 3.393e-09, divergió False, 1.3 s
+  sgd  tasa 0.3    semilla 1: val final 2.948e-08, divergió False, 1.4 s
+  sgd  tasa 0.3    semilla 2: val final 5.680e-04, divergió False, 1.4 s
+  sgd  tasa 1      semilla 0: val final 7.164e-02, divergió False, 1.4 s
+  sgd  tasa 1      semilla 1: val final 2.898e-02, divergió False, 1.3 s
+  sgd  tasa 1      semilla 2: val final 4.589e-02, divergió False, 1.4 s
+  sgd  tasa 3      semilla 0: val final 9.787e-01, divergió False, 1.4 s
+  sgd  tasa 3      semilla 1: val final 1.637e+00, divergió False, 1.4 s
+  sgd  tasa 3      semilla 2: val final 2.096e+00, divergió False, 1.4 s
+  adam tasa 0.001  semilla 0: val final 2.446e-01, divergió False, 1.7 s
+  adam tasa 0.001  semilla 1: val final 7.511e-02, divergió False, 1.8 s
+  adam tasa 0.001  semilla 2: val final 1.627e-01, divergió False, 1.8 s
+  adam tasa 0.003  semilla 0: val final 3.706e-04, divergió False, 1.9 s
+  adam tasa 0.003  semilla 1: val final 2.713e-04, divergió False, 1.8 s
+  adam tasa 0.003  semilla 2: val final 1.703e-04, divergió False, 1.8 s
+  adam tasa 0.01   semilla 0: val final 5.882e-06, divergió False, 1.7 s
+  adam tasa 0.01   semilla 1: val final 4.331e-03, divergió False, 1.7 s
+  adam tasa 0.01   semilla 2: val final 1.051e-03, divergió False, 1.7 s
+  adam tasa 0.03   semilla 0: val final 5.286e-03, divergió False, 1.9 s
+  adam tasa 0.03   semilla 1: val final 2.213e-02, divergió False, 1.8 s
+  adam tasa 0.03   semilla 2: val final 7.723e-03, divergió False, 1.7 s
+  adam tasa 0.1    semilla 0: val final 1.007e-01, divergió False, 1.7 s
+  adam tasa 0.1    semilla 1: val final 1.830e-01, divergió False, 1.7 s
+  adam tasa 0.1    semilla 2: val final 1.427e-01, divergió False, 1.8 s
+Elegida por validación para sgd: tasa 0.3; pérdida de prueba 2.58e-08 [4.21e-09, 3.00e-04] (mediana [mín, máx] de 3 semillas)
+Elegida por validación para adam: tasa 0.003; pérdida de prueba 2.98e-04 [1.58e-04, 3.50e-04] (mediana [mín, máx] de 3 semillas)
+Resultados en /workspace/auditoria/verificaciones/parte1/actividad4
+tiempo 77,513 s
+EXIT=0
+
+$ docker compose exec -T auditoria python /workspace/parte1/codigo/regenerar_figuras.py --registros /workspace/parte1/resultados --salida /workspace/auditoria/verificaciones/parte1/figuras_regeneradas
+/workspace/auditoria/verificaciones/parte1/figuras_regeneradas/actividad3/act3_curvas_entrenamiento.pdf
+/workspace/auditoria/verificaciones/parte1/figuras_regeneradas/actividad3/act3_curvas_entrenamiento.png
+/workspace/auditoria/verificaciones/parte1/figuras_regeneradas/actividad3/act3_cambio_pesos.pdf
+/workspace/auditoria/verificaciones/parte1/figuras_regeneradas/actividad3/act3_cambio_pesos.png
+/workspace/auditoria/verificaciones/parte1/figuras_regeneradas/actividad3/act3_pesos_antes_despues.pdf
+/workspace/auditoria/verificaciones/parte1/figuras_regeneradas/actividad3/act3_pesos_antes_despues.png
+/workspace/auditoria/verificaciones/parte1/figuras_regeneradas/actividad3/act3_comparacion_profesor.pdf
+/workspace/auditoria/verificaciones/parte1/figuras_regeneradas/actividad3/act3_comparacion_profesor.png
+/workspace/auditoria/verificaciones/parte1/figuras_regeneradas/actividad4/act4_A_sgd_tasas.pdf
+/workspace/auditoria/verificaciones/parte1/figuras_regeneradas/actividad4/act4_A_sgd_tasas.png
+/workspace/auditoria/verificaciones/parte1/figuras_regeneradas/actividad4/act4_B_adam_tasas.pdf
+/workspace/auditoria/verificaciones/parte1/figuras_regeneradas/actividad4/act4_B_adam_tasas.png
+/workspace/auditoria/verificaciones/parte1/figuras_regeneradas/actividad4/act4_B_sgd_vs_adam.pdf
+/workspace/auditoria/verificaciones/parte1/figuras_regeneradas/actividad4/act4_B_sgd_vs_adam.png
+/workspace/auditoria/verificaciones/parte1/figuras_regeneradas/actividad4/act4_C_norma_gradiente.pdf
+/workspace/auditoria/verificaciones/parte1/figuras_regeneradas/actividad4/act4_C_norma_gradiente.png
+/workspace/auditoria/verificaciones/parte1/figuras_regeneradas/actividad4/act4_C_dinamica.pdf
+/workspace/auditoria/verificaciones/parte1/figuras_regeneradas/actividad4/act4_C_dinamica.png
+/workspace/auditoria/verificaciones/parte1/figuras_regeneradas/actividad4/act4_curvatura.pdf
+/workspace/auditoria/verificaciones/parte1/figuras_regeneradas/actividad4/act4_curvatura.png
+/workspace/auditoria/verificaciones/parte1/figuras_regeneradas/gradientes/gradientes_error_vs_epsilon.pdf
+/workspace/auditoria/verificaciones/parte1/figuras_regeneradas/gradientes/gradientes_error_vs_epsilon.png
+22 archivos de figura generados
+EXIT=0
+== fin 2026-11-23 06:37:05 -0300
+
+$ docker compose exec -T auditoria python /workspace/parte1/codigo/valores_informe.py --registros /workspace/auditoria/verificaciones/parte1 --salida /workspace/auditoria/verificaciones/parte1/valores_desde_reejecucion
+591 valores escritos en /workspace/auditoria/verificaciones/parte1/valores_desde_reejecucion/valores.tex
+EXIT=0
+valores.tex IDENTICO al entregado

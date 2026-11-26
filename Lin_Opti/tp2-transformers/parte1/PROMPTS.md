@@ -22,7 +22,7 @@ Formato de cada entrada:
 
 Sesión de infraestructura: Claude Code (app de escritorio), modelo Claude Opus 5.5, iniciada en
 `Lin_Opti/`. Es distinta de las sesiones de teoría, práctica y auditoría. Los prompts se copian
-tal como se enviaron (en inglés).
+tal como se enviaron (los primeros, en inglés).
 
 ### P1-01 — 2026-11-23
 - **Herramienta / modelo:** Claude Code (app de escritorio), Claude Opus 5.5
@@ -120,6 +120,94 @@ tal como se enviaron (en inglés).
 - **Delegaciones automáticas:** dos prompts enviados a esas sesiones. Cada sesión registra su
   prompt literal como primera entrada de su registro: la de teoría en la sección «Parte 1 —
   Teoría» de este archivo, y la de práctica en `parte2/PROMPTS.md`.
+
+#### Acciones derivadas de P1-08, sin prompt nuevo del estudiante
+- **Recreación de los contenedores (~02:49).** Las sesiones de teoría y de práctica avisaron por
+  mensaje entre sesiones (registrados en P1-T02 y en P2-03 de `parte2/PROMPTS.md`) que veían
+  `parte1/` y `parte2/` vacías. La causa fue un `git switch main` de esta sesión durante el
+  commit y la fusión de la Parte 0: borró las carpetas y el *fast-forward* las recreó con otros
+  inodos. Esta sesión ejecutó `docker compose up -d --force-recreate`, repitió
+  `scripts/verificar_aislamiento.sh` (52 de 52, pero con el registro escrito fuera del proyecto,
+  en la carpeta temporal de la sesión), agregó a `README.md` la sección «Si los contenedores ven
+  las carpetas vacías» y avisó a ambas sesiones.
+- **Propuesta de la sesión de auditoría.** Cuando terminaron las sesiones de teoría y práctica,
+  esta sesión revisó sus resultados y propuso una sesión nueva e independiente de auditoría. El
+  estudiante la inició con un clic. Su prompt literal está en `auditoria/PROMPTS.md` (AU-01).
+
+### P1-09 — 2026-11-23
+- **Herramienta / modelo:** Claude Code (app de escritorio), Claude Opus 5.5
+- **Sesión:** infraestructura (continuación)
+- **Propósito:** guardar en git las Partes 1 y 2 antes de la auditoría.
+- **Prompt (literal):** (respuesta con un botón a la pregunta «¿Hago commit de las Partes 1 y 2
+  antes de la auditoría?»)
+  > Sí, haz commit
+- **Archivos / comandos / resultados asociados:** rama nueva `tp2-partes1-2` (sin cambiar de
+  rama de forma que se borren carpetas) y commit `a5a766f` con `parte1/`, `parte2/`, `README.md`
+  y `.gitignore`; este último pasó a excluir los archivos intermedios de LaTeX. `auditoria/` quedó
+  fuera porque el auditor estaba trabajando. Sin *push*.
+- **Delegaciones automáticas:** ninguna.
+
+### P1-10 — 2026-11-23
+- **Herramienta / modelo:** Claude Code (app de escritorio), Claude Opus 5.5
+- **Sesión:** infraestructura (continuación)
+- **Propósito:** incorporar al informe el desarrollo manual de las Actividades 1 y 2, ya
+  terminado por el estudiante, y hacer su verificación posterior.
+- **Prompt (literal):** con dos adjuntos: la fotografía de la primera hoja manuscrita y el PDF
+  `Desarrollo Matemático TP2 Actividades 1 y 2.pdf`, de 6 páginas, escrito por el estudiante en
+  LaTeX.
+  > perdí la otra hoja de cálculo, pero stá en el documento los cálculos del resto de ejercicios, Termina esto
+- **Archivos / comandos / resultados asociados:**
+  - Copió los adjuntos a `informe/manual/hoja_actividad1.jpg` y
+    `informe/manual/desarrollo_actividades_1_2.pdf`.
+  - Transcribió las matrices y los resultados del desarrollo final a `matrices_estudiante.json`,
+    sin elegir ni calcular ningún valor del ejercicio.
+  - Ejecutó `docker compose exec teoria python codigo/verificar_manual.py --entrada matrices_estudiante.json`:
+    se cumplen todas las restricciones, coinciden los 13 valores y el código de salida es 0
+    (`resultados/verificacion_manual/verificacion_actividades_1_2.{md,json}`).
+  - Hizo comprobaciones adicionales de la discusión e), guardadas en
+    `resultados/verificacion_manual/comprobaciones_adicionales.md`: λ_max = (9+√17)/32, la cota
+    2/λ_max ≈ 4,877 y un umbral exacto de 416/37 ≈ 11,24 para un solo paso.
+  - Al comparar la hoja fotografiada con los resultados encontró que en la hoja K y V están
+    intercambiadas y que (QKᵀ)₂₂ = 0. El desarrollo final ya lo corrige; la discrepancia quedó
+    documentada en el informe.
+  - Actualizó `informe/informe.tex`:
+    - desarrollo manual en las secciones 2.5 y 3.3;
+    - verificación posterior en un anexo propio;
+    - anexo con la foto y el PDF;
+    - Actividad 5 resumida desde la auditoría;
+    - correcciones de los hallazgos H-06, H-07 y H-08 del auditor;
+    - cita del registro de aislamiento posterior a la recreación.
+  - Unificó la ruta de ejemplo del docstring de `codigo/verificar_manual.py` (H-12) y recompiló
+    `informe.pdf`.
+- **Delegaciones automáticas:** ninguna.
+
+### P1-11 — 2026-11-23
+- **Herramienta / modelo:** Claude Code (app de escritorio), Claude Opus 5.5
+- **Sesión:** infraestructura (continuación); el mensaje llegó mientras se trabajaba en P1-10.
+- **Propósito:** dejar lista la presentación de la Parte 2 y un guion para exponerla.
+- **Prompt (literal):**
+  > has la presentación y una explicacion para esta tipo script
+- **Archivos / comandos / resultados asociados:** como la presentación es de la Parte 2, se
+  encargó a la sesión de práctica, que trabaja en `parte2/` y ejecuta en el contenedor
+  `practica`. Esta sesión no modificó `parte2/`.
+- **Delegaciones automáticas:** un mensaje a la sesión «TP2 Parte 2: proyecto aplicado y
+  diapositivas». Contiene la cita literal del estudiante, los requisitos de la sección 4.4 del
+  enunciado, los hallazgos H-03, H-04 y H-10 del auditor, los entregables (diapositivas
+  corregidas y `guion.md` con preguntas probables) y las restricciones. El texto íntegro lo
+  registra la sesión de práctica en `parte2/PROMPTS.md`.
+
+### P1-12 — 2026-11-25
+- **Herramienta / modelo:** Claude Code (app de escritorio), Claude Opus 5.5
+- **Sesión:** infraestructura (continuación)
+- **Propósito:** guardar en git el informe completo de la Parte 1, la presentación y el guion de
+  la Parte 2 y los resultados de la auditoría.
+- **Prompt (literal):** (respuesta con un botón a la pregunta «¿Hago commit de los cambios de esta
+  ronda en la rama tp2-partes1-2?»)
+  > Sí, haz commit
+- **Archivos / comandos / resultados asociados:** commit en la rama `tp2-partes1-2` con los
+  cambios de `parte1/`, `parte2/` y `auditoria/`, incluidas las reejecuciones del auditor en
+  `auditoria/verificaciones/` (unos 17 MB). Sin *push* y sin cambiar de rama.
+- **Delegaciones automáticas:** ninguna.
 
 ## Parte 1 — Teoría
 

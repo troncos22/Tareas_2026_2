@@ -42,11 +42,13 @@ honesta.
    TF-IDF se ajustan **solo con entrenamiento**. Las estadísticas de longitud que justifican truncar
    en 64 tokens también.
 4. La partición de prueba solo la lee `codigo/evaluar_prueba.py`, una vez, con las configuraciones
-   ya elegidas en validación.
+   ya elegidas en validación. Después, `codigo/casi_duplicados.py` analiza las predicciones de
+   prueba ya guardadas, sin elegir ni reentrenar nada.
 
 Limitación de la deduplicación: solo quita copias exactas (tras normalizar espacios). Plantillas
-de spam casi iguales, que difieren en un número o un código, pueden quedar en particiones
-distintas.
+de spam casi iguales, que difieren en un número o un código, quedaron en particiones distintas:
+16 mensajes de prueba y 19 de validación tienen un casi duplicado en entrenamiento. Su efecto
+está medido en «Sensibilidad a casi duplicados», más abajo.
 
 ## Modelos
 
@@ -90,7 +92,9 @@ la atención y el orden.
 - **Experimento A (tasa de aprendizaje):** AdamW (β = (0,9, 0,999), decaimiento 0,01) con
   η ∈ {10⁻⁴, 10⁻³, 10⁻²}.
 - **Experimento B (optimizador):** SGD con momento 0,9, sin decaimiento, con η ∈ {10⁻², 10⁻¹, 1}.
-  Las tasas de SGD son mayores porque su paso es proporcional al gradiente, mientras que AdamW
+  B cambia dos cosas a la vez respecto de A: el optimizador y el decaimiento de pesos (AdamW 0,01,
+  SGD 0). El decaimiento por sí solo encoge los pesos un factor (1 − η·0,01) por paso; con
+  η = 10⁻² son 0,9999²⁵⁰ ≈ 0,975 en 250 pasos (2,5 %), y con η = 10⁻³, 0,25 %. Las tasas de SGD son mayores porque su paso es proporcional al gradiente, mientras que AdamW
   normaliza cada coordenada y su paso ronda η. Se da a cada optimizador su propia rejilla para
   compararlos en su mejor tasa y no en una tasa que favorezca a uno.
 - **Experimento C (normas):** en cada paso se registran ‖∇θ L‖₂ (antes de actualizar) y
@@ -179,6 +183,31 @@ Lectura (curvas en `resultados/figuras/curvas_entrenamiento.pdf`, desde
 - De validación a prueba, F1 baja 0,03–0,04 en ambos modelos (0,926 → 0,893 y 0,974 → 0,931): con
   96–97 spam por partición, un mensaje mueve la exhaustividad en un punto, y elegir entre varias
   configuraciones en validación sesga su F1 hacia arriba.
+- La ablación sin atención solo se evaluó en validación. Las comparaciones con ella son en
+  validación (0,958 frente a 0,926 del transformer y 0,974 de TF-IDF), nunca contra cifras de prueba.
+
+### Sensibilidad a casi duplicados (`resultados/casi_duplicados.json`, `resultados/casi_duplicados_prueba.csv`)
+
+Análisis agregado después de la auditoría independiente (hallazgo H-03), con
+`codigo/casi_duplicados.py`. Dos mensajes son casi iguales si coinciden tras pasar a minúsculas y
+reemplazar todo lo que no sea una letra (dígitos, signos, espacios) por un espacio; por ejemplo, la
+misma plantilla de spam con otro número de teléfono. 16 de los 774 mensajes de prueba (13 spam, el
+13 % del spam de prueba) tienen un casi duplicado en entrenamiento, y todos los modelos aciertan
+los 16. Sin ellos:
+
+| Modelo | F1 prueba | F1 sin casi duplicados | Cambio | Exhaustividad sin ellos |
+|---|---:|---:|---:|---:|
+| Transformer, semilla 0 | 0,900 | 0,883 | −0,017 | 0,810 |
+| Transformer, semilla 1 | 0,890 | 0,873 | −0,017 | 0,857 |
+| Transformer, semilla 2 | 0,889 | 0,870 | −0,019 | 0,798 |
+| TF-IDF + regresión logística | 0,931 | 0,920 | −0,011 | 0,893 |
+
+El F1 de prueba está algo inflado, más en el transformer (−0,018 en promedio) que en TF-IDF
+(−0,011), así que la brecha entre ambos crece un poco (de 0,038 a 0,045). La conclusión no cambia.
+En validación, 19 mensajes (16 spam, el 17 % del spam de validación) tienen un casi duplicado en
+entrenamiento. Afectan por igual a todas las configuraciones, que se evalúan en los mismos
+mensajes, pero inflan el nivel de F1 de validación. No se rehizo la partición ni se volvieron a
+correr los experimentos.
 
 ## Reproducción
 
@@ -190,6 +219,7 @@ docker compose exec practica python codigo/preparar_datos.py --entrada datos --s
 docker compose exec practica python codigo/referencia.py --datos datos --salida resultados
 docker compose exec practica python codigo/experimentos.py --datos datos --salida resultados
 docker compose exec practica python codigo/evaluar_prueba.py --datos datos --resultados resultados --salida resultados
+docker compose exec practica python codigo/casi_duplicados.py --datos datos --resultados resultados --salida resultados
 docker compose exec practica python codigo/figuras.py --resultados resultados --datos datos --salida resultados/figuras
 ```
 
@@ -212,7 +242,9 @@ con salida en `/tmp/reproduccion` (fuera del montaje). `particion.csv` resultó 
 y `referencia_busqueda.csv`, `registro_pasos.csv`, `registro_evaluacion.csv`,
 `resumen_corridas.csv`, `resumen_configuraciones.csv`, `metricas_prueba.csv`,
 `predicciones_prueba.csv` y `parametros_transformer.csv` tuvieron diferencia numérica máxima 0
-(sin contar las columnas de tiempo); `seleccion.json` fue igual. Se usó la misma imagen y 2 hilos;
+(sin contar las columnas de tiempo); `seleccion.json` fue igual. `casi_duplicados.py` se agregó a
+`reproducir.sh` después de esa verificación; solo depende de `particion.csv` y
+`predicciones_prueba.csv`, que fueron idénticos. Se usó la misma imagen y 2 hilos;
 en otro procesador o con otro número de hilos pueden aparecer diferencias de redondeo.
 
 **Diapositivas.** La imagen no tiene LaTeX; se compilan en el anfitrión:
@@ -221,6 +253,7 @@ en otro procesador o con otro número de hilos pueden aparecer diferencias de re
 cd parte2/presentacion
 latexmk -pdf presentacion.tex
 latexmk -pdf presentacion_notas.tex
+pandoc guion.md -o guion.pdf --pdf-engine=xelatex -V mainfont="DejaVu Serif" -V monofont="DejaVu Sans Mono" -V fontsize=10pt -V geometry:margin=2cm -V colorlinks=true
 ```
 
 ### Semillas
@@ -257,6 +290,12 @@ Los tiempos por corrida están en `resultados/resumen_corridas.csv` (`segundos_t
   cubría aprendizaje lento, aprendizaje y divergencia. Los pilotos miraron validación y no
   cambiaron ninguna rejilla.
 - **Rejilla de C** de la referencia: ampliada dos veces, ver arriba.
+- **Después de la auditoría independiente** (`auditoria/verificaciones/informe_auditoria.md`):
+  se comprobaron en el contenedor `practica` los hallazgos H-03, H-04 y H-10 y se aceptaron los
+  tres. Para H-03 se agregó `codigo/casi_duplicados.py` y la sección «Sensibilidad a casi
+  duplicados»; para H-04 se corrigió la diapositiva de conclusiones, que comparaba la ablación
+  (validación) con el transformer (prueba); para H-10 se documentó el decaimiento de pesos distinto
+  en el experimento B. No se volvió a correr ningún experimento ni a elegir nada.
 - **Problema de infraestructura.** Al empezar, los tres contenedores veían vacías sus carpetas
   montadas: las carpetas del anfitrión se habían recreado después de iniciar los contenedores. La
   sesión de infraestructura los recreó; ninguna ejecución de esta parte ocurrió antes de eso.
@@ -270,9 +309,15 @@ Los tiempos por corrida están en `resultados/resumen_corridas.csv` (`segundos_t
 - **Umbral fijo en 0,5**, sin ajustar en validación; parte de la baja exhaustividad del transformer
   podría corregirse moviendo el umbral.
 - **Tasa constante**, sin calentamiento ni decaimiento, y rejillas de 3 valores separados por un
-  factor 10. No es una búsqueda exhaustiva de hiperparámetros.
-- **Deduplicación exacta:** pueden quedar plantillas de spam casi iguales repartidas entre
-  particiones, lo que favorece a todos los modelos por igual.
+  factor 10. No es una búsqueda exhaustiva de hiperparámetros. La tasa elegida para AdamW (10⁻²) es
+  el borde superior de su rejilla; no se probó 10⁻¹.
+- **Deduplicación exacta:** quedaron plantillas de spam casi iguales repartidas entre particiones
+  (16 mensajes de prueba y 19 de validación con un casi duplicado en entrenamiento). Inflan el F1
+  de prueba en 0,017–0,019 al transformer y en 0,011 a TF-IDF; ver «Sensibilidad a casi
+  duplicados». Deduplicar con la clave normalizada antes de partir lo evitaría.
+- **Experimento B no aísla el optimizador:** AdamW usa decaimiento de pesos 0,01 y SGD ninguno.
+  El decaimiento encoge los pesos ≈ 2,5 % en 250 pasos con η = 10⁻²; no se corrió SGD con
+  decaimiento ni AdamW sin él.
 - **Etiquetas:** algunos mensajes etiquetados como spam se parecen a mensajes personales; ambos
   modelos fallan los mismos.
 - La ablación se entrenó con la configuración elegida para el transformer, no con una propia.
@@ -295,11 +340,13 @@ parte2/
     entrenar.py                  una corrida; ciclo de entrenamiento comentado
     experimentos.py              6 configuraciones x 3 semillas, selección y ablación (sin prueba)
     evaluar_prueba.py            única lectura de la prueba
+    casi_duplicados.py           sensibilidad de la prueba a casi duplicados (análisis posterior)
     figuras.py                   figuras desde los registros
     reproducir.sh                todo lo anterior salvo la descarga, en otra carpeta
   datos/                         crudos (zip, SMSSpamCollection, readme), fuente.json,
                                  particion.csv, resumen_datos.json
   resultados/                    registros crudos (CSV/JSON), modelos/ con los pesos de la
                                  configuración elegida, figuras/ (PDF y PNG)
-  presentacion/                  presentacion.tex/.pdf y presentacion_notas.tex/.pdf
+  presentacion/                  presentacion.tex/.pdf, presentacion_notas.tex/.pdf (con notas),
+                                 guion.md/.pdf (texto para exponer y preguntas probables)
 ```

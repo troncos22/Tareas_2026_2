@@ -1,0 +1,25 @@
+{
+  "_fuente": "Transcripción, hecha después del desarrollo manual, de las matrices y resultados del estudiante: informe/manual/desarrollo_actividades_1_2.pdf (versión final) y la hoja fotografiada informe/manual/hoja_actividad1.jpg. Ningún valor fue elegido ni calculado por un agente.",
+  "X":   [[1, 0], [-1, -1]],
+  "W_Q": [[0, 1], [1, 0]],
+  "W_K": [[0, -1], [-1, 0]],
+  "W_V": [[0, -1], [1, 0]],
+  "A":   [["3/4", "1/4"], ["1/2", "1/2"]],
+  "T":   [[-1, 0], [1, -1]],
+  "eta": "1/2",
+  "manual": {
+    "Q":   [[0, 1], [-1, -1]],
+    "K":   [[0, -1], [1, 1]],
+    "V":   [[0, -1], [-1, 1]],
+    "QKt": [[-1, 1], [1, -2]],
+    "S":   [[-0.7071, 0.7071], [0.7071, -1.4142]],
+    "A_softmax": [[0.1956, 0.8044], [0.8930, 0.1070]],
+    "H":   [[-0.8044, 0.6089], [-0.1070, -0.7859]],
+    "H0":  [["-1/4", "-1/2"], ["-1/2", "0"]],
+    "L0":  "65/32",
+    "G":   [["3/8", "-1/4"], ["9/16", "-3/8"]],
+    "W_V1": [["-3/16", "-7/8"], ["23/32", "3/16"]],
+    "H1":  [["-35/128", "-31/64"], ["-23/64", "-3/32"]],
+    "L1":  "56225/32768"
+  }
+}

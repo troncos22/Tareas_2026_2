@@ -1,4 +1,7 @@
-% Parte 2 del TP2 (ING560): borrador de presentación, 8 minutos de exposición.
+% Parte 2 del TP2 (ING560): presentación de 8 minutos (6 diapositivas de contenido y portada).
+% Tiempos: problema 1 min; arquitectura 1 min; entrenamiento y optimización 2,5 min;
+%          curvas 1 min + comparaciones y métricas 1,5 min; conclusiones y limitaciones 1 min.
+% El texto para exponer, con reparto entre dos expositores y preguntas probables, está en guion.md.
 % Compilar desde esta carpeta:  latexmk -pdf presentacion.tex          (diapositivas)
 %                               latexmk -pdf presentacion_notas.tex    (con notas para quien expone)
 % Las figuras se generan con codigo/figuras.py en ../resultados/figuras/.
@@ -62,9 +65,9 @@
   \titlepage
 \end{frame}
 \note{
-  \textbf{Portada (10 s).} Presentar al grupo y la pregunta: ¿un transformer pequeño, entrenado
-  desde cero en CPU, supera a un modelo lineal clásico para detectar spam? El foco es cómo se
-  entrena y cómo cambia el resultado con el optimizador y la tasa de aprendizaje.
+  \textbf{Portada (10 s, expositor A).} Presentar al grupo y la pregunta: ¿un transformer pequeño,
+  entrenado desde cero en CPU, supera a un modelo lineal clásico para detectar spam? El foco es cómo
+  se entrena y cómo cambia el resultado con el optimizador y la tasa de aprendizaje.
 }
 
 % =============================================================================
@@ -89,9 +92,9 @@
       \end{block}
     \end{column}
     \begin{column}{0.49\textwidth}
-      \begin{block}{Partición sin filtraciones}
+      \begin{block}{Partición y filtraciones}
         \begin{itemize}
-          \item Se quitan 414 SMS repetidos $\Rightarrow$ 5160 únicos.
+          \item Se quitan 414 copias exactas $\Rightarrow$ 5160 SMS únicos.
           \item Estratificada 70/15/15 (semilla 2026):\\ 3612 / 774 / 774 SMS, con 449 / 96 / 97 spam.
           \item Vocabulario (3184 tokens) y TF-IDF: \textbf{solo entrenamiento}.
           \item Prueba: un script aparte, una vez, al final.
@@ -108,11 +111,12 @@
   \archivo{datos/fuente.json, datos/resumen\_datos.json, codigo/preparar\_datos.py}
 \end{frame}
 \note{
-  \textbf{1 min.} Qué se predice (spam/ham), de dónde salen los datos y su licencia.
-  Recalcar las dos decisiones contra filtraciones: quitar los 414 duplicados antes de
-  separar y ajustar vocabulario y TF-IDF solo con entrenamiento. Explicar por qué se usa F1:
+  \textbf{50 s (expositor A; con la portada, 1 min).} Qué se predice (spam/ham), de dónde salen los
+  datos y su licencia. Recalcar las dos decisiones contra filtraciones: quitar las 414 copias exactas
+  antes de separar y ajustar vocabulario y TF-IDF solo con entrenamiento. Explicar por qué se usa F1:
   hay 12,4\,\% de spam y el predictor constante ya tiene 87,6\,\% de exactitud.
   Pregunta probable: ¿por qué 64 tokens? Cubre el 99\,\% de los mensajes; solo 37 de 3612 se truncan.
+  Si preguntan por casi duplicados: quedaron 16 en prueba; su efecto está en la última diapositiva.
 }
 
 % =============================================================================
@@ -172,7 +176,7 @@
   \end{columns}
 \end{frame}
 \note{
-  \textbf{1 min.} Recorrer el diagrama de arriba abajo. La atención está escrita con
+  \textbf{1 min (expositor A).} Recorrer el diagrama de arriba abajo. La atención está escrita con
   operaciones explícitas (las mismas $Q,K,V,S,A,H$ de la Parte 1), con una máscara para no
   atender al relleno. Diferenciar pesos entrenables ($E$, $W_Q$, $W_K$, $W_V$, $W_O$, FFN,
   LayerNorm, $w$, $b$) de cantidades calculadas ($Q,K,V,A,H$). La cuenta sale de
@@ -181,12 +185,12 @@
 }
 
 % =============================================================================
-% 3. ENTRENAMIENTO Y OPTIMIZACIÓN (2,5 min, primera parte)
+% 3. ENTRENAMIENTO Y OPTIMIZACIÓN (2,5 min)
 % =============================================================================
 \begin{frame}{Entrenamiento y diseño de la comparación}
   \small
   \begin{columns}[T]
-    \begin{column}{0.44\textwidth}
+    \begin{column}{0.47\textwidth}
       \textbf{Pérdida:} entropía cruzada binaria, lote $B=32$
       \[ \mathcal{L} = -\tfrac{1}{B}\textstyle\sum_i \big[y_i\log\sigma(z_i) + (1-y_i)\log(1-\sigma(z_i))\big] \]
       \textbf{SGD con momento:} $v \leftarrow 0{,}9\,v+g$, \ $\theta \leftarrow \theta-\eta\,v$\\
@@ -197,12 +201,12 @@
       \end{block}
       \begin{block}{Varía: 6 configuraciones $\times$ 3 semillas}
         \textbf{A.} AdamW, $\eta \in \{10^{-4}, 10^{-3}, 10^{-2}\}$\\
-        \textbf{B.} SGD con momento, $\eta \in \{10^{-2}, 10^{-1}, 1\}$\\
+        \textbf{B.} SGD (sin decaimiento), $\eta \in \{10^{-2}, 10^{-1}, 1\}$\\
         \textbf{C.} Normas del gradiente y del paso\\
         Se elige por F1 medio en validación.
       \end{block}
     \end{column}
-    \begin{column}{0.54\textwidth}
+    \begin{column}{0.51\textwidth}
       \centering
       \includegraphics[width=\linewidth,height=0.78\textheight,keepaspectratio]{normas_gradiente}\\
       \archivo{resultados/registro\_pasos.csv}
@@ -210,9 +214,11 @@
   \end{columns}
 \end{frame}
 \note{
-  \textbf{1 min 15 s.} Pérdida y optimizadores en una frase cada uno. Insistir en el control: con
-  la misma semilla todas las configuraciones parten de los mismos pesos y ven los mismos lotes;
-  solo cambia el optimizador o $\eta$. Lectura de la figura (experimento C): la norma del gradiente
+  \textbf{2 min 30 s (expositor A).} Primer minuto: pérdida y optimizadores en una frase cada uno, y
+  el control: con la misma semilla todas las configuraciones parten de los mismos pesos y ven los
+  mismos lotes; solo cambia el optimizador o $\eta$. Aclarar que B cambia también el decaimiento de
+  pesos (AdamW 0,01; SGD 0), que con $\eta=10^{-2}$ encoge los pesos $\approx$2,5\,\% en 250 pasos.
+  Minuto y medio restante, lectura de la figura (experimento C): la norma del gradiente
   es parecida en todas las corridas estables (mediana 0,2--0,4 entre los pasos 100 y 250), pero el
   tamaño del paso no: en AdamW crece con $\eta$ (0,016; 0,11; 0,79) porque normaliza cada
   coordenada; en SGD es $\eta$ por el gradiente acumulado. Con SGD y $\eta=1$ hay un círculo
@@ -222,7 +228,7 @@
 }
 
 % =============================================================================
-% 4. CURVAS DE LOS EXPERIMENTOS A Y B (2,5 min, segunda parte)
+% 4. CURVAS DE LOS EXPERIMENTOS A Y B (1 min; con la siguiente, 2,5 min)
 % =============================================================================
 \begin{frame}{Experimentos A y B: velocidad y estabilidad}
   \begin{columns}[T]
@@ -251,7 +257,7 @@
   \end{columns}
 \end{frame}
 \note{
-  \textbf{1 min 15 s.} Leer primero la fila de arriba (pérdida, escala log) y después F1.
+  \textbf{1 min (expositor B).} Leer primero la fila de arriba (pérdida, escala log) y después F1.
   Mensaje: con el mismo presupuesto, $\eta$ decide si el modelo no alcanza a aprender
   ($10^{-4}$), aprende bien ($10^{-3}$, $10^{-2}$) o diverge (SGD con 1). La línea punteada es la
   pérdida de predecir siempre 12,4\,\% de spam: bajo ella el modelo ya usa el texto, aunque F1
@@ -261,7 +267,7 @@
 }
 
 % =============================================================================
-% 5. COMPARACIONES Y MÉTRICAS (2,5 min)
+% 5. COMPARACIONES Y MÉTRICAS (1,5 min)
 % =============================================================================
 \begin{frame}{Selección en validación (AdamW, $\eta=10^{-2}$) y evaluación final en prueba}
   \begin{columns}[T]
@@ -290,22 +296,23 @@
               pareada de F1 (bootstrap 95\,\%) excluye el 0 en 2 de 3 semillas.
         \item Pierde en exhaustividad: deja pasar 12--17 spam (TF-IDF: 9). De los 10 que fallan
               las 3 semillas, TF-IDF también falla 7 (chistes, trivias, mensajes personales).
-        \item \textbf{Sin atención} (mismo optimizador): F1 de validación 0,958 $\pm$ 0,019,
-              mejor que el transformer.
+        \item \textbf{Sin atención} (mismo optimizador), solo en validación: F1 0,958 $\pm$ 0,019,
+              mejor que el transformer (0,926).
       \end{itemize}
       \archivo{resultados/evaluacion\_prueba.json, resultados/predicciones\_prueba.csv}
     \end{column}
   \end{columns}
 \end{frame}
 \note{
-  \textbf{2 min 30 s.} Arriba a la izquierda: cada punto es una semilla; se elige por F1 medio en
+  \textbf{1 min 30 s (expositor B).} A la izquierda: cada punto es una semilla; se elige por F1 medio en
   validación, nunca mirando la prueba. AdamW $10^{-2}$ y $10^{-3}$ casi empatan; SGD queda abajo
   con el mismo presupuesto. Con la configuración elegida se evalúa una sola vez en prueba
   (script aparte). La tabla: el transformer acierta casi lo mismo cuando dice spam (precisión),
   pero detecta menos spam. Los intervalos bootstrap se traslapan bastante: con 97 spam en prueba,
   un mensaje más o menos mueve la exhaustividad en 1 punto. Por eso no decir «mucho peor», sino
   «no mejor, y probablemente algo peor». Clave para preguntas: la ablación sin atención es mejor
-  que el transformer en validación, así que la atención no es lo que limita: la señal es léxica.
+  que el transformer en validación (0,958 frente a 0,926); no se evaluó en prueba, así que no
+  compararla con el 0,893. La atención no aporta aquí: la señal es mayormente léxica.
   Parámetros de TF-IDF + RL: 41\,923 pesos y un sesgo. Fuente: \texttt{evaluacion\_prueba.json},
   \texttt{seleccion.json}.
 }
@@ -319,43 +326,48 @@
     \begin{column}{0.49\textwidth}
       \begin{block}{Conclusiones}
         \begin{itemize}
-          \item Con 250 pasos, \textbf{el optimizador y $\eta$ pesan más que la arquitectura}:
-                F1 de validación entre 0 y 0,93 con el mismo modelo.
+          \item Con esta arquitectura y 250 pasos, \textbf{el optimizador y $\eta$ decidieron el
+                resultado}: F1 de validación entre 0 y 0,93 con el mismo modelo.
           \item AdamW gana a SGD y no divergió con ninguna tasa probada: su paso no depende de la
-                escala del gradiente. Posible causa, no aislada aquí: el 74\,\% de los pesos son
-                embeddings con gradiente disperso.
-          \item Para spam en SMS, \textbf{la señal es léxica}: TF-IDF + RL (prueba: F1 0,931) y el
-                promedio de embeddings superan al transformer (0,893).
+                escala del gradiente.
+          \item \textbf{La señal es mayormente léxica.} En validación, TF-IDF + RL (F1 0,974) y el
+                promedio de embeddings sin atención (0,958) superan al transformer (0,926); en
+                prueba, 0,931 frente a 0,893.
         \end{itemize}
       \end{block}
-      \vspace{0.2cm}
+      \vspace{0.1cm}
       {\scriptsize\textbf{Trazabilidad:} prompts en \texttt{parte2/PROMPTS.md}; comandos, semillas y
-       tiempos en \texttt{parte2/README.md}; auditoría en \texttt{auditoria/HANDOFF.md}
-       \pendiente{tras la auditoría}.}
+       tiempos en \texttt{parte2/README.md}; auditoría independiente en
+       \texttt{auditoria/verificaciones/informe\_auditoria.md}.}
     \end{column}
     \begin{column}{0.49\textwidth}
       \begin{alertblock}{Limitaciones}
         \begin{itemize}
           \item Presupuesto corto: AdamW $10^{-3}$ no había terminado de converger.
-          \item 96--97 spam en validación y prueba: diferencias de 0,01--0,02 en F1 están dentro
-                del ruido; 3 semillas.
-          \item Umbral fijo en 0,5; no se ajustó en validación.
-          \item Spam y ham vienen de fuentes distintas (foro británico, corpus de Singapur):
-                se puede aprender el estilo de la fuente.
-          \item Solo se quitan duplicados exactos; quedan plantillas de spam parecidas.
-          \item Rejillas de 3 tasas (factor 10), sin calentamiento ni decaimiento de $\eta$.
+          \item 96--97 spam por partición y 3 semillas: diferencias de 0,01--0,02 en F1 son ruido.
+          \item \textbf{Casi duplicados:} 16 SMS de prueba (13 spam) tienen una plantilla casi igual
+                en entrenamiento. Sin ellos, F1 baja 0,018 en el transformer y 0,011 en TF-IDF; la
+                conclusión no cambia.
+          \item B cambia dos cosas: optimizador y decaimiento de pesos (AdamW 0,01; SGD 0).
+          \item Umbral fijo en 0,5; $\eta$ constante; rejillas de 3 tasas.
+          \item Spam y ham de fuentes distintas (foro británico, corpus de Singapur).
         \end{itemize}
       \end{alertblock}
     \end{column}
   \end{columns}
 \end{frame}
 \note{
-  \textbf{1 min.} Tres ideas: (1) con presupuesto fijo, la optimización decide el resultado;
-  (2) AdamW es más robusto que SGD aquí, y la figura de normas muestra por qué; (3) para este
-  problema un modelo lineal sobre palabras basta, y un transformer pequeño no aporta. Cerrar con
-  qué probaríamos con más presupuesto: más pasos para $10^{-3}$, calentamiento de $\eta$, ajustar
-  el umbral en validación y textos donde el orden importe más (por ejemplo sentimiento con
-  negaciones). Mencionar la auditoría independiente \pendiente{completar con sus hallazgos}.
+  \textbf{1 min (expositor B).} Tres ideas: (1) con presupuesto fijo, el optimizador y $\eta$
+  decidieron el resultado de esta arquitectura (no se probaron otras arquitecturas salvo la
+  ablación); (2) AdamW es más robusto que SGD aquí, y la figura de normas muestra por qué (posible
+  causa, no aislada: el 74\,\% de los pesos son embeddings con gradiente disperso); (3) para
+  este problema un modelo lineal sobre palabras basta, y un transformer pequeño no aporta. Las
+  comparaciones con la ablación son en validación; en prueba solo se evaluaron el transformer
+  elegido, TF-IDF y la clase mayoritaria. Limitaciones que encontró la auditoría independiente:
+  casi duplicados entre particiones (cifras de \texttt{resultados/casi\_duplicados.json}) y el
+  decaimiento de pesos distinto en B ($\approx$2,5\,\% de encogimiento en 250 pasos con
+  $\eta=10^{-2}$). Cerrar con qué probaríamos: más pasos para $10^{-3}$, AdamW con $10^{-1}$,
+  SGD con decaimiento, deduplicar con la clave normalizada y ajustar el umbral en validación.
 }
 
 

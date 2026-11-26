@@ -1,0 +1,315 @@
+{
+  "restricciones": {
+    "actividad1": [
+      {
+        "regla": "3.2 a",
+        "descripcion": "entradas en {-1, 0, 1}",
+        "cumple": true,
+        "detalle": ""
+      },
+      {
+        "regla": "3.2 b",
+        "descripcion": "ninguna es la matriz nula ni la identidad",
+        "cumple": true,
+        "detalle": ""
+      },
+      {
+        "regla": "3.2 c",
+        "descripcion": "X invertible (det X != 0)",
+        "cumple": true,
+        "detalle": "det X = -1"
+      },
+      {
+        "regla": "3.2 d",
+        "descripcion": "alguna fila de S = QK^T/sqrt(2) tiene dos puntajes distintos",
+        "cumple": true,
+        "detalle": "filas con puntajes distintos: [1, 2]"
+      }
+    ],
+    "actividad2": [
+      {
+        "regla": "3.3 A",
+        "descripcion": "entradas de A en {1/4, 1/2, 3/4} (estrictamente positivas)",
+        "cumple": true,
+        "detalle": ""
+      },
+      {
+        "regla": "3.3 A",
+        "descripcion": "cada fila de A suma 1",
+        "cumple": true,
+        "detalle": "sumas por fila: ['1', '1']"
+      },
+      {
+        "regla": "3.3 A",
+        "descripcion": "filas de A distintas",
+        "cumple": true,
+        "detalle": ""
+      },
+      {
+        "regla": "3.3 T",
+        "descripcion": "entradas de T en {-1, 0, 1}",
+        "cumple": true,
+        "detalle": ""
+      },
+      {
+        "regla": "3.3 T",
+        "descripcion": "T no es la matriz nula ni la identidad",
+        "cumple": true,
+        "detalle": ""
+      }
+    ]
+  },
+  "eta_es_un_medio": true,
+  "actividad1": {
+    "Q": [
+      [
+        "0",
+        "1"
+      ],
+      [
+        "-1",
+        "-1"
+      ]
+    ],
+    "K": [
+      [
+        "0",
+        "-1"
+      ],
+      [
+        "1",
+        "1"
+      ]
+    ],
+    "V": [
+      [
+        "0",
+        "-1"
+      ],
+      [
+        "-1",
+        "1"
+      ]
+    ],
+    "QKt": [
+      [
+        "-1",
+        "1"
+      ],
+      [
+        "1",
+        "-2"
+      ]
+    ],
+    "S_exacta": [
+      [
+        "-1/√2 = -1/2·√2",
+        "1/√2 = 1/2·√2"
+      ],
+      [
+        "1/√2 = 1/2·√2",
+        "-2/√2 = -√2"
+      ]
+    ],
+    "S": [
+      [
+        -0.7071067811865475,
+        0.7071067811865475
+      ],
+      [
+        0.7071067811865475,
+        -1.414213562373095
+      ]
+    ],
+    "A_softmax_exacta": [
+      [
+        "1/(1 + e^(2/√2))",
+        "1/(1 + e^(-2/√2))"
+      ],
+      [
+        "1/(1 + e^(-3/√2))",
+        "1/(1 + e^(3/√2))"
+      ]
+    ],
+    "A_softmax": [
+      [
+        0.19557031749304313,
+        0.8044296825069569
+      ],
+      [
+        0.8929581985348296,
+        0.10704180146517044
+      ]
+    ],
+    "H_exacta": [
+      [
+        "(0)·A_11 + (-1)·A_12",
+        "(-1)·A_11 + (1)·A_12"
+      ],
+      [
+        "(0)·A_21 + (-1)·A_22",
+        "(-1)·A_21 + (1)·A_22"
+      ]
+    ],
+    "H": [
+      [
+        -0.8044296825069569,
+        0.6088593650139138
+      ],
+      [
+        -0.10704180146517044,
+        -0.7859163970696592
+      ]
+    ]
+  },
+  "actividad2": {
+    "eta": "1/2",
+    "H0": [
+      [
+        "-1/4",
+        "-1/2"
+      ],
+      [
+        "-1/2",
+        "0"
+      ]
+    ],
+    "L0": "65/32",
+    "H0_menos_T": [
+      [
+        "3/4",
+        "-1/2"
+      ],
+      [
+        "-3/2",
+        "1"
+      ]
+    ],
+    "G": [
+      [
+        "3/8",
+        "-1/4"
+      ],
+      [
+        "9/16",
+        "-3/8"
+      ]
+    ],
+    "W_V1": [
+      [
+        "-3/16",
+        "-7/8"
+      ],
+      [
+        "23/32",
+        "3/16"
+      ]
+    ],
+    "H1": [
+      [
+        "-35/128",
+        "-31/64"
+      ],
+      [
+        "-23/64",
+        "-3/32"
+      ]
+    ],
+    "L1": "56225/32768",
+    "L1_menos_L0": "-10335/32768",
+    "disminuye": true,
+    "decimales": {
+      "L0": 2.03125,
+      "L1": 1.715850830078125,
+      "G": [
+        [
+          0.375,
+          -0.25
+        ],
+        [
+          0.5625,
+          -0.375
+        ]
+      ],
+      "W_V1": [
+        [
+          -0.1875,
+          -0.875
+        ],
+        [
+          0.71875,
+          0.1875
+        ]
+      ]
+    },
+    "comprobacion_diferencia_central_exacta": true
+  },
+  "comparacion_manual": [
+    {
+      "cantidad": "Q",
+      "coincide": true,
+      "detalle": ""
+    },
+    {
+      "cantidad": "K",
+      "coincide": true,
+      "detalle": ""
+    },
+    {
+      "cantidad": "V",
+      "coincide": true,
+      "detalle": ""
+    },
+    {
+      "cantidad": "QKt",
+      "coincide": true,
+      "detalle": ""
+    },
+    {
+      "cantidad": "S",
+      "coincide": true,
+      "detalle": ""
+    },
+    {
+      "cantidad": "A_softmax",
+      "coincide": true,
+      "detalle": ""
+    },
+    {
+      "cantidad": "H",
+      "coincide": true,
+      "detalle": ""
+    },
+    {
+      "cantidad": "H0",
+      "coincide": true,
+      "detalle": ""
+    },
+    {
+      "cantidad": "L0",
+      "coincide": true,
+      "detalle": ""
+    },
+    {
+      "cantidad": "G",
+      "coincide": true,
+      "detalle": ""
+    },
+    {
+      "cantidad": "W_V1",
+      "coincide": true,
+      "detalle": ""
+    },
+    {
+      "cantidad": "H1",
+      "coincide": true,
+      "detalle": ""
+    },
+    {
+      "cantidad": "L1",
+      "coincide": true,
+      "detalle": ""
+    }
+  ],
+  "entrada": "matrices_estudiante.json"
+}

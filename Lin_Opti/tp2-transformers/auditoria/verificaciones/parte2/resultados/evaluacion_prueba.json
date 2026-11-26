@@ -1,0 +1,150 @@
+{
+  "configuracion_elegida_en_validacion": "adamw_lr0.01",
+  "mensajes_prueba": 774,
+  "spam_prueba": 97,
+  "mensajes_truncados_a_64": 7,
+  "transformer_media": {
+    "perdida": 0.100055197874705,
+    "exactitud": 0.9745908699397071,
+    "precision": 0.9480047850978383,
+    "exhaustividad": 0.845360824742268,
+    "f1": 0.8929804149699437
+  },
+  "transformer_desviacion": {
+    "perdida": 0.005697108122442136,
+    "exactitud": 0.001973546810919827,
+    "precision": 0.038364066069342846,
+    "exhaustividad": 0.027275786712006096,
+    "f1": 0.006106909565196181
+  },
+  "transformer_por_semilla": [
+    {
+      "corrida": "transformer_adamw_lr0.01_s0",
+      "perdida": 0.09466409683227539,
+      "exactitud": 0.9767441860465116,
+      "precision": 0.9759036144578314,
+      "exhaustividad": 0.8350515463917526,
+      "f1": 0.9,
+      "vp": 81,
+      "fp": 2,
+      "fn": 16,
+      "vn": 675
+    },
+    {
+      "corrida": "transformer_adamw_lr0.01_s1",
+      "perdida": 0.09948592633008957,
+      "exactitud": 0.9728682170542635,
+      "precision": 0.9042553191489362,
+      "exhaustividad": 0.8762886597938144,
+      "f1": 0.8900523560209425,
+      "vp": 85,
+      "fp": 9,
+      "fn": 12,
+      "vn": 668
+    },
+    {
+      "corrida": "transformer_adamw_lr0.01_s2",
+      "perdida": 0.10601557046175003,
+      "exactitud": 0.9741602067183462,
+      "precision": 0.963855421686747,
+      "exhaustividad": 0.8247422680412371,
+      "f1": 0.8888888888888888,
+      "vp": 80,
+      "fp": 3,
+      "fn": 17,
+      "vn": 674
+    }
+  ],
+  "tfidf_logistica": {
+    "corrida": "C=1000",
+    "perdida": 0.08445851515467548,
+    "exactitud": 0.9832041343669251,
+    "precision": 0.9565217391304348,
+    "exhaustividad": 0.9072164948453608,
+    "f1": 0.9312169312169312,
+    "vp": 88,
+    "fp": 4,
+    "fn": 9,
+    "vn": 673
+  },
+  "clase_mayoritaria": {
+    "corrida": "ham",
+    "perdida": NaN,
+    "exactitud": 0.8746770025839793,
+    "precision": 0.0,
+    "exhaustividad": 0.0,
+    "f1": 0.0,
+    "vp": 0,
+    "fp": 0,
+    "fn": 97,
+    "vn": 677
+  },
+  "spam_no_detectado": {
+    "transformer_en_todas_las_semillas": 10,
+    "tfidf_logistica": 9,
+    "ambos": 7,
+    "ids_ambos": [
+      752,
+      2248,
+      2559,
+      2775,
+      3361,
+      4145,
+      5373
+    ]
+  },
+  "bootstrap": {
+    "remuestreos": 2000,
+    "semilla": 0,
+    "referencia": "tfidf_logistica",
+    "transformer_adamw_lr0.01_s0": {
+      "f1_ic95": [
+        0.8518458781362007,
+        0.9425287356321839
+      ],
+      "diferencia_con_referencia_ic95": [
+        -0.07184597284227474,
+        0.0070859050138133515
+      ]
+    },
+    "transformer_adamw_lr0.01_s1": {
+      "f1_ic95": [
+        0.8402307692307692,
+        0.9345845184884193
+      ],
+      "diferencia_con_referencia_ic95": [
+        -0.08003473331888708,
+        -0.006534806996155413
+      ]
+    },
+    "transformer_adamw_lr0.01_s2": {
+      "f1_ic95": [
+        0.8343558282208589,
+        0.9352535881742366
+      ],
+      "diferencia_con_referencia_ic95": [
+        -0.08259789600839548,
+        -0.00820383733115498
+      ]
+    },
+    "tfidf_logistica": {
+      "f1_ic95": [
+        0.8912820131030375,
+        0.966183574879227
+      ],
+      "diferencia_con_referencia_ic95": [
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "versiones": {
+    "python": "3.13.18",
+    "torch": "2.15.0+cpu",
+    "numpy": "2.5.5",
+    "pandas": "3.1.1",
+    "scikit-learn": "1.9.1",
+    "hilos_torch": 2,
+    "plataforma": "Linux-7.0.14-linuxkit-x86_64-with-glibc2.41"
+  }
+}

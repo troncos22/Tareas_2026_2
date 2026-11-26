@@ -1,0 +1,70 @@
+{
+  "problema": {
+    "n_secuencia": 4,
+    "d_modelo": 8,
+    "d_k": 8,
+    "d_v": 8,
+    "n_entrenamiento": 512,
+    "n_validacion": 128,
+    "n_prueba": 128,
+    "semilla_datos": 2026,
+    "semilla_profesor": 2027,
+    "escala_profesor": 2.0,
+    "escala_estudiante": 1.0,
+    "inicializacion": "entradas N(0, escala^2/d) para W_Q, W_K, W_V; X con entradas N(0, 1)",
+    "salidas_objetivo": "Y = softmax_filas(X W*_Q (X W*_K)^T / sqrt(d_k)) X W*_V, sin ruido",
+    "division": "primeros 512 ejemplos: entrenamiento; 128 siguientes: validación; 128 últimos: prueba",
+    "semilla_corrida": "semilla s -> pesos iniciales con semilla 100+s, orden de minibatches con semilla 10000+s",
+    "perdida": "MSE: media de (H - Y)^2 sobre todas las entradas (B x n x d_v)"
+  },
+  "semillas": [
+    0,
+    1,
+    2
+  ],
+  "tasas": {
+    "sgd": [
+      0.03,
+      0.1,
+      0.3,
+      1.0,
+      3.0
+    ],
+    "adam": [
+      0.001,
+      0.003,
+      0.01,
+      0.03,
+      0.1
+    ]
+  },
+  "pasos": 1500,
+  "tam_batch": 32,
+  "eval_cada": 10,
+  "adam": {
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08
+  },
+  "sgd": {
+    "momento": 0.0
+  },
+  "justificacion_tasas": {
+    "sgd": "Rejilla logarítmica (factor ~3) alrededor de los límites de estabilidad 2/lambda_max del descenso por gradiente: ~3,7 en la inicialización y ~0,54 en el mínimo (curvatura.json). Incluye tasas claramente estables (0,03; 0,1), una cercana al límite del mínimo (0,3) y dos por encima (1; 3).",
+    "adam": "Adam mueve cada entrada aproximadamente 'tasa' por paso, independiente de la escala del gradiente. Los pesos iniciales tienen entradas de tamaño ~0,35, así que se usa una rejilla logarítmica desde el valor por defecto 1e-3 (cambio relativo ~0,3 % por paso) hasta 0,1 (~30 % por paso, demasiado grande a priori)."
+  },
+  "umbral_velocidad": 0.01,
+  "tipo_de_dato": "float32 (hessianos en float64)",
+  "entorno": {
+    "fecha_utc": "2026-11-23T09:35:38+00:00",
+    "comando": "actividad4_experimentos.py --salida /workspace/auditoria/verificaciones/parte1/actividad4",
+    "python": "3.13.18",
+    "torch": "2.15.0+cpu",
+    "numpy": "2.5.5",
+    "hilos_torch": 2,
+    "host": "auditoria",
+    "rol_contenedor": "auditoria"
+  }
+}
