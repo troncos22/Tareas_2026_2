@@ -271,10 +271,26 @@ tal como se enviaron (los primeros, en inglés).
     filas. Todas llevan «23/noviembre/2026», salvo la de la hoja 2, que lleva «25/noviembre/2026»
     porque esa hoja se escribió ese día (se le avisó al estudiante). No completó método, resultado
     ni decisión.
-  - Commit en `tp2-partes1-2`, integración a `main` por *fast-forward* y *push* a `origin/main`.
+  - Commit `656d56f` e integración de `tp2-partes1-2` a `main` por *fast-forward*. Sin *push*: el
+    repositorio es público y se pidió confirmación al estudiante.
 - **Delegaciones automáticas:** un aviso a la sesión de auditoría de que esta sesión modificó
   `parte1/PROMPTS.md` y `auditoria/VALIDACION_HUMANA.md` durante su revisión. El texto lo registra
   el auditor en `auditoria/PROMPTS.md`.
+
+### P1-16 — 2026-11-25
+- **Herramienta / modelo:** Claude Code (app de escritorio), Claude Opus 5.5
+- **Sesión:** infraestructura (continuación)
+- **Propósito:** completar la columna «Método» de la validación humana con el método que se usó
+  para obtener cada evidencia.
+- **Prompt (literal):**
+  > agrega el método que utilizaste
+- **Archivos / comandos / resultados asociados:** en `auditoria/VALIDACION_HUMANA.md` completó la
+  columna «Método» de las 39 filas. Cada método dice quién ejecutó la comprobación: el estudiante,
+  la sesión de infraestructura, la de teoría, la de práctica o el auditor. La nota inicial aclara
+  que, cuando la ejecutó un agente, el responsable debe revisar personalmente el resultado.
+  Resultado y decisión siguen vacíos. No se hizo *push*: queda pendiente la confirmación del
+  estudiante, porque el repositorio es público.
+- **Delegaciones automáticas:** ninguna.
 
 ## Parte 1 — Teoría
 
