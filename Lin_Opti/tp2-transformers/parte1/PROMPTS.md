@@ -304,6 +304,18 @@ tal como se enviaron (los primeros, en inglés).
 - Commit en `main` con el informe y los archivos de la revisión final del auditor. Sin *push*,
   hasta que el estudiante lo confirme.
 
+### P1-17 — 2026-11-25
+- **Herramienta / modelo:** Claude Code (app de escritorio), Claude Opus 5.5
+- **Sesión:** infraestructura (continuación)
+- **Propósito:** publicar `main` en GitHub.
+- **Prompt (literal):** (respuesta con un botón a la pregunta «El repositorio
+  troncos22/Tareas_2026_2 es público: ¿hago push de main igual?»)
+  > Sí, haz push
+- **Archivos / comandos / resultados asociados:** commit de esta entrada y `git push origin main`.
+  Publica los commits `a5a766f` a `5beb32f` y este, en un repositorio público. El estudiante
+  aceptó que eso incluye su correo, las fotos del desarrollo manual y la solución completa.
+- **Delegaciones automáticas:** ninguna.
+
 ## Parte 1 — Teoría
 
 Sesión de teoría: Claude Code (app de escritorio), modelo Claude Opus 5.5. Es una sesión nueva,
