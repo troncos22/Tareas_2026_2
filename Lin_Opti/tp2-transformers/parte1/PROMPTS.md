@@ -209,6 +209,49 @@ tal como se enviaron (los primeros, en inglés).
   `auditoria/verificaciones/` (unos 17 MB). Sin *push* y sin cambiar de rama.
 - **Delegaciones automáticas:** ninguna.
 
+### P1-13 — 2026-11-25
+- **Herramienta / modelo:** Claude Code (app de escritorio), Claude Opus 5.5
+- **Sesión:** infraestructura (continuación)
+- **Propósito:** saber qué falta para terminar el TP2.
+- **Prompt (literal):**
+  > qué falta para terminar la tarea?
+- **Archivos / comandos / resultados asociados:** revisó los entregables de las secciones 3.7 y 4.5
+  del enunciado contra el proyecto y respondió en el chat. Faltaban:
+  - actualizar los `HANDOFF` con una revisión final del auditor;
+  - `VALIDACION_HUMANA.md`, que estaba vacío;
+  - nombres y fecha en las portadas;
+  - la hoja 2 manuscrita;
+  - revisar el informe y ensayar la presentación;
+  - integrar la rama a `main`, hacer *push* y preparar la entrega.
+
+  No se crearon archivos.
+- **Delegaciones automáticas:** ninguna.
+
+### P1-14 — 2026-11-25
+- **Herramienta / modelo:** Claude Code (app de escritorio), Claude Opus 5.5
+- **Sesión:** infraestructura (continuación)
+- **Propósito:** agregar al informe la hoja 2 del desarrollo manual y completar lo que puede hacer
+  un agente para terminar el TP2.
+- **Prompt (literal):** con una fotografía adjunta de la hoja 2 manuscrita (K^T, QK^T, S, A y H de
+  la Actividad 1), reescrita por el estudiante el 25-11-2026 porque la original se perdió.
+  > agregalo al informe y termina la tarea
+
+  Mensaje adicional del estudiante, enviado mientras se trabajaba en el anterior:
+  > nombre jorge moreno farías
+- **Archivos / comandos / resultados asociados:**
+  - Copió la foto a `informe/manual/hoja2_actividad1.jpg` y la agregó al Anexo A del informe.
+  - En el Anexo B contrastó la hoja 2 con la verificación: coincide con el desarrollo digitado y
+    solo tiene un detalle de notación (A₂₁ en lugar de A₁₂ para el segundo elemento de la fila 1,
+    con valor correcto).
+  - Puso el nombre y el correo del estudiante en la portada del informe y el nombre en la portada
+    de `parte2/presentacion/presentacion.tex`. Es el único cambio de esta sesión en `parte2/`.
+    Recompiló ambos PDF. Quedan marcados el integrante 2 y la fecha de la presentación.
+  - Prellenó `auditoria/VALIDACION_HUMANA.md` solo con las columnas «Qué se verificó» y
+    «Evidencia». Las demás columnas son del estudiante.
+  - Commit en `tp2-partes1-2` (este registro llega hasta ese commit). El pedido de revisión final
+    al auditor, la integración a `main` y el *push* están en «Acciones derivadas de P1-14».
+- **Delegaciones automáticas:** ver «Acciones derivadas de P1-14».
+
 ## Parte 1 — Teoría
 
 Sesión de teoría: Claude Code (app de escritorio), modelo Claude Opus 5.5. Es una sesión nueva,

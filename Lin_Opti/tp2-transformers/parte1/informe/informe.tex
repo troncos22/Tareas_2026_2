@@ -52,14 +52,14 @@
     \large Informe de la Parte 1 (incluye la Parte 0)\\[0.2cm]
     \today\\[0.6cm]
     \fcolorbox{red!70!black}{red!4}{\parbox{0.8\textwidth}{\centering\small
-      Los recuadros rojos marcan lo que solo pueden completar los integrantes: sus nombres, la
-      validación humana de la auditoría y la revisión personal del informe.}}\\[4cm]
+      Los recuadros rojos marcan lo que solo pueden completar los integrantes: los datos del
+      integrante 2, la validación humana de la auditoría y la revisión personal del informe.}}\\[4cm]
   \end{center}
   \begin{minipage}{0.95\textwidth}
     \begin{tabular}{@{}p{0.47\linewidth}@{\hspace{0.06\linewidth}}p{0.47\linewidth}@{}}
       \textbf{\color{primary}Integrante 1} & \textbf{\color{primary}Integrante 2} \\[0.3cm]
-      \textbf{Nombre:} \pend{completar} & \textbf{Nombre:} \pend{completar} \\[0.15cm]
-      \textbf{Correo:} \pend{completar} & \textbf{Correo:} \pend{completar} \\
+      \textbf{Nombre:} Jorge Moreno Farías & \textbf{Nombre:} \pend{completar} \\[0.15cm]
+      \textbf{Correo:} {\footnotesize\texttt{jorge.ignacio.moreno.farias@gmail.com}} & \textbf{Correo:} \pend{completar} \\
     \end{tabular}
   \end{minipage}
   \vfill
@@ -79,8 +79,8 @@ texto lo redactó la sesión de teoría de un agente (Claude Code, modelo Claude
 infraestructura incorporó el desarrollo manual, ejecutó su verificación posterior (documentada por
 separado) y resumió la auditoría de la Actividad 5. Falta, a cargo de los estudiantes:
 \begin{enumerate}[nosep]
-  \item Completar los nombres de la portada e identificar con su autor el desarrollo manual del
-        Anexo~\ref{anx:escaneo}.
+  \item Completar en la portada los datos del integrante 2 (o quitar esa columna si el trabajo es
+        individual).
   \item Registrar en \path{auditoria/VALIDACION_HUMANA.md} qué hallazgos de la auditoría aceptan o
         rechazan y por qué (sección~\ref{sec:act5}).
   \item Revisar personalmente las derivaciones y explicaciones del informe: deben poder explicarse
@@ -857,26 +857,34 @@ resultados y redacción.}
 
 \appendix
 \section{Desarrollo manual}\label{anx:escaneo}
-El desarrollo manual de las Actividades 1 y 2 tiene dos partes:
+Desarrollo manual de Jorge Moreno Farías. Tiene tres partes:
 \begin{enumerate}[nosep]
-  \item La fotografía de la primera hoja manuscrita (figura~\ref{fig:hoja1}): elección de $X$, $W_Q$,
-        $W_K$, $W_V$, $A$ y $T$, cálculo de $Q$, $K$, $V$ y comienzo de $QK^\top$
-        (\path{informe/manual/hoja_actividad1.jpg}).
-  \item El desarrollo completo de la Actividad 1 ($S$, $A$, $H$) y de la Actividad 2, escrito por los
-        estudiantes en \LaTeX{} (páginas siguientes, \path{informe/manual/desarrollo_actividades_1_2.pdf}).
+  \item Hoja 1, manuscrita (figura~\ref{fig:hoja1}, \path{informe/manual/hoja_actividad1.jpg}):
+        elección de $X$, $W_Q$, $W_K$, $W_V$, $A$ y $T$, cálculo de $Q$, $K$, $V$ y comienzo de
+        $QK^\top$.
+  \item Hoja 2, manuscrita (figura~\ref{fig:hoja2}, \path{informe/manual/hoja2_actividad1.jpg}):
+        $K^\top$, $QK^\top$, $S$, $A$ y $H$ de la Actividad 1. La hoja 2 original, que también tenía la
+        Actividad 2, se perdió; esta se reescribió a mano el 25-11-2026 a partir del desarrollo
+        digitado, como se ve en la pantalla del fondo.
+  \item El desarrollo completo de la Actividad 1 ($S$, $A$, $H$) y de la Actividad 2, digitado por el
+        autor en \LaTeX{} (páginas siguientes, \path{informe/manual/desarrollo_actividades_1_2.pdf}).
+        Es el único registro de la Actividad 2.
 \end{enumerate}
-La segunda hoja manuscrita, con $S$, $A$, $H$ y la Actividad 2, se perdió; su contenido está en el
-desarrollo digitado. En la hoja fotografiada $K$ y $V$ están intercambiadas y $(QK^\top)_{22} = 0$; el
-desarrollo digitado lo corrige (Anexo~\ref{anx:verificacion}).
-\pendiente{Identificar el desarrollo con su autor (nombre en la hoja o en este anexo). El enunciado
-pide el desarrollo manual como escaneo o fotografía: si es posible, rehacer a mano la hoja perdida y
-agregar aquí su fotografía.}
+En la hoja 1, $K$ y $V$ están intercambiadas y $(QK^\top)_{22} = 0$; la hoja 2 y el desarrollo
+digitado usan los valores correctos (Anexo~\ref{anx:verificacion}).
 
 \begin{figure}[H]
   \centering
   \includegraphics[height=0.62\textheight]{manual/hoja_actividad1.jpg}
-  \caption{Primera hoja del desarrollo manual (fotografía).}
+  \caption{Hoja 1 del desarrollo manual (fotografía).}
   \label{fig:hoja1}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[height=0.68\textheight]{manual/hoja2_actividad1.jpg}
+  \caption{Hoja 2 del desarrollo manual, reescrita a mano (fotografía).}
+  \label{fig:hoja2}
 \end{figure}
 
 \includepdf[pages=-, scale=0.82, frame, pagecommand={\thispagestyle{plain}}]{manual/desarrollo_actividades_1_2.pdf}
@@ -897,10 +905,13 @@ y ejecutó el script en el contenedor \texttt{teoria}. Según su informe,
 a)--d) y coinciden $Q, K, V, QK^\top$ (exactos) y $S$, $A$, $H$ (decimales, tolerancia
 $5\cdot10^{-4}$; el script da $A_{11}\approx0{,}195570$ y $A_{21}\approx0{,}892958$).
 
-Al contrastar la hoja fotografiada (Anexo~\ref{anx:escaneo}) con estos resultados aparece una
-discrepancia que el desarrollo final ya corrige: la hoja anota como $K$ la matriz $XW_V$ y como $V$ la
-matriz $XW_K$, y con esa $K$ obtiene $(QK^\top)_{22} = 0$. El desarrollo final usa $K = XW_K$ y
-$V = XW_V$ y obtiene $(QK^\top)_{22} = -2$, el valor correcto.
+Al contrastar las hojas fotografiadas (Anexo~\ref{anx:escaneo}) con estos resultados aparece una
+discrepancia que el desarrollo final ya corrige: la hoja 1 anota como $K$ la matriz $XW_V$ y como $V$
+la matriz $XW_K$, y con esa $K$ obtiene $(QK^\top)_{22} = 0$. La hoja 2 y el desarrollo digitado usan
+$K = XW_K$ y $V = XW_V$ y obtienen $(QK^\top)_{22} = -2$, el valor correcto. En la hoja 2, $K^\top$,
+$QK^\top$, $S$, las expresiones exactas de $A$ y las de $H$ coinciden con el desarrollo digitado; solo
+hay un detalle de notación: el segundo elemento de la fila 1, $e^{\sqrt2}/(1+e^{\sqrt2})$, aparece
+rotulado $A_{21}$ en vez de $A_{12}$, aunque su valor y la suma de esa fila son correctos.
 
 \textbf{Actividad 2.} La misma
 ejecución de \path{codigo/verificar_manual.py} comprueba las restricciones de $A$ y $T$ y confirma,
@@ -928,7 +939,7 @@ estudiantes deciden si ajustan esa frase.
     ID & Gravedad & Hallazgo & Acción \\
     \midrule
     H-01 & alta  & Cálculos manuales y su verificación pendientes & Incorporados (secciones~\ref{sec:manual1}
-                   y~\ref{sec:manual2}, Anexo~\ref{anx:escaneo}); faltan los nombres \\
+                   y~\ref{sec:manual2}, Anexo~\ref{anx:escaneo}) \\
     H-02 & media & Los agentes corren en el anfitrión, fuera de Docker & Limitación descrita en la
                    sección~\ref{sec:sesiones} y en el \texttt{HANDOFF} \\
     H-05 & media & Huecos de trazabilidad en \texttt{PROMPTS.md} & Entradas P1-09 en adelante agregadas;

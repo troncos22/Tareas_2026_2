@@ -29,8 +29,8 @@ parte1/
     verificacion_manual/          verificación posterior de las Actividades 1 y 2 y comprobaciones adicionales
   informe/
     informe.tex                   informe (los recuadros rojos marcan lo que solo pueden completar los integrantes)
-    informe.pdf                   informe compilado (24 páginas; el cuerpo termina en la 14, el resto son anexos)
-    manual/                       desarrollo manual del estudiante: foto de la hoja 1 y PDF completo
+    informe.pdf                   informe compilado (25 páginas; el cuerpo termina en la 14, el resto son anexos)
+    manual/                       desarrollo manual del estudiante: fotos de las hojas 1 y 2 y PDF completo
     generado/valores.tex          números del informe, generados por valores_informe.py
 ```
 
